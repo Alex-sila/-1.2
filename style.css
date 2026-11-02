@@ -486,38 +486,27 @@ h1 {
    ПОЛНЫЙ ФИНАЛЬНЫЙ КОД МОБИЛЬНОЙ АДАПТАЦИИ
    ========================================= */
 @media (max-width: 600px) {
-    /* 1. Язык в левом верхнем углу */
+    /* Язык в левом верхнем углу */
     .top-header {
         top: 5px !important;
         left: 5px !important;
         z-index: 1000;
     }
 
-    /* 2. Кнопки (Монеты, Звук, Магазин, Подарок) - распределены по ширине */
+    /* Кнопки (Монеты, Звук, Магазин, Подарок) */
     .top-right {
         top: 50px !important;
         left: 5px !important;
         right: auto !important;
-        width: 72% !important; /* Занимает место, оставляя справа для "Следующего" */
+        width: 72% !important;
         display: flex !important;
-        justify-content: space-between !important; /* Раскидываем кнопки ровно */
+        justify-content: space-between !important;
         align-items: center !important;
         transform: scale(0.9) !important; 
         transform-origin: top left !important;
     }
 
-    /* Делаем блок с монетами крупнее */
-    .coin-box {
-        font-size: 18px !important;
-        padding: 5px 12px !important;
-    }
-
-    /* 3. Наглухо прячем кнопку "Пропустить" */
-    .skip-btn, .next-skip-box button {
-        display: none !important;
-    }
-
-    /* 4. Окошко "Следующий" - справа в верхнем углу, на одной линии с магазином */
+    /* Окошко "Следующий" */
     .next-skip-box {
         top: 45px !important;
         right: 5px !important;
@@ -525,28 +514,31 @@ h1 {
         transform-origin: top right !important;
     }
 
-    /* 5. Заголовок и Статистика - поднимаем выше, убираем пустоты */
+    /* Заголовок и Статистика */
+    header {
+        margin-top: 95px !important; /* Сдвигаем вниз, чтобы не мешали кнопки */
+    }
+    
     h1#titleText {
         font-size: 20px !important;
-        margin-top: 0px !important; /* Поднимаем заголовок */
+        margin-top: 0px !important; 
         margin-bottom: 5px !important; 
     }
     
     .stats-row {
         font-size: 11px !important;
         margin-top: 0px !important;
-        margin-bottom: 10px !important; /* Отступ до конвейера */
+        margin-bottom: 10px !important; 
         flex-wrap: wrap !important;
         justify-content: center !important;
         gap: 5px !important;
     }
 
-    /* 6. Игровая коробка - УМЕНЬШАЕМ ВЫСОТУ И ШИРИНУ, чтобы дно было видно */
+    /* Увеличиваем коробку */
     #game-container {
-        height: 55vh !important; /* Делаем коробку ниже (38% экрана) */
-        max-height: 300px !important; /* Ограничиваем максимальную высоту */
-        width: 90% !important; /* Делаем чуть уже */
-        margin: 0 auto 15px auto !important; /* Центрируем и даем отступ снизу */
+        height: 65vh !important; /* Увеличили с 55vh */
+        max-height: none !important; 
+        width: 95% !important; 
+        margin: 0 auto 10px auto !important; 
     }
-
- }
+}
