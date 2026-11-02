@@ -1,0 +1,552 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+body {
+  background: #1a1a2e;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.top-header {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  background: #16213e;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #38bdf8;
+}
+
+.lang-select {
+  background: transparent;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+}
+
+.lang-select option {
+  background: #1e293b;
+  color: #fff;
+}
+
+.top-right {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.coin-box {
+  background: #16213e;
+  border: 1px solid #fbbf24;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #fbbf24;
+}
+
+.icon-btn {
+  background: #16213e;
+  border: 1px solid #38bdf8;
+  color: #fff;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@keyframes pulseGift {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
+}
+
+.gift-active {
+  animation: pulseGift 1.5s infinite;
+  border-color: #fbbf24 !important;
+  color: #fbbf24 !important;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 5px;
+  z-index: 10;
+  margin-top: 40px;
+}
+
+h1 {
+  font-size: 22px;
+  color: #e94560;
+  text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+}
+
+.stats-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 5px;
+  font-size: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.level-badge {
+  background: #fbbf24;
+  color: #1a1a2e;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.progress-bar {
+  width: 100%;
+  max-width: 400px;
+  height: 30px;
+  background: #16213e;
+  border-radius: 15px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  gap: 2px;
+  border: 1px solid #0f3460;
+}
+
+.progress-fruit {
+  flex: 1;
+  height: 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background: #0f3460;
+  opacity: 0.3;
+  transition: 0.3s;
+}
+
+.progress-fruit.unlocked {
+  opacity: 1;
+  background: #1e293b;
+  box-shadow: 0 0 5px #38bdf8;
+}
+
+.conveyor-wrapper {
+  width: 100%;
+  max-width: 400px;
+  height: 70px;
+  background: #16213e;
+  border: 2px solid #0f3460;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.conveyor-tile {
+  position: absolute;
+  top: 5px;
+  width: 60px;
+  height: 60px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
+  transition: transform 0.1s;
+  z-index: 10;
+}
+
+.conveyor-tile:active {
+  transform: scale(1.1);
+}
+
+.conveyor-tile.golden {
+  box-shadow: 0 0 20px #fbbf24, 0 0 40px #fbbf24;
+  border: 2px solid #fbbf24;
+}
+
+.next-skip-box {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 100;
+  align-items: center;
+  background: #16213e;
+  padding: 5px 15px;
+  border-radius: 10px;
+  border: 1px solid #0f3460;
+}
+
+.next-fruit {
+  background: #0f172a;
+  border: 2px solid #38bdf8;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.next-label {
+  font-size: 10px;
+  color: #94a3b8;
+  margin-bottom: 2px;
+}
+
+.skip-btn {
+  background: #38bdf8;
+  color: #0f172a;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.skip-btn:disabled {
+  background: #475569;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+#game-container {
+  width: 100%;
+  max-width: 400px;
+  height: 65vh;
+  background: #16213e;
+  border: 4px solid #0f3460;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.hint {
+  margin-top: 10px;
+  color: #94a3b8;
+  font-size: 12px;
+  text-align: center;
+  z-index: 10;
+}
+
+.btn {
+  background: #e94560;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 5px;
+  z-index: 10;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+.merge-animation {
+  animation: pulse 0.3s ease-out;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 50;
+  animation: particleFly 0.5s ease-out forwards;
+}
+
+@keyframes particleFly {
+  0% { opacity: 1; transform: translate(0, 0); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)); }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal h2 {
+  margin-bottom: 15px;
+  color: #38bdf8;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #e94560;
+  border: none;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.lang-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.lang-btn {
+  background: #1e293b;
+  color: #fff;
+  border: 2px solid #38bdf8;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.lang-btn:hover {
+  background: #38bdf8;
+  color: #0f172a;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.shop-card {
+  background: #16213e;
+  border: 2px solid #0f3460;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.shop-card.buy-flash {
+  animation: buyFlashAnim 0.5s ease-out;
+}
+
+@keyframes buyFlashAnim {
+  0% { background: #10b981; transform: scale(1.05); }
+  100% { background: #16213e; transform: scale(1); }
+}
+
+.shop-card.active {
+  border-color: #10b981;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+}
+
+.shop-card .theme-preview {
+  font-size: 24px;
+}
+
+.shop-card .theme-name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.shop-card .theme-price {
+  font-size: 12px;
+  color: #fbbf24;
+}
+
+.shop-card button {
+  background: #38bdf8;
+  border: none;
+  color: #0f172a;
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.shop-card button:disabled {
+  background: #475569;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.shop-card button.owned {
+  background: #10b981;
+  color: #fff;
+}
+
+.shop-card button.active-btn {
+  background: #e94560;
+  color: #fff;
+}
+
+.daily-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  max-width: 400px;
+  margin-top: 15px;
+}
+
+.daily-day {
+  background: #16213e;
+  border: 1px solid #0f3460;
+  border-radius: 8px;
+  padding: 10px 5px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.daily-day.claimed {
+  border-color: #10b981;
+  opacity: 0.6;
+}
+
+.daily-day.today {
+  border-color: #fbbf24;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
+.daily-day .day-num {
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.daily-day .day-reward {
+  color: #fbbf24;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none !important;
+}
+/* =========================================
+   ПОЛНЫЙ ФИНАЛЬНЫЙ КОД МОБИЛЬНОЙ АДАПТАЦИИ
+   ========================================= */
+@media (max-width: 600px) {
+    /* 1. Язык в левом верхнем углу */
+    .top-header {
+        top: 5px !important;
+        left: 5px !important;
+        z-index: 1000;
+    }
+
+    /* 2. Кнопки (Монеты, Звук, Магазин, Подарок) - распределены по ширине */
+    .top-right {
+        top: 50px !important;
+        left: 5px !important;
+        right: auto !important;
+        width: 72% !important; /* Занимает место, оставляя справа для "Следующего" */
+        display: flex !important;
+        justify-content: space-between !important; /* Раскидываем кнопки ровно */
+        align-items: center !important;
+        transform: scale(0.9) !important; 
+        transform-origin: top left !important;
+    }
+
+    /* Делаем блок с монетами крупнее */
+    .coin-box {
+        font-size: 18px !important;
+        padding: 5px 12px !important;
+    }
+
+    /* 3. Наглухо прячем кнопку "Пропустить" */
+    .skip-btn, .next-skip-box button {
+        display: none !important;
+    }
+
+    /* 4. Окошко "Следующий" - справа в верхнем углу, на одной линии с магазином */
+    .next-skip-box {
+        top: 45px !important;
+        right: 5px !important;
+        transform: scale(0.8) !important; 
+        transform-origin: top right !important;
+    }
+
+    /* 5. Заголовок и Статистика - поднимаем выше, убираем пустоты */
+    h1#titleText {
+        font-size: 20px !important;
+        margin-top: 0px !important; /* Поднимаем заголовок */
+        margin-bottom: 5px !important; 
+    }
+    
+    .stats-row {
+        font-size: 11px !important;
+        margin-top: 0px !important;
+        margin-bottom: 10px !important; /* Отступ до конвейера */
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 5px !important;
+    }
+
+    /* 6. Игровая коробка - УМЕНЬШАЕМ ВЫСОТУ И ШИРИНУ, чтобы дно было видно */
+    #game-container {
+        height: 55vh !important; /* Делаем коробку ниже (38% экрана) */
+        max-height: 300px !important; /* Ограничиваем максимальную высоту */
+        width: 90% !important; /* Делаем чуть уже */
+        margin: 0 auto 15px auto !important; /* Центрируем и даем отступ снизу */
+    }
+
+ }
