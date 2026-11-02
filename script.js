@@ -40,15 +40,15 @@ let currentLang = localStorage.getItem('mergeLang') || 'ru';
 // 2. КОНФИГ ТЕМ (LIVEOPS)
 // ==========================================
 const themesConfig = [
-    { id: 'fruits', name: 'Фрукты', price: 0, bg: '#16213e', emojis: ['🍅 ', '🍏 ', '🥕 ', '🍋 ', '🍊 ', '🍎 ', '🍇 ', '🍓 ', '🍉 '] },
-    { id: 'sweets', name: 'Сладости', price: 150, bg: '#4a1942', emojis: ['🍬 ', '🍭 ', '🍩 ', '🍪 ', '🧁 ', '🍰 ', '🎂 ', '🍫 ', '🍨 '] },
-    { id: 'food', name: 'Еда', price: 400, bg: '#3d1e0e', emojis: ['🍞 ', '🧀 ', '🍔 ', '🍟 ', '🍕 ', '🌮 ', '🍣 ', '🍜 ', '🍱 '] },
-    { id: 'pets', name: 'Питомцы', price: 1000, bg: '#1e3a2f', emojis: ['🐣 ', '🐹 ', '🐰 ', '🐱 ', '🐶 ', '🦊 ', '🐼 ', '🦁 ', '🐉 '] },
-    { id: 'magic', name: 'Магия', price: 1500, bg: '#2e1065', emojis: ['✨ ', '🔮 ', '🪄 ', '🧪 ', '🧙‍♂️ ', '🧚‍♀️ ', '🦄 ', '🐉 ', '👑 '] },
-    { id: 'success', name: 'Успех', price: 2500, bg: '#1e293b', emojis: ['🎒 ', '⌚ ', '📱 ', '🚗 ', '🏠 ', '✈️ ', '🛥️ ', '🌍 ', '🚀 '] },
-    { id: 'space', name: 'Космос', price: 4000, bg: '#0f172a', emojis: ['🌑 ', '🌒 ', '🌍 ', '🪐 ', '☀️ ', '🌟 ', '🌌 ', '☄️ ', '👽 '] },
-    { id: 'wealth', name: 'Богатство', price: 6000, bg: '#422006', emojis: ['🪙 ', '💵 ', '💳 ', '💰 ', '💎 ', '👑 ', '🏦 ', '🏝️ ', '🚁 '] }
-];// ==========================================
+    { id: 'fruits', name: 'Фрукты', price: 0, emojis: ['🍅 ', '🍏 ', '🥕 ', '🍋 ', '🍊 ', '🍎 ', '🍇 ', '🍓 ', '🍉 '] },
+    { id: 'sweets', name: 'Сладости', price: 150, emojis: ['🍬 ', '🍭 ', '🍩 ', '🍪 ', '🧁 ', '🍰 ', '🎂 ', '🍫 ', '🍨 '] },
+    { id: 'food', name: 'Еда', price: 400, emojis: ['🍞 ', '🧀 ', '🍔 ', '🍟 ', '🍕 ', '🌮 ', '🍣 ', '🍜 ', '🍱 '] },
+    { id: 'pets', name: 'Питомцы', price: 1000, emojis: ['🐣 ', '🐹 ', '🐰 ', '🐱 ', '🐶 ', '🦊 ', '🐼 ', '🦁 ', '🐉 '] },
+    { id: 'magic', name: 'Магия', price: 1500, emojis: ['✨ ', '🔮 ', '🪄 ', '🧪 ', '🧙‍♂️ ', '🧚‍♀️ ', '🦄 ', '🐉 ', '👑 '] },
+    { id: 'success', name: 'Успех', price: 2500, emojis: ['🎒 ', '⌚ ', '📱 ', '🚗 ', '🏠 ', '✈️ ', '🛥️ ', '🌍 ', '🚀 '] },
+    { id: 'space', name: 'Космос', price: 4000, emojis: ['🌑 ', '🌒 ', '🌍 ', '🪐 ', '☀️ ', '🌟 ', '🌌 ', '☄️ ', '👽 '] },
+    { id: 'wealth', name: 'Богатство', price: 6000, emojis: ['🪙 ', '💵 ', '💳 ', '💰 ', '💎 ', '👑 ', '🏦 ', '🏝️ ', '🚁 '] }];
+// ==========================================
 // 3. СОСТОЯНИЕ
 // ==========================================
 let score = 0;
@@ -227,10 +227,6 @@ function setActiveTheme(themeId) {
   localStorage.setItem('mergeActiveTheme', themeId);
   currentTheme = themesConfig.find(t => t.id === themeId);
   EMOJIS = currentTheme.emojis;
-    const gameContainer = document.getElementById('game-container');
-  if (gameContainer) {
-    gameContainer.style.background = currentTheme.bg;
-  }
 
   unlockedFruits = new Array(EMOJIS.length).fill(false);
   unlockedFruits[0] = true;
@@ -714,17 +710,10 @@ if (langSelect) {
             }
             dModal.classList.remove('hidden');
         });
-    
-           // Применяем фон текущей темы при запуске
-    const startContainer = document.getElementById('game-container');
-    if (startContainer && currentTheme) {
-        startContainer.style.background = currentTheme.bg;
-    }
- 
     }
         // Скрываем экран загрузки
     setTimeout(() => {
         const loader = document.getElementById('loadingScreen');
         if (loader) loader.style.display = 'none';
     }, 800);
-  });
+});
