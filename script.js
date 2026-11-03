@@ -311,7 +311,7 @@ function updateLevel() {
   if (newLevel > level) {
     level = newLevel;
     document.getElementById('levelVal').textContent = level;
-    tileSpeed = 0.7 + (level - 1) * 0.1;
+    tileSpeed = 0.7 + (level - 1) * 0.7;
     spawnInterval = Math.max(800, 2500 - (level - 1) * 200);
   }
 }
@@ -355,7 +355,7 @@ function spawnConveyorTile() {
 function createFruit(x, y, level, isGolden = false) {
   const radius = (20 + level * 5) * (width / 400);
   const body = Bodies.circle(x, y, radius, {
-    restitution: 0.1, friction: 0.8, density: 0.002,
+         restitution: 0.05, friction: 0.9, density: 0.002, frictionAir: 0.01, slop: 0.01,
     label: 'fruit_' + level + (isGolden ? '_golden' : ''),
     render: { fillStyle: 'transparent' }
   });
@@ -626,7 +626,22 @@ document.addEventListener('DOMContentLoaded', () => {
             shModal.classList.remove('hidden');
         });
     }
-
+    // Кнопка Выхода (Требование Яндекса)
+    const exitBtn = document.getElementById('exitBtn');
+    if (exitBtn) {
+        if (typeof ysdk !== 'undefined' && ysdk !== null) {
+            exitBtn.style.display = 'flex';
+        }
+        exitBtn.addEventListener('click', () => {
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                if (ysdk && ysdk.sdk && ysdk.sdk.exit) {
+                    ysdk.sdk.exit();
+                } else {
+                    window.close();
+                }
+            }
+        });
+    }
     // 4. Смена языка через выпадающий список
          // Показываем окно выбора языка, если игрок зашел ВПЕРВЫЕ
     const savedLang = localStorage.getItem('mergeLang');
@@ -718,4 +733,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const loader = document.getElementById('loadingScreen');
         if (loader) loader.style.display = 'none';
     }, 800);
+});
+// Пауза, когда вкладка неактивна (Требование Яндекса)
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        isGameOver = true; // Останавливаем игру
+    } else {
+        isGameOver = false; // Возобновляем, когда вернулись
+    }
 });
