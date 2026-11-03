@@ -545,33 +545,21 @@ document.getElementById('continueAdBtn').addEventListener('click', () => {
         lives = 3; // Возвращаем 3 жизни
         document.getElementById('livesVal').textContent = '❤️❤️❤️';
         
-        // Очищаем старые фрукты с поля
-        activeBodies.forEach(body => {
-            if (body.domEl) body.domEl.remove();
-            Matter.Composite.remove(world, body);
-        });
-        activeBodies = [];
-        
-        // Сбрасываем таймеры, чтобы первый фрукт появился сразу
         lastSpawnTime = performance.now();
         nextFruitLevel = 0;
         
-        // Восстанавливаем физику и анимацию
-        updateSizes();
-        createWalls();
-        cancelAnimationFrame(animationId);
-        updateDOM();
+        resetGame();
     });
 });
-// Логикаэ для обычной кнопки "Заново"
-document.getElementById('restartGameBtn').addEventListener('click', () => {
-    window.showAdFullscreen(); // Полноэкранная реклама (на Яндексе)
-    resetGame();
-});
-}
 
-function resetGame() {
-  cancelAnimationFrame(animationId);
+ // Логика для обычной кнопки "Заново"
+document.getElementById('restartGameBtn').addEventListener('click', () => {
+    window.showAdFullscreen();
+    resetGame();
+}); // <-- Вот эта скобка закрывает кнопку "Заново"
+} // <-- А эта скобка закрывает саму функцию gameOver
+
+function resetGame() { cancelAnimationFrame(animationId);
 
   activeBodies.forEach(body => {
     if (body.domEl) body.domEl.remove();
