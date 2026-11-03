@@ -161,7 +161,7 @@ h1 {
 
 .conveyor-wrapper {
   width: 100%;
-  max-width: 95%;
+  max-width: 400px;
   height: 70px;
   background: #16213e;
   border: 2px solid #0f3460;
@@ -206,9 +206,10 @@ h1 {
   gap: 5px;
   z-index: 100;
   align-items: center;
-  background: transparent;
-  padding: 0;
-  border: none;
+  background: #16213e;
+  padding: 5px 15px;
+  border-radius: 10px;
+  border: 1px solid #0f3460;
 }
 
 .next-fruit {
@@ -484,9 +485,6 @@ h1 {
 /* =========================================
    ПОЛНЫЙ ФИНАЛЬНЫЙ КОД МОБИЛЬНОЙ АДАПТАЦИИ
    ========================================= */
-/* =========================================
-   ПОЛНЫЙ ФИНАЛЬНЫЙ КОД МОБИЛЬНОЙ АДАПТАЦИИ
-   ========================================= */
 @media (max-width: 600px) {
     /* 1. Язык в левом верхнем углу */
     .top-header {
@@ -495,77 +493,78 @@ h1 {
         z-index: 1000;
     }
 
-    /* 2. Кнопки (Монеты, Звук, Магазин, Подарок) - в один ряд */
+    /* 2. Кнопки (Монеты, Звук, Магазин, Подарок) - распределены по ширине */
     .top-right {
         top: 50px !important;
         left: 5px !important;
-        right: 5px !important;
-        width: auto !important;
+        right: auto !important;
+        width: 72% !important; /* Занимает место, оставляя справа для "Следующего" */
         display: flex !important;
-        justify-content: space-between !important;
+        justify-content: space-between !important; /* Раскидываем кнопки ровно */
         align-items: center !important;
-        flex-wrap: nowrap !important;
-        transform: scale(0.85) !important; 
+        transform: scale(0.9) !important; 
         transform-origin: top left !important;
-        z-index: 1000;
     }
 
-    /* 3. Кнопка "Следующий" - аккуратная, под кнопками */
+    /* Делаем блок с монетами крупнее */
+    .coin-box {
+        font-size: 18px !important;
+        padding: 5px 12px !important;
+    }
+
+    /* 3. Наглухо прячем кнопку "Пропустить" */
+    .skip-btn, .next-skip-box button {
+        display: none !important;
+    }
+
+    /* 4. Окошко "Следующий" - справа в верхнем углу, на одной линии с магазином */
     .next-skip-box {
-        top: 95px !important; /* Сдвинули вниз, чтобы не перекрывать */
-        right: 10px !important;
+        top: 45px !important;
+        right: 5px !important;
         transform: scale(0.8) !important; 
         transform-origin: top right !important;
-        background: transparent !important;
-        border: none !important;
-        padding: 0 !important;
-        box-shadow: none !important;
     }
 
-    /* 4. Лента (конвейер) - шире, чтобы фрукты влезали */
-    .conveyor-wrapper {
-        width: 95% !important;
-        max-width: 95% !important;
-        margin: 0 auto 10px auto !important;
-        height: 65px !important;
-    }
-
-    /* 5. Заголовок и Статистика */
-    header {
-        margin-top: 90px !important; /* Опускаем, чтобы не мешали кнопки */
-    }
-    
+    /* 5. Заголовок и Статистика - поднимаем выше, убираем пустоты */
     h1#titleText {
         font-size: 20px !important;
-        margin-top: 0px !important; 
+        margin-top: 0px !important; /* Поднимаем заголовок */
         margin-bottom: 5px !important; 
     }
     
     .stats-row {
         font-size: 11px !important;
         margin-top: 0px !important;
-        margin-bottom: 10px !important; 
+        margin-bottom: 10px !important; /* Отступ до конвейера */
         flex-wrap: wrap !important;
         justify-content: center !important;
         gap: 5px !important;
     }
 
-    /* 6. Коробка - увеличиваем высоту */
+    /* 6. Игровая коробка - УМЕНЬШАЕМ ВЫСОТУ И ШИРИНУ, чтобы дно было видно */
     #game-container {
-        height: 60vh !important; 
-        max-height: none !important; 
-        width: 90% !important; 
-        margin: 0 auto 10px auto !important; 
+        height: 55vh !important; /* Делаем коробку ниже (38% экрана) */
+        max-height: 300px !important; /* Ограничиваем максимальную высоту */
+        width: 90% !important; /* Делаем чуть уже */
+        margin: 0 auto 15px auto !important; /* Центрируем и даем отступ снизу */
     }
-}
+
+ }
+ /* --- ФИНАЛЬНЫЙ ФИКС ЛЕНТЫ --- */
 .conveyor-wrapper {
-  width: 100% !important;
-  max-width: 400px !important;
-  height: 70px !important;
-  background: #16213e !important;
-  border: 2px solid #0f3460 !important;
-  border-radius: 10px !important;
-  margin: 0 auto 10px auto !important;
-  position: relative !important;
-  overflow: hidden !important;
+    width: 100% !important;
+    max-width: 400px !important;
+    height: 70px !important;
+    background: #16213e !important;
+    border: 2px solid #0f3460 !important;
+    border-radius: 10px !important;
+    margin: 0 auto 10px auto !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+#conveyor {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
 }
