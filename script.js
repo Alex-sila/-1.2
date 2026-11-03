@@ -628,12 +628,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. Смена языка через выпадающий список
-    const langSelect = document.getElementById('langSelect');
+       const langSelect = document.getElementById('langSelect');
     if (langSelect) {
-        // Ставим на паузу, когда открываем список языков
-        langSelect.addEventListener('mousedown', () => {
-            isGameOver = true; // Временно "замораживаем" спавн и физику
-        });
+        // Пауза для ПК (мышка) и для телефона (палец)
+        langSelect.addEventListener('mousedown', () => { isGameOver = true; });
+        langSelect.addEventListener('touchstart', () => { isGameOver = true; });
 
         langSelect.addEventListener('change', (e) => {
             currentLang = e.target.value; 
@@ -648,7 +647,7 @@ document.addEventListener('DOMContentLoaded', () => {
             isGameOver = false; 
         });
     }
-    // 3. Кнопка Подарка (ЕЖЕДНЕВНЫЙ БОНУС С ЗАЩИТОЙ И КНОПКОЙ ЗАКРЫТИЯ)
+     // 3. Кнопка Подарка (ЕЖЕДНЕВНЫЙ БОНУС С ЗАЩИТОЙ И КНОПКОЙ ЗАКРЫТИЯ)
     // Проверяем, доступен ли подарок, чтобы включить мигание
     const todayStr = new Date().toDateString();
     const lastClaimDate = localStorage.getItem('mergeLastLogin');

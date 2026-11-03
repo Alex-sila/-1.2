@@ -484,25 +484,40 @@ h1 {
 }
 /* =========================================
 @media (max-width: 600px) {
-    /* 1. Язык слева - прижимаем к краю */
+    /* 1. Язык слева - компактно */
     .top-header {
         top: 5px !important;
         left: 5px !important;
-        transform: scale(0.85) !important;
+        transform: scale(0.8) !important;
         transform-origin: top left !important;
+        padding: 4px 6px !important;
     }
 
-    /* 2. Кнопки справа (монеты, звук, выход, магазин, подарок) */
+    /* 2. Кнопки справа - аккуратный ряд без переносов */
     .top-right {
         top: 5px !important;
         right: 5px !important;
         left: auto !important;
-        transform: scale(0.75) !important; /* Чуть уменьшили, чтобы влезли все 5 кнопок */
+        transform: scale(0.7) !important; 
         transform-origin: top right !important;
         gap: 3px !important;
+        flex-wrap: nowrap !important; 
+    }
+    .icon-btn {
+        height: 38px !important;
+        min-width: 38px !important;
+        font-size: 18px !important;
+    }
+    #shopBtn {
+        padding: 0 8px !important;
+        font-size: 12px !important;
+    }
+    .coin-box {
+        padding: 4px 8px !important;
+        font-size: 14px !important;
     }
 
-    /* 3. Окно "Следующий" - убираем подложку и ставим ровно */
+    /* 3. Окно "Следующий" - ставим ровно под кнопками */
     .next-skip-box {
         top: 55px !important;
         right: 5px !important;
@@ -513,19 +528,17 @@ h1 {
         padding: 0 !important;
         box-shadow: none !important;
     }
-    
     .next-fruit {
-        padding: 3px !important;
-        box-shadow: 0 0 10px rgba(56, 189, 248, 0.3) !important;
+        padding: 4px 8px !important;
     }
 
-    /* 4. Заголовок - поднимаем выше, убираем пустоту */
+    /* 4. Заголовок - убираем пустоту, поднимаем наверх */
     header {
-        margin-top: 75px !important; /* Уменьшили отступ, чтобы не было дыры */
+        margin-top: 55px !important; /* Освободили место только под кнопки */
         margin-bottom: 5px !important;
     }
     h1#titleText {
-        font-size: 18px !important;
+        font-size: 17px !important;
         margin-bottom: 2px !important;
     }
     .stats-row {
@@ -539,22 +552,21 @@ h1 {
         margin: 5px auto !important;
         height: 24px !important;
     }
-    .progress-fruit {
-        height: 20px !important;
-        font-size: 14px !important;
-    }
 
-    /* 6. ЛЕНТА - увеличиваем высоту и ячейки, чтобы фрукты влезали */
+    /* 6. ЛЕНТА - широкая и высокая, фрукты влезут */
     .conveyor-wrapper {
         width: 95% !important;
         margin: 0 auto 10px auto !important;
-        height: 75px !important; /* Увеличили высоту контейнера */
+        height: 75px !important; 
     }
     .conveyor-tile {
-        width: 65px !important; /* Увеличили ширину кружка */
+        width: 65px !important; 
         height: 65px !important;
-        font-size: 38px !important; /* Увеличили шрифт */
-        top: 5px !important; /* Центрируем по вертикали */
+        font-size: 38px !important; 
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        top: 5px !important;
     }
 
     /* 7. Игровое поле */
