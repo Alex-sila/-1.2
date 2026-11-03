@@ -275,13 +275,15 @@ function createWalls() {
   walls = [];
   const wallOptions = { isStatic: true, render: { visible: false } };
 
-  walls.push(Bodies.rectangle(width / 2, height + 10, width, 40, wallOptions));
-  walls.push(Bodies.rectangle(-10, height / 2, 20, height * 2, { ...wallOptions, angle: 0.05 }));
-  walls.push(Bodies.rectangle(width + 10, height / 2, 20, height * 2, { ...wallOptions, angle: -0.05 }));
+  // Дно (толстое, чтобы фрукты не проваливались)
+  walls.push(Bodies.rectangle(width / 2, height + 30, width, 60, wallOptions));
+  
+  // Левая и правая стены (сдвинуты наружу, чтобы фрукты падали в самый край)
+  walls.push(Bodies.rectangle(-20, height / 2, 40, height * 2, { ...wallOptions, angle: 0 }));
+  walls.push(Bodies.rectangle(width + 20, height / 2, 40, height * 2, { ...wallOptions, angle: 0 }));
 
   Composite.add(world, walls);
 }
-
 if (window.ResizeObserver) {
   new ResizeObserver(() => {
     updateSizes();
@@ -335,11 +337,14 @@ function spawnConveyorTile() {
   const startX = width;
   tile.style.left = startX + 'px';
 
-  tile.addEventListener('click', () => {
+ tile.addEventListener('click', () => {
     if (isGameOver) return;
+    
+    // Берем позицию фрукта на ленте
     dropFruit(val, tile.offsetLeft, isGolden);
     playSound('drop');
     tile.remove();
+    // Убираем фрукт из массива, чтобы он не "висел" там мертвым грузом
     conveyorTiles = conveyorTiles.filter(t => t.el !== tile);
   });
 
