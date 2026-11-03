@@ -484,43 +484,44 @@ h1 {
 }
 /* =========================================
 @media (max-width: 600px) {
-    /* 1. Панель с языком слева */
+    /* 1. Язык слева - прижимаем к краю */
     .top-header {
         top: 5px !important;
         left: 5px !important;
-        transform: scale(0.9) !important;
+        transform: scale(0.85) !important;
         transform-origin: top left !important;
     }
 
-    /* 2. Кнопки справа (монеты, звук, магазин, подарок) */
+    /* 2. Кнопки справа (монеты, звук, выход, магазин, подарок) */
     .top-right {
         top: 5px !important;
         right: 5px !important;
         left: auto !important;
-        transform: scale(0.8) !important;
+        transform: scale(0.75) !important; /* Чуть уменьшили, чтобы влезли все 5 кнопок */
         transform-origin: top right !important;
-        gap: 4px !important;
+        gap: 3px !important;
     }
 
-    /* 3. Окно "Следующий" - ставим ровно под кнопками */
+    /* 3. Окно "Следующий" - убираем подложку и ставим ровно */
     .next-skip-box {
         top: 55px !important;
         right: 5px !important;
-        transform: scale(0.85) !important;
+        transform: scale(0.8) !important;
         transform-origin: top right !important;
-        background: transparent !important; /* Убрали подложку */
+        background: transparent !important;
         border: none !important;
         padding: 0 !important;
         box-shadow: none !important;
     }
     
     .next-fruit {
-        padding: 5px !important;
+        padding: 3px !important;
+        box-shadow: 0 0 10px rgba(56, 189, 248, 0.3) !important;
     }
 
-    /* 4. Заголовок и Статистика - УБИРАЕМ ПУСТОТУ СВЕРХУ */
+    /* 4. Заголовок - поднимаем выше, убираем пустоту */
     header {
-        margin-top: 85px !important; /* Уменьшили отступ, чтобы не было дыры */
+        margin-top: 75px !important; /* Уменьшили отступ, чтобы не было дыры */
         margin-bottom: 5px !important;
     }
     h1#titleText {
@@ -534,30 +535,31 @@ h1 {
 
     /* 5. Шкала прогресса */
     .progress-bar {
-        width: 95% !important; /* Сделали шире, как игровое поле */
+        width: 95% !important;
         margin: 5px auto !important;
-        height: 25px !important;
+        height: 24px !important;
     }
     .progress-fruit {
         height: 20px !important;
         font-size: 14px !important;
     }
 
-    /* 6. Лента конвейера - РАСШИРЯЕМ И УВЕЛИЧИВАЕМ ЯЧЕЙКИ */
+    /* 6. ЛЕНТА - увеличиваем высоту и ячейки, чтобы фрукты влезали */
     .conveyor-wrapper {
-        width: 95% !important; /* Теперь лента такой же ширины, как поле */
+        width: 95% !important;
         margin: 0 auto 10px auto !important;
-        height: 65px !important;
+        height: 75px !important; /* Увеличили высоту контейнера */
     }
     .conveyor-tile {
-        width: 55px !important; /* Увеличили размер кружка */
-        height: 55px !important;
-        font-size: 32px !important; /* Увеличили шрифт внутри */
+        width: 65px !important; /* Увеличили ширину кружка */
+        height: 65px !important;
+        font-size: 38px !important; /* Увеличили шрифт */
+        top: 5px !important; /* Центрируем по вертикали */
     }
 
     /* 7. Игровое поле */
     #game-container {
-        height: 55vh !important; /* Чуть больше высоты */
+        height: 52vh !important;
         width: 95% !important;
         margin: 0 auto !important;
     }

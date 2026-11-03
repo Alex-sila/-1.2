@@ -628,18 +628,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. Смена языка через выпадающий список
-const langSelect = document.getElementById('langSelect');
-if (langSelect) {
-    langSelect.addEventListener('change', (e) => {
-        currentLang = e.target.value; // Берем выбранный язык
-        localStorage.setItem('mergeLang', currentLang); // Сохраняем выбор
-        applyTranslation(); // Применяем перевод
+    const langSelect = document.getElementById('langSelect');
+    if (langSelect) {
+        // Ставим на паузу, когда открываем список языков
+        langSelect.addEventListener('mousedown', () => {
+            isGameOver = true; // Временно "замораживаем" спавн и физику
+        });
+
+        langSelect.addEventListener('change', (e) => {
+            currentLang = e.target.value; 
+            localStorage.setItem('mergeLang', currentLang); 
+            applyTranslation(); 
+            if (typeof renderShop === 'function') renderShop(); 
+            isGameOver = false; // Снимаем паузу после выбора
+        });
         
-        // Если магазин открыт, обновляем его, чтобы названия тем тоже перевелись
-        if (typeof renderShop === 'function') renderShop(); 
-    });
-}
-// 3. Кнопка Подарка (ЕЖЕДНЕВНЫЙ БОНУС С ЗАЩИТОЙ И КНОПКОЙ ЗАКРЫТИЯ)
+        // Если кликнули мимо списка (он закрылся без выбора), тоже снимаем паузу
+        langSelect.addEventListener('blur', () => {
+            isGameOver = false; 
+        });
+    }
+    // 3. Кнопка Подарка (ЕЖЕДНЕВНЫЙ БОНУС С ЗАЩИТОЙ И КНОПКОЙ ЗАКРЫТИЯ)
     // Проверяем, доступен ли подарок, чтобы включить мигание
     const todayStr = new Date().toDateString();
     const lastClaimDate = localStorage.getItem('mergeLastLogin');

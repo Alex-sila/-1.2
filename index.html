@@ -4,112 +4,110 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Мастер слияния</title>
-<script src="matter.min.js"></script>
+  <script src="matter.min.js"></script>
   <script src="https://yandex.ru/games/sdk/v2"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- ЭКРАН ЗАГРУЗКИ -->
-  <div id="loadingScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a2e; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-    <div style="font-size: 60px; animation: spin 2s linear infinite;">⚙️</div>
-    <h2 style="color: #38bdf8; margin-top: 20px;">Загрузка...</h2>
-  </div>
-  <style>
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-  </style>  
-
-  <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
-  <div class="top-header">
-    <select class="lang-select" id="langSelect">
-      <option value="ru">Русский</option>
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="pt">Português</option>
-      <option value="tr">Türkçe</option>
-      <option value="de">Deutsch</option>
-      <option value="fr">Français</option>
-      <option value="id">Indonesia</option>
-      <option value="ar">العربية</option>
-      <option value="zh">中文</option>
-    </select>
-  </div>
-
-  <div class="top-right">
-    <div class="coin-box">🪙 <span id="coinVal">0</span></div>
-    <button class="icon-btn" id="soundBtn">🔊</button>
-    <button class="icon-btn" id="shopBtn" style="width: auto; padding: 0 15px; font-size: 14px; font-weight: bold; gap: 5px;">🛒 Магазин</button>
-    <button class="icon-btn" id="dailyBtn">🎁</button>
-  </div>
-
-  <!-- ЗАГОЛОВОК И СТАТИСТИКА -->
-  <header>
-    <h1 id="titleText">Мастер слияния</h1>
-    <div class="stats-row">
-      <div><span id="lvlLabel">Уровень:</span> <span class="level-badge" id="levelVal">1</span></div>
-      <div><span id="scoreLabel">Очки:</span> <span id="scoreVal">0</span></div>
-      <div><span id="recordLabel">Рекорд:</span> <span id="recordVal" style="color:#fbbf24">0</span></div>
-      <div><span id="livesLabel">Жизни:</span> <span id="livesVal">❤️❤️❤️</span></div>
+  <div class="game-wrapper">
+    <!-- ЭКРАН ЗАГРУЗКИ -->
+    <div id="loadingScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a2e; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <div style="font-size: 60px; animation: spin 2s linear infinite;">⚙️</div>
+      <h2 style="color: #38bdf8; margin-top: 20px;">Загрузка...</h2>
     </div>
-  </header>
+    <style>
+      @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>  
 
-  <!-- ШКАЛА ПРОГРЕССА -->
-  <div class="progress-bar" id="progressBar"></div>
-
-  <!-- КОНВЕЙЕР -->
-  <div class="conveyor-wrapper" id="conveyor"></div>
-
-  <!-- БЛОК УПРАВЛЕНИЯ: NEXT FRUIT + SKIP -->
-  <div class="next-skip-box">
-    <div class="next-fruit">
-      <span class="next-label" id="nextLabel">Следующий</span>
-      <span id="nextFruitVal">🍅</span>
+    <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
+    <div class="top-header">
+      <select class="lang-select" id="langSelect">
+        <option value="ru">Русский</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+        <option value="tr">Türkçe</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+        <option value="id">Indonesia</option>
+        <option value="ar">العربية</option>
+        <option value="zh">中文</option>
+      </select>
     </div>
-  </div>
 
-  <!-- ИГРОВОЕ ПОЛЕ -->
-<div id="game-container">
-    <div class="danger-line" id="dangerLine"></div>
-</div>
-
-  <!-- МОДАЛЬНЫЕ ОКНА -->
-
-  <!-- ЭКРАН GAME OVER -->
-  <div class="modal hidden" id="gameOverModal">
-    <h2 id="gameOverTitle">Игра Окончена!</h2>
-    <p class="score-text" id="gameOverScore">Твои очки: 0</p>
-    <button class="btn btn-restart" id="restartGameBtn">Заново</button>
-  </div>
-
-  <!-- ВЫБОР ЯЗЫКА -->
-  <div class="modal" id="langModal">
-    <h2>Выберите язык</h2>
-    <div class="lang-grid">
-      <button class="lang-btn" onclick="setLang('ru')">🇷🇺 Русский</button>
-      <button class="lang-btn" onclick="setLang('en')">🇬🇧 English</button>
-      <button class="lang-btn" onclick="setLang('es')">🇪🇸 Español</button>
-      <button class="lang-btn" onclick="setLang('pt')">🇧🇷 Português</button>
-      <button class="lang-btn" onclick="setLang('tr')">🇹🇷 Türkçe</button>
-      <button class="lang-btn" onclick="setLang('de')">🇩🇪 Deutsch</button>
-      <button class="lang-btn" onclick="setLang('fr')">🇫🇷 Français</button>
-      <button class="lang-btn" onclick="setLang('id')">🇮🇩 Indonesia</button>
-      <button class="lang-btn" onclick="setLang('ar')">🇸🇦 العربية</button>
-      <button class="lang-btn" onclick="setLang('zh')">🇨🇳 中文</button>
+    <div class="top-right">
+      <div class="coin-box">🪙 <span id="coinVal">0</span></div>
+      <button class="icon-btn" id="soundBtn">🔊</button>
+      <button class="icon-btn" id="exitBtn" style="background: #e94560; border-color: #e94560; display: none;">❌</button>
+      <button class="icon-btn" id="shopBtn" style="width: auto; padding: 0 15px; font-size: 14px; font-weight: bold; gap: 5px;">🛒 Магазин</button>
+      <button class="icon-btn" id="dailyBtn">🎁</button>
     </div>
-  </div>
 
-  <!-- МАГАЗИН -->
-  <div class="modal hidden" id="shopModal">
-    <button class="modal-close" onclick="document.getElementById('shopModal').classList.add('hidden')">✕</button>
-    <h2>Магазин тем</h2>
-    <div class="shop-grid" id="shopGrid"></div>
-  </div>
+    <!-- ЗАГОЛОВОК И СТАТИСТИКА -->
+    <header>
+      <h1 id="titleText">Мастер слияния</h1>
+      <div class="stats-row">
+        <div><span id="lvlLabel">Уровень:</span> <span class="level-badge" id="levelVal">1</span></div>
+        <div><span id="scoreLabel">Очки:</span> <span id="scoreVal">0</span></div>
+        <div><span id="recordLabel">Рекорд:</span> <span id="recordVal" style="color:#fbbf24">0</span></div>
+        <div><span id="livesLabel">Жизни:</span> <span id="livesVal">❤️❤️❤️</span></div>
+      </div>
+    </header>
 
-  <!-- ЕЖЕДНЕВНЫЙ БОНУС -->
-  <div class="modal hidden" id="dailyModal">
-    <button class="modal-close" onclick="document.getElementById('dailyModal').classList.add('hidden')">✕</button>
-    <h2>Ежедневный бонус</h2>
-  </div>
+    <!-- ШКАЛА ПРОГРЕССА -->
+    <div class="progress-bar" id="progressBar"></div>
 
-  <script src="script.js" defer></script>
+    <!-- КОНВЕЙЕР -->
+    <div class="conveyor-wrapper" id="conveyor"></div>
+
+    <!-- БЛОК УПРАВЛЕНИЯ: NEXT FRUIT + SKIP -->
+    <div class="next-skip-box">
+      <div class="next-fruit">
+        <span class="next-label" id="nextLabel">Следующий</span>
+        <span id="nextFruitVal">🍅</span>
+      </div>
+    </div>
+
+    <!-- ИГРОВОЕ ПОЛЕ -->
+    <div id="game-container">
+      <div class="danger-line" id="dangerLine"></div>
+    </div>
+
+    <!-- МОДАЛЬНЫЕ ОКНА -->
+    <div class="modal hidden" id="gameOverModal">
+      <h2 id="gameOverTitle">Игра Окончена!</h2>
+      <p class="score-text" id="gameOverScore">Твои очки: 0</p>
+      <button class="btn btn-restart" id="restartGameBtn">Заново</button>
+    </div>
+
+    <div class="modal hidden" id="langModal">
+      <h2>Выберите язык</h2>
+      <div class="lang-grid">
+        <button class="lang-btn" onclick="setLang('ru')">🇷🇺 Русский</button>
+        <button class="lang-btn" onclick="setLang('en')">🇬🇧 English</button>
+        <button class="lang-btn" onclick="setLang('es')">🇪🇸 Español</button>
+        <button class="lang-btn" onclick="setLang('pt')">🇧🇷 Português</button>
+        <button class="lang-btn" onclick="setLang('tr')">🇹🇷 Türkçe</button>
+        <button class="lang-btn" onclick="setLang('de')">🇩🇪 Deutsch</button>
+        <button class="lang-btn" onclick="setLang('fr')">🇫🇷 Français</button>
+        <button class="lang-btn" onclick="setLang('id')">🇮🇩 Indonesia</button>
+        <button class="lang-btn" onclick="setLang('ar')">🇸🇦 العربية</button>
+        <button class="lang-btn" onclick="setLang('zh')">🇨🇳 中文</button>
+      </div>
+    </div>
+
+    <div class="modal hidden" id="shopModal">
+      <button class="modal-close" onclick="document.getElementById('shopModal').classList.add('hidden')">✕</button>
+      <h2>Магазин тем</h2>
+      <div class="shop-grid" id="shopGrid"></div>
+    </div>
+
+    <div class="modal hidden" id="dailyModal">
+      <button class="modal-close" onclick="document.getElementById('dailyModal').classList.add('hidden')">✕</button>
+      <h2>Ежедневный бонус</h2>
+    </div>
+
+    <script src="script.js" defer></script>
+  </div> <!-- Закрываем game-wrapper -->
 </body>
 </html>
