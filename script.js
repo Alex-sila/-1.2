@@ -334,7 +334,7 @@ function spawnConveyorTile() {
   tile.textContent = EMOJIS[val];
   tile.dataset.val = val;
   tile.dataset.golden = isGolden;
-  const startX = width-70;
+  const startX = width;
   tile.style.left = startX + 'px';
 
  tile.addEventListener('click', () => {
@@ -485,15 +485,12 @@ function removeFruit(body) {
 
 function updateDOM() {
   // ПАУЗА, ЕСЛИ ОТКРЫТО МЕНЮ (МАГАЗИН ИЛИ БОНУС)
-  const activeModal = document.querySelector('.modal:not(.hidden)');
-  if (activeModal) {
-    animationId = requestAnimationFrame(updateDOM);
-    return;
-  }
-
-  // ЛОГИКА ИГРЫ (если пауза не активна)
+const activeModal = document.querySelector('.modal:not(.hidden)');
+if (activeModal) {
+animationId = requestAnimationFrame(updateDOM); // Продолжаем цикл, сохраняя ID
+    return; // Останавливаем движение конвейера и физику
+}
   if (!isGameOver) {
-    // Движение конвейера
     for (let i = conveyorTiles.length - 1; i >= 0; i--) {
       const t = conveyorTiles[i];
       t.x -= tileSpeed;
@@ -504,42 +501,21 @@ function updateDOM() {
         loseLife();
       }
     }
-    // Спавн новых фруктов
     const now = performance.now();
     if (now - lastSpawnTime > spawnInterval) {
       spawnConveyorTile();
       lastSpawnTime = now;
     }
   }
-
-  // Обновление позиций фруктов в коробке
   activeBodies.forEach(body => {
     if (body.domEl) {
       body.domEl.style.left = (body.position.x - body.circleRadius) + 'px';
       body.domEl.style.top = (body.position.y - body.circleRadius) + 'px';
     }
   });
-
-  // Проверка на опасное заполнение (мигание)
-  const gameContainer = document.getElementById('game-container');
-  if (gameContainer && !isGameOver) {
-    let dangerZone = false;
-    activeBodies.forEach(body => {
-      // Если фрукт поднялся выше 30% высоты — включаем опасность
-      if (body.position.y < height * 0.3) {
-        dangerZone = true;
-      }
-    });
-    
-    if (dangerZone) {
-      gameContainer.classList.add('game-danger');
-    } else {
-      gameContainer.classList.remove('game-danger');
-    }
-  }
-
   animationId = requestAnimationFrame(updateDOM);
 }
+
 function loseLife() {
   lives--;
   document.getElementById('livesVal').textContent = '❤️'.repeat(lives) + '🖤'.repeat(3 - lives);
