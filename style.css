@@ -482,6 +482,67 @@ h1 {
 .hidden {
   display: none !important;
 }
-/* =========================================
-   ПОЛНЫЙ ФИНАЛЬНЫЙ КОД МОБИЛЬНОЙ АДАПТАЦИИ
-   ========================================= */
+@media (max-width: 600px) {
+    /* Кнопки в один ряд */
+    .top-right {
+        top: 45px !important;
+        left: 5px !important;
+        right: 5px !important;
+        width: auto !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+        transform: scale(0.85) !important; 
+        transform-origin: top left !important;
+        z-index: 1000;
+    }
+
+    /* Кнопка "Следующий" под кнопками */
+    .next-skip-box {
+        top: 85px !important;
+        right: 5px !important;
+        transform: scale(0.8) !important; 
+        transform-origin: top right !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+    }
+
+    /* Заголовок ниже кнопок */
+    header {
+        margin-top: 80px !important;
+    }
+    
+    h1#titleText {
+        font-size: 20px !important;
+        margin-top: 0px !important; 
+        margin-bottom: 5px !important; 
+    }
+    
+    .stats-row {
+        font-size: 11px !important;
+        margin-top: 0px !important;
+        margin-bottom: 10px !important; 
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 5px !important;
+    }
+
+    /* Лента (конвейер) - шире */
+    .conveyor-wrapper {
+        width: 95% !important;
+        max-width: 95% !important;
+        margin: 0 auto 10px auto !important;
+        height: 65px !important;
+    }
+
+    /* Коробка - увеличиваем высоту */
+    #game-container {
+        height: 60vh !important; 
+        max-height: none !important; 
+        width: 90% !important; 
+        margin: 0 auto 10px auto !important; 
+    }
+}
