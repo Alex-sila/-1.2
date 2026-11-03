@@ -484,94 +484,165 @@ h1 {
 }
 /* =========================================
 @media (max-width: 600px) {
-    /* 1. Язык слева - компактно */
-    .top-header {
-        top: 5px !important;
-        left: 5px !important;
-        transform: scale(0.8) !important;
-        transform-origin: top left !important;
-        padding: 4px 6px !important;
+    /* Настраиваем общий контейнер */
+    .game-wrapper {
+        padding-top: 160px !important; /* Освобождаем место под верхние ряды */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100dvh !important;
     }
 
-    /* 2. Кнопки справа - аккуратный ряд без переносов */
-    .top-right {
-        top: 5px !important;
-        right: 5px !important;
-        left: auto !important;
-        transform: scale(0.7) !important; 
-        transform-origin: top right !important;
-        gap: 3px !important;
-        flex-wrap: nowrap !important; 
-    }
-    .icon-btn {
+    /* =========================================
+       СТРОКА 1: Язык (слева) и Магазин (справа)
+       ========================================= */
+    .top-header {
+        position: absolute !important;
+        top: 10px !important;
+        left: 10px !important;
+        width: 44% !important;
         height: 38px !important;
-        min-width: 38px !important;
-        font-size: 18px !important;
+        border-radius: 8px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        transform: none !important;
     }
-    #shopBtn {
-        padding: 0 8px !important;
-        font-size: 12px !important;
-    }
-    .coin-box {
-        padding: 4px 8px !important;
+    .lang-select {
+        width: 100% !important;
+        text-align: center !important;
         font-size: 14px !important;
     }
 
-    /* 3. Окно "Следующий" - ставим ровно под кнопками */
-    .next-skip-box {
-        top: 55px !important;
-        right: 5px !important;
-        transform: scale(0.8) !important;
-        transform-origin: top right !important;
-        background: transparent !important;
-        border: none !important;
-        padding: 0 !important;
-        box-shadow: none !important;
+    /* Достаем магазин из правого блока и ставим справа */
+    .top-right { display: contents !important; }
+    #shopBtn {
+        position: absolute !important;
+        top: 10px !important;
+        right: 10px !important;
+        width: 44% !important;
+        height: 38px !important;
+        border-radius: 8px !important;
+        font-size: 14px !important;
+        display: flex !important;
+        justify-content: center !important;
     }
-    .next-fruit {
-        padding: 4px 8px !important;
-    }
+    #exitBtn { display: none !important; } /* Скрываем кнопку выхода для мобилки */
 
-    /* 4. Заголовок - убираем пустоту, поднимаем наверх */
+    /* =========================================
+       СТРОКА 2: Заголовок
+       ========================================= */
     header {
-        margin-top: 55px !important; /* Освободили место только под кнопки */
-        margin-bottom: 5px !important;
+        position: absolute !important;
+        top: 55px !important;
+        left: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     h1#titleText {
-        font-size: 17px !important;
-        margin-bottom: 2px !important;
+        font-size: 28px !important; /* Сделал большую и красивую */
+        color: #38bdf8 !important;  /* Яркий цвет */
+        text-shadow: 0 0 15px rgba(56, 189, 248, 0.8) !important; /* Свечение */
+        margin-bottom: 5px !important;
     }
     .stats-row {
         font-size: 11px !important;
-        gap: 6px !important;
+        gap: 8px !important;
+        justify-content: center !important;
     }
 
-    /* 5. Шкала прогресса */
+    /* =========================================
+       СТРОКА 3: Очки, Подарок, Громкость, Следующий
+       ========================================= */
+    .coin-box {
+        position: absolute !important;
+        top: 115px !important;
+        left: 10px !important;
+        height: 38px !important;
+        display: flex !important;
+        align-items: center !important;
+        font-size: 15px !important;
+    }
+    #dailyBtn {
+        position: absolute !important;
+        top: 115px !important;
+        left: 75px !important;
+        height: 38px !important;
+        width: 38px !important;
+    }
+    #soundBtn {
+        position: absolute !important;
+        top: 115px !important;
+        right: 80px !important; /* Сдвигаем влево, чтобы влез следующий */
+        height: 38px !important;
+        width: 38px !important;
+    }
+    
+    /* Окно "Следующий" - делаем его красивым и на той же строке */
+    .next-skip-box {
+        position: absolute !important;
+        top: 115px !important;
+        right: 10px !important;
+        width: auto !important;
+        height: 38px !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        background: #16213e !important;
+        border: 1px solid #38bdf8 !important;
+        border-radius: 8px !important;
+        padding: 0 10px !important;
+        transform: none !important;
+    }
+    .next-label {
+        display: none !important; /* Прячем текст "Следующий", оставляем только фрукт */
+    }
+    .next-fruit {
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        font-size: 22px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: none !important;
+    }
+
+    /* =========================================
+       ОСТАЛЬНОЕ: Прогресс-бар, Лента, Игровое поле
+       ========================================= */
     .progress-bar {
         width: 95% !important;
-        margin: 5px auto !important;
+        margin: 0 auto 10px auto !important;
         height: 24px !important;
     }
 
-    /* 6. ЛЕНТА - широкая и высокая, фрукты влезут */
+    /* ЛЕНТА - делаем высокой, а фрукты поднимаем наверх (align-items: flex-start) */
     .conveyor-wrapper {
-        width: 95% !important;
+        width: 98% !important;
         margin: 0 auto 10px auto !important;
         height: 75px !important; 
     }
     .conveyor-tile {
         width: 65px !important; 
         height: 65px !important;
-        font-size: 38px !important; 
+        font-size: 40px !important; 
         display: flex !important;
-        align-items: center !important;
+        align-items: flex-start !important; /* Прижимаем к верху, чтобы фрукт не обрезался снизу */
         justify-content: center !important;
+        padding-top: 2px !important; /* Легкий отступ сверху */
         top: 5px !important;
     }
 
-    /* 7. Игровое поле */
+    /* КОРОБКА (Игровое поле) - ВОЗВРАЩАЕМ БОЛЬШОЙ РАЗМЕР */
     #game-container {
-        height: 52vh !important;
-        width: 95% !important;
+        width: 98% !important; /* Широкая */
+        height: calc(100dvh - 300px) !important; /* Занимает всё оставшееся место */
+        min-height: 350px !important; /* Но не меньше 350px */
         margin: 0 auto !important;
+        flex-grow: 1 !important;
     }
