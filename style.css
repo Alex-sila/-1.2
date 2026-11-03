@@ -174,14 +174,14 @@ h1 {
 .conveyor-tile {
   position: absolute;
   top: 5px;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   background: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26px;
+  font-size: 32px;
   cursor: pointer;
   box-shadow: 0 0 10px rgba(255,255,255,0.5);
   transition: transform 0.1s;
@@ -482,67 +482,71 @@ h1 {
 .hidden {
   display: none !important;
 }
+/* =========================================
+   ПОЛНЫЙ ФИНАЛЬНЫЙ КОД МОБИЛЬНОЙ АДАПТАЦИИ
+   ========================================= */
 @media (max-width: 600px) {
-    /* Кнопки в один ряд */
-    .top-right {
-        top: 45px !important;
+    /* 1. Язык в левом верхнем углу */
+    .top-header {
+        top: 5px !important;
         left: 5px !important;
-        right: 5px !important;
-        width: auto !important;
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        flex-wrap: nowrap !important;
-        transform: scale(0.85) !important; 
-        transform-origin: top left !important;
         z-index: 1000;
     }
 
-    /* Кнопка "Следующий" под кнопками */
+    /* 2. Кнопки (Монеты, Звук, Магазин, Подарок) - распределены по ширине */
+    .top-right {
+        top: 50px !important;
+        left: 5px !important;
+        right: auto !important;
+        width: 72% !important; /* Занимает место, оставляя справа для "Следующего" */
+        display: flex !important;
+        justify-content: space-between !important; /* Раскидываем кнопки ровно */
+        align-items: center !important;
+        transform: scale(0.9) !important; 
+        transform-origin: top left !important;
+    }
+
+    /* Делаем блок с монетами крупнее */
+    .coin-box {
+        font-size: 18px !important;
+        padding: 5px 12px !important;
+    }
+
+    /* 3. Наглухо прячем кнопку "Пропустить" */
+    .skip-btn, .next-skip-box button {
+        display: none !important;
+    }
+
+    /* 4. Окошко "Следующий" - справа в верхнем углу, на одной линии с магазином */
     .next-skip-box {
-        top: 85px !important;
+        top: 45px !important;
         right: 5px !important;
         transform: scale(0.8) !important; 
         transform-origin: top right !important;
-        background: transparent !important;
-        border: none !important;
-        padding: 0 !important;
-        box-shadow: none !important;
     }
 
-    /* Заголовок ниже кнопок */
-    header {
-        margin-top: 80px !important;
-    }
-    
+    /* 5. Заголовок и Статистика - поднимаем выше, убираем пустоты */
     h1#titleText {
         font-size: 20px !important;
-        margin-top: 0px !important; 
+        margin-top: 0px !important; /* Поднимаем заголовок */
         margin-bottom: 5px !important; 
     }
     
     .stats-row {
         font-size: 11px !important;
         margin-top: 0px !important;
-        margin-bottom: 10px !important; 
+        margin-bottom: 10px !important; /* Отступ до конвейера */
         flex-wrap: wrap !important;
         justify-content: center !important;
         gap: 5px !important;
     }
 
-    /* Лента (конвейер) - шире */
-    .conveyor-wrapper {
-        width: 95% !important;
-        max-width: 95% !important;
-        margin: 0 auto 10px auto !important;
-        height: 65px !important;
+    /* 6. Игровая коробка - УМЕНЬШАЕМ ВЫСОТУ И ШИРИНУ, чтобы дно было видно */
+    #game-container {
+        height: 55vh !important; /* Делаем коробку ниже (38% экрана) */
+        max-height: 300px !important; /* Ограничиваем максимальную высоту */
+        width: 90% !important; /* Делаем чуть уже */
+        margin: 0 auto 15px auto !important; /* Центрируем и даем отступ снизу */
     }
 
-    /* Коробка - увеличиваем высоту */
-    #game-container {
-        height: 60vh !important; 
-        max-height: none !important; 
-        width: 90% !important; 
-        margin: 0 auto 10px auto !important; 
-    }
-}
+ }
