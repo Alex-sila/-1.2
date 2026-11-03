@@ -652,91 +652,126 @@ h1 {
     }
     /* =========================================
 /* =========================================
-/* =========================================
-   ЦВЕТОМУЗЫКА ИНТЕРФЕЙСА (ВАРИАНТ 3)
+   ФИНАЛЬНЫЙ ДИЗАЙН: ДВИЖУЩИЕСЯ ПАТТЕРНЫ + ЦВЕТОМУЗЫКА
    ========================================= */
 
-/* 1. ФРУКТЫ (Зеленый) */
-.theme-fruits .icon-btn, .theme-fruits #shopBtn, .theme-fruits .next-skip-box { 
-    border-color: #22c55e !important; color: #22c55e !important; 
-}
-.theme-fruits .coin-box { 
-    border-color: #22c55e !important; color: #22c55e !important; 
+/* 1. Анимация медленного движения (дрейфа) паттернов */
+@keyframes driftPattern {
+    0% { background-position: 0px 0px; }
+    100% { background-position: 100px 100px; }
 }
 
-/* 2. СЛАДОСТИ (Розовый) */
-.theme-sweets .icon-btn, .theme-sweets #shopBtn, .theme-sweets .next-skip-box { 
-    border-color: #ec4899 !important; color: #ec4899 !important; 
-}
-.theme-sweets .coin-box { 
-    border-color: #ec4899 !important; color: #ec4899 !important; 
-}
-
-/* 3. ЕДА (Оранжевый) */
-.theme-food .icon-btn, .theme-food #shopBtn, .theme-food .next-skip-box { 
-    border-color: #f59e0b !important; color: #f59e0b !important; 
-}
-.theme-food .coin-box { 
-    border-color: #f59e0b !important; color: #f59e0b !important; 
-}
-
-/* 4. ПИТОМЦЫ (Синий) */
-.theme-pets .icon-btn, .theme-pets #shopBtn, .theme-pets .next-skip-box { 
-    border-color: #3b82f6 !important; color: #3b82f6 !important; 
-}
-.theme-pets .coin-box { 
-    border-color: #3b82f6 !important; color: #3b82f6 !important; 
-}
-
-/* 5. МАГИЯ (Фиолетовый) */
-.theme-magic .icon-btn, .theme-magic #shopBtn, .theme-magic .next-skip-box { 
-    border-color: #a855f7 !important; color: #a855f7 !important; 
-}
-.theme-magic .coin-box { 
-    border-color: #a855f7 !important; color: #a855f7 !important; 
-}
-
-/* 6. УСПЕХ (Золотой) */
-.theme-success .icon-btn, .theme-success #shopBtn, .theme-success .next-skip-box { 
-    border-color: #fbbf24 !important; color: #fbbf24 !important; 
-}
-.theme-success .coin-box { 
-    border-color: #fbbf24 !important; color: #fbbf24 !important; 
-}
-
-/* 7. КОСМОС (Индиго/Сине-фиолетовый) */
-.theme-space .icon-btn, .theme-space #shopBtn, .theme-space .next-skip-box { 
-    border-color: #6366f1 !important; color: #6366f1 !important; 
-}
-.theme-space .coin-box { 
-    border-color: #6366f1 !important; color: #6366f1 !important; 
-}
-
-/* 8. БОГАТСТВО (Изумрудный) */
-.theme-wealth .icon-btn, .theme-wealth #shopBtn, .theme-wealth .next-skip-box { 
-    border-color: #10b981 !important; color: #10b981 !important; 
-}
-.theme-wealth .coin-box { 
-    border-color: #10b981 !important; color: #10b981 !important; 
-}
-
-/* Делаем иконки внутри кнопок тоже цветными */
-.theme-fruits .icon-btn, .theme-sweets .icon-btn, .theme-food .icon-btn, 
-.theme-pets .icon-btn, .theme-magic .icon-btn, .theme-success .icon-btn, 
-.theme-space .icon-btn, .theme-wealth .icon-btn {
-    background: transparent !important;
-}
-/* =========================================
-   ЖИВОЙ (ПУЛЬСИРУЮЩИЙ) ФОН (ВАРИАНТ 1)
-   ========================================= */
-
-@keyframes breathEffect {
-    0% { filter: brightness(1) drop-shadow(0 0 0px transparent); }
-    50% { filter: brightness(1.2) drop-shadow(0 0 15px rgba(255,255,255,0.1)); }
-    100% { filter: brightness(1) drop-shadow(0 0 0px transparent); }
-}
-
+/* Применяем анимацию ко всем коробкам и лентам */
 #game-container, .conveyor-wrapper {
-    animation: breathEffect 4s infinite ease-in-out !important;
-    transition: all 0.5s ease !important;
+    animation: driftPattern 20s linear infinite !important;
+    transition: border-color 0.5s ease !important;
+}
+
+/* =========================================
+   ТЕМА 1: ФРУКТЫ (Зеленый горошек)
+   ========================================= */
+.theme-fruits #game-container, .theme-fruits .conveyor-wrapper {
+    background-color: #14532d !important;
+    background-image: radial-gradient(#22c55e 1px, transparent 1px) !important;
+    background-size: 20px 20px !important;
+    border-color: #22c55e !important;
+}
+.theme-fruits .icon-btn, .theme-fruits #shopBtn, .theme-fruits .next-skip-box, .theme-fruits .coin-box { 
+    border-color: #22c55e !important; color: #22c55e !important; 
+}
+
+/* =========================================
+   ТЕМА 2: СЛАДОСТИ (Розовый горошек)
+   ========================================= */
+.theme-sweets #game-container, .theme-sweets .conveyor-wrapper {
+    background-color: #831843 !important;
+    background-image: radial-gradient(#fbcfe8 2px, transparent 2px) !important;
+    background-size: 25px 25px !important;
+    border-color: #ec4899 !important;
+}
+.theme-sweets .icon-btn, .theme-sweets #shopBtn, .theme-sweets .next-skip-box, .theme-sweets .coin-box { 
+    border-color: #ec4899 !important; color: #ec4899 !important; 
+}
+
+/* =========================================
+   ТЕМА 3: ЕДА (Оранжевая клетка)
+   ========================================= */
+.theme-food #game-container, .theme-food .conveyor-wrapper {
+    background-color: #451a03 !important;
+    background-image: repeating-linear-gradient(45deg, #78350f 0, #78350f 2px, transparent 2px, transparent 15px) !important;
+    border-color: #f59e0b !important;
+}
+.theme-food .icon-btn, .theme-food #shopBtn, .theme-food .next-skip-box, .theme-food .coin-box { 
+    border-color: #f59e0b !important; color: #f59e0b !important; 
+}
+
+/* =========================================
+   ТЕМА 4: ПИТОМЦЫ (Синий горошек)
+   ========================================= */
+.theme-pets #game-container, .theme-pets .conveyor-wrapper {
+    background-color: #172554 !important;
+    background-image: radial-gradient(#3b82f6 2px, transparent 2px) !important;
+    background-size: 30px 30px !important;
+    border-color: #3b82f6 !important;
+}
+.theme-pets .icon-btn, .theme-pets #shopBtn, .theme-pets .next-skip-box, .theme-pets .coin-box { 
+    border-color: #3b82f6 !important; color: #3b82f6 !important; 
+}
+
+/* =========================================
+   ТЕМА 5: МАГИЯ (Фиолетовые искры)
+   ========================================= */
+.theme-magic #game-container, .theme-magic .conveyor-wrapper {
+    background-color: #2e1065 !important;
+    background-image: radial-gradient(#a855f7 1.5px, transparent 1.5px) !important;
+    background-size: 15px 15px !important;
+    border-color: #a855f7 !important;
+}
+.theme-magic .icon-btn, .theme-magic #shopBtn, .theme-magic .next-skip-box, .theme-magic .coin-box { 
+    border-color: #a855f7 !important; color: #a855f7 !important; 
+}
+
+/* =========================================
+   ТЕМА 6: УСПЕХ (Золотая сетка)
+   ========================================= */
+.theme-success #game-container, .theme-success .conveyor-wrapper {
+    background-color: #171717 !important;
+    background-image: linear-gradient(#fbbf24 1px, transparent 1px), linear-gradient(90deg, #fbbf24 1px, transparent 1px) !important;
+    background-size: 20px 20px !important;
+    border-color: #fbbf24 !important;
+}
+.theme-success .icon-btn, .theme-success #shopBtn, .theme-success .next-skip-box, .theme-success .coin-box { 
+    border-color: #fbbf24 !important; color: #fbbf24 !important; 
+}
+
+/* =========================================
+   ТЕМА 7: КОСМОС (Звездное небо)
+   ========================================= */
+.theme-space #game-container, .theme-space .conveyor-wrapper {
+    background-color: #020617 !important;
+    background-image: radial-gradient(#fff 1px, transparent 1px), radial-gradient(#fff 1px, transparent 1px) !important;
+    background-size: 50px 50px !important;
+    background-position: 0 0, 25px 25px !important;
+    border-color: #6366f1 !important;
+}
+.theme-space .icon-btn, .theme-space #shopBtn, .theme-space .next-skip-box, .theme-space .coin-box { 
+    border-color: #6366f1 !important; color: #6366f1 !important; 
+}
+
+/* =========================================
+   ТЕМА 8: БОГАТСТВО (Изумрудная сетка)
+   ========================================= */
+.theme-wealth #game-container, .theme-wealth .conveyor-wrapper {
+    background-color: #022c22 !important;
+    background-image: linear-gradient(#10b981 1px, transparent 1px), linear-gradient(90deg, #10b981 1px, transparent 1px) !important;
+    background-size: 15px 15px !important;
+    border-color: #10b981 !important;
+}
+.theme-wealth .icon-btn, .theme-wealth #shopBtn, .theme-wealth .next-skip-box, .theme-wealth .coin-box { 
+    border-color: #10b981 !important; color: #10b981 !important; 
+}
+
+/* Делаем фон у кнопок прозрачным, чтобы они не смотрелись тяжело */
+.icon-btn, #shopBtn {
+    background: transparent !important;
 }
