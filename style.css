@@ -501,9 +501,7 @@ h1 {
         align-items: center !important;
     }
 
-    /* =========================================
-       СТРОКА 1: Русский (слева) и Магазин (справа)
-       ========================================= */
+    /* СТРОКА 1: Русский (слева) и Магазин (справа) */
     .top-header {
         position: absolute !important;
         top: 10px !important;
@@ -534,9 +532,7 @@ h1 {
     }
     #exitBtn { display: none !important; }
 
-    /* =========================================
-       СТРОКА 2: Заголовок и Статистика
-       ========================================= */
+    /* СТРОКА 2: Заголовок и Статистика */
     header {
         position: absolute !important;
         top: 55px !important;
@@ -558,12 +554,10 @@ h1 {
         gap: 12px !important;
     }
 
-    /* =========================================
-       СТРОКА 3: Монеты, Подарок, Звук, Следующий
-       ========================================= */
+    /* СТРОКА 3: Монеты, Подарок, Звук, Следующий (ПОДНЯЛИ ДО 105px) */
     .coin-box {
         position: absolute !important;
-        top: 120px !important;
+        top: 105px !important;
         left: 2vw !important;
         height: 40px !important;
         display: flex !important;
@@ -572,23 +566,23 @@ h1 {
     }
     #dailyBtn {
         position: absolute !important;
-        top: 120px !important;
+        top: 105px !important;
         left: 20vw !important;
         height: 40px !important;
         width: 40px !important;
     }
     #soundBtn {
         position: absolute !important;
-        top: 120px !important;
+        top: 105px !important;
         right: 20vw !important;
         height: 40px !important;
         width: 40px !important;
     }
     
-    /* Окно "Следующий" - аккуратно по центру */
+    /* Окно "Следующий" (ТОЖЕ ПОДНЯЛИ) */
     .next-skip-box {
         position: absolute !important;
-        top: 120px !important;
+        top: 105px !important;
         right: 2vw !important;
         height: 40px !important;
         width: 48px !important; 
@@ -620,11 +614,7 @@ h1 {
         display: block !important;
     }
 
-    /* =========================================
-       ШИРОКИЕ ЭЛЕМЕНТЫ (ЛЕНТА И ПОЛЕ НА ВЕСЬ ЭКРАН)
-       ========================================= */
-    
-    /* Шкала прогресса */
+    /* ШИРОКИЕ ЭЛЕМЕНТЫ */
     .progress-bar {
         width: 98vw !important;
         max-width: 98vw !important;
@@ -632,15 +622,15 @@ h1 {
         height: 24px !important;
     }
     
-    /* ЛЕНТА (98% ширины экрана - как ты просил) */
+    /* ЛЕНТА */
     .conveyor-wrapper {
         width: 98vw !important;
         max-width: 98vw !important;
-        height: 70px !important; /* Высота под большие кружки */
+        height: 70px !important; 
         margin: 0 auto 8px auto !important;
     }
     
-    /* КРУЖКИ НА ЛЕНТЕ - БОЛЬШИЕ, ФРУКТ ВНУТРИ ПО ЦЕНТРУ */
+    /* КРУЖКИ НА ЛЕНТЕ */
     .conveyor-tile {
         width: 60px !important;  
         height: 60px !important;
@@ -652,7 +642,7 @@ h1 {
         line-height: 1 !important;
     }
 
-    /* ИГРОВОЕ ПОЛЕ (98% ширины экрана) */
+    /* ИГРОВОЕ ПОЛЕ */
     #game-container {
         width: 98vw !important;
         max-width: 98vw !important;

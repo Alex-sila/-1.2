@@ -311,7 +311,7 @@ function updateLevel() {
   if (newLevel > level) {
     level = newLevel;
     document.getElementById('levelVal').textContent = level;
-    tileSpeed = 0.7 + (level - 1) * 0.15;
+    tileSpeed = 0.7 + (level - 1) * 0.1;
     spawnInterval = Math.max(800, 2500 - (level - 1) * 200);
   }
 }
@@ -355,7 +355,7 @@ function spawnConveyorTile() {
 function createFruit(x, y, level, isGolden = false) {
   const radius = (20 + level * 5) * (width / 400);
   const body = Bodies.circle(x, y, radius, {
-    restitution: 0.5, friction: 0.5, density: 0.001,
+    restitution: 0.1, friction: 0.8, density: 0.002,
     label: 'fruit_' + level + (isGolden ? '_golden' : ''),
     render: { fillStyle: 'transparent' }
   });
