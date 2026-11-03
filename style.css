@@ -484,16 +484,16 @@ h1 {
 }
 /* =========================================
 @media (max-width: 600px) {
-    /* Убираем отступы у тела страницы */
+    /* Убираем отступы у страницы */
     body {
         padding: 0 !important;
         margin: 0 !important;
         overflow: hidden !important;
     }
     
-    /* Общий контейнер игры */
+    /* Общий контейнер */
     .game-wrapper {
-        padding-top: 165px !important;
+        padding-top: 160px !important;
         width: 100vw !important;
         height: 100dvh !important;
         display: flex !important;
@@ -502,7 +502,7 @@ h1 {
     }
 
     /* =========================================
-       СТРОКА 1: Язык (слева) и Магазин (справа)
+       СТРОКА 1: Русский (слева) и Магазин (справа)
        ========================================= */
     .top-header {
         position: absolute !important;
@@ -521,7 +521,6 @@ h1 {
         text-align: center !important;
         font-size: 14px !important;
     }
-    /* Вытаскиваем магазин из общего блока и ставим справа */
     .top-right { display: contents !important; }
     #shopBtn {
         position: absolute !important;
@@ -533,7 +532,7 @@ h1 {
         justify-content: center !important;
         font-size: 14px !important;
     }
-    #exitBtn { display: none !important; } /* Кнопку выхода на телефоне прячем */
+    #exitBtn { display: none !important; }
 
     /* =========================================
        СТРОКА 2: Заголовок и Статистика
@@ -585,64 +584,79 @@ h1 {
         height: 40px !important;
         width: 40px !important;
     }
+    
+    /* Окно "Следующий" - аккуратно по центру */
     .next-skip-box {
         position: absolute !important;
         top: 120px !important;
         right: 2vw !important;
         height: 40px !important;
-        padding: 0 8px !important;
+        width: 48px !important; 
+        padding: 0 !important;
         background: #16213e !important;
         border: 1px solid #38bdf8 !important;
         border-radius: 8px !important;
         display: flex !important;
         align-items: center !important;
+        justify-content: center !important; 
         transform: none !important;
     }
     .next-label { display: none !important; }
     .next-fruit {
         padding: 0 !important;
+        margin: 0 !important;
         border: none !important;
         background: transparent !important;
-        font-size: 20px !important;
-        box-shadow: none !important;
-    }
-
-    /* =========================================
-       ШИРОКИЕ ЭЛЕМЕНТЫ: Прогресс, Лента, Коробка
-       ========================================= */
-    
-    /* Шкала прогресса (96% ширины экрана) */
-    .progress-bar {
-        width: 96vw !important;
-        max-width: 96vw !important;
-        margin: 0 auto 8px auto !important;
-        height: 26px !important;
-    }
-    
-    /* ЛЕНТА (96% ширины экрана) */
-    .conveyor-wrapper {
-        width: 96vw !important;
-        max-width: 96vw !important;
-        height: 50px !important; /* Уменьшили высоту под маленькие кружки */
-        margin: 0 auto 8px auto !important;
-    }
-    
-    /* МАЛЕНЬКИЕ ФРУКТЫ И КРУЖКИ НА ЛЕНТЕ */
-    .conveyor-tile {
-        width: 36px !important;  /* Кружок стал меньше */
-        height: 36px !important;
-        font-size: 18px !important; /* Сам фрукт стал меньше */
-        top: 7px !important; /* Центрируем по вертикали */
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        box-shadow: none !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+    #nextFruitVal {
+        font-size: 22px !important;
+        line-height: 1 !important;
+        display: block !important;
     }
 
-    /* ИГРОВОЕ ПОЛЕ (КОРОБКА) - 96% ширины, занимает всё оставшееся место */
+    /* =========================================
+       ШИРОКИЕ ЭЛЕМЕНТЫ (ЛЕНТА И ПОЛЕ НА ВЕСЬ ЭКРАН)
+       ========================================= */
+    
+    /* Шкала прогресса */
+    .progress-bar {
+        width: 98vw !important;
+        max-width: 98vw !important;
+        margin: 0 auto 8px auto !important;
+        height: 24px !important;
+    }
+    
+    /* ЛЕНТА (98% ширины экрана - как ты просил) */
+    .conveyor-wrapper {
+        width: 98vw !important;
+        max-width: 98vw !important;
+        height: 70px !important; /* Высота под большие кружки */
+        margin: 0 auto 8px auto !important;
+    }
+    
+    /* КРУЖКИ НА ЛЕНТЕ - БОЛЬШИЕ, ФРУКТ ВНУТРИ ПО ЦЕНТРУ */
+    .conveyor-tile {
+        width: 60px !important;  
+        height: 60px !important;
+        font-size: 32px !important; 
+        top: 5px !important; 
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        line-height: 1 !important;
+    }
+
+    /* ИГРОВОЕ ПОЛЕ (98% ширины экрана) */
     #game-container {
-        width: 96vw !important;
-        max-width: 96vw !important;
-        height: calc(100dvh - 200px) !important;
+        width: 98vw !important;
+        max-width: 98vw !important;
+        height: calc(100dvh - 240px) !important;
         min-height: 300px !important;
         margin: 0 auto !important;
     }
