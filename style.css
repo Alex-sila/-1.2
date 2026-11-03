@@ -709,3 +709,60 @@ h1 {
     background-size: 15px 15px !important;
     border-color: #10b981 !important;
 }
+/* =========================================
+   ВОДЯНЫЕ ЗНАКИ ИЗ ЭМОДЗИ (ВАРИАНТ 2)
+   ========================================= */
+
+#game-container::before, .conveyor-wrapper::before {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    gap: 30px;
+    font-size: 80px; /* Размер эмодзи на фоне */
+    opacity: 0.08;   /* Прозрачность (8%) */
+    pointer-events: none; /* Чтобы не мешали кликам */
+    z-index: 0;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+/* Наполняем фоны эмодзи для каждой темы */
+.theme-fruits #game-container::before, .theme-fruits .conveyor-wrapper::before {
+    content: "🍅 🍏 🥕 🍋 🍊 🍎 🍇 🍓 🍉";
+}
+
+.theme-sweets #game-container::before, .theme-sweets .conveyor-wrapper::before {
+    content: "🍬 🍭 🍩 🍪 🧁 🍰 🎂 🍫 🍨";
+}
+
+.theme-food #game-container::before, .theme-food .conveyor-wrapper::before {
+    content: "🍞 🧀 🍔 🍟 🍕 🌮 🍣 🍜 🍱";
+}
+
+.theme-pets #game-container::before, .theme-pets .conveyor-wrapper::before {
+    content: "🐣 🐹 🐰 🐱 🐶 🦊 🐼 🦁 🐉";
+}
+
+.theme-magic #game-container::before, .theme-magic .conveyor-wrapper::before {
+    content: "✨ 🔮 🪄 🧪 🧙‍♂️ 🧚‍♀️ 🦄 🐉 👑";
+}
+
+.theme-success #game-container::before, .theme-success .conveyor-wrapper::before {
+    content: "🎒 ⌚ 📱 🚗 🏠 ✈️ 🛥️ 🌍 🚀";
+}
+
+.theme-space #game-container::before, .theme-space .conveyor-wrapper::before {
+    content: "🌑 🌒 🌍 🪐 ☀️ 🌟 🌌 ☄️ 👽";
+}
+
+.theme-wealth #game-container::before, .theme-wealth .conveyor-wrapper::before {
+    content: "🪙 💵 💳 💰 💎 👑 🏦 🏝️ 🚁";
+}
+
+/* Чтобы фрукты в коробке были ПОВЕРХ водяных знаков */
+#game-container > div {
+    z-index: 10;
+}
