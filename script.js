@@ -628,7 +628,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. Смена языка через выпадающий список
-       const langSelect = document.getElementById('langSelect');
+         // Показываем окно выбора языка, если игрок зашел ВПЕРВЫЕ
+    const savedLang = localStorage.getItem('mergeLang');
+    if (!savedLang) {
+        const langModal = document.getElementById('langModal');
+        if (langModal) langModal.classList.remove('hidden');
+    }  
+    const langSelect = document.getElementById('langSelect');
     if (langSelect) {
         // Пауза для ПК (мышка) и для телефона (палец)
         langSelect.addEventListener('mousedown', () => { isGameOver = true; });
