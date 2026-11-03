@@ -174,14 +174,14 @@ h1 {
 .conveyor-tile {
   position: absolute;
   top: 5px;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   background: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 26px;
   cursor: pointer;
   box-shadow: 0 0 10px rgba(255,255,255,0.5);
   transition: transform 0.1s;
@@ -550,48 +550,3 @@ h1 {
     }
 
  }
-/* --- ИСПРАВЛЕНИЕ ДЛЯ ТЕЛЕФОНА --- */
-@media (max-width: 600px) {
-    .top-right {
-        top: 45px !important;
-        left: 5px !important;
-        right: 5px !important;
-        width: auto !important;
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        flex-wrap: nowrap !important;
-        transform: scale(0.85) !important; 
-        transform-origin: top left !important;
-        z-index: 1000;
-    }
-
-    .next-skip-box {
-        top: 95px !important;
-        right: 5px !important;
-        transform: scale(0.8) !important; 
-        transform-origin: top right !important;
-        background: transparent !important;
-        border: none !important;
-        padding: 0 !important;
-        box-shadow: none !important;
-    }
-
-    .conveyor-wrapper {
-        width: 95% !important;
-        max-width: 95% !important;
-        margin: 0 auto 10px auto !important;
-        height: 65px !important;
-    }
-
-    header {
-        margin-top: 90px !important;
-    }
-
-    #game-container {
-        height: 60vh !important; 
-        max-height: none !important; 
-        width: 90% !important; 
-        margin: 0 auto 10px auto !important; 
-    }
-}
