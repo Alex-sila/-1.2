@@ -651,20 +651,83 @@ h1 {
         margin: 0 auto !important;
     }
     /* =========================================
-   ВОДЯНЫЕ ЗНАКИ ИЗ ЭМОДЗИ (ВАРИАНТ 2)
+/* =========================================
+   СТИЛЬ "МАТОВОЕ СТЕКЛО" (GLASSMORPHISM)
    ========================================= */
 
-#game-container::before, .conveyor-wrapper::before {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-    gap: 15px;
-    font-size: 45px; /* Уменьшили с 80px до 45px для производительности */
-    opacity: 0.1;    /* Чуть более заметные, но легче */
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
+/* 1. Паттерны переезжают на фон всего экрана */
+body.theme-fruits { 
+    background: #1a1a2e radial-gradient(#22c55e 1px, transparent 1px) !important; 
+    background-size: 20px 20px !important; 
+}
+body.theme-sweets { 
+    background: #1a1a2e radial-gradient(#fbcfe8 2px, transparent 2px) !important; 
+    background-size: 25px 25px !important; 
+}
+body.theme-food { 
+    background: #1a1a2e repeating-linear-gradient(45deg, #78350f 0, #78350f 2px, transparent 2px, transparent 15px) !important; 
+}
+body.theme-pets { 
+    background: #1a1a2e radial-gradient(#3b82f6 2px, transparent 2px) !important; 
+    background-size: 30px 30px !important; 
+}
+body.theme-magic { 
+    background: #1a1a2e radial-gradient(#a855f7 1.5px, transparent 1.5px) !important; 
+    background-size: 15px 15px !important; 
+}
+body.theme-success { 
+    background: #1a1a2e linear-gradient(#fbbf24 1px, transparent 1px), linear-gradient(90deg, #fbbf24 1px, transparent 1px) !important; 
+    background-size: 20px 20px !important; 
+}
+body.theme-space { 
+    background: #1a1a2e radial-gradient(#fff 1px, transparent 1px), radial-gradient(#fff 1px, transparent 1px) !important; 
+    background-size: 50px 50px !important; 
+    background-position: 0 0, 25px 25px !important; 
+}
+body.theme-wealth { 
+    background: #1a1a2e linear-gradient(#10b981 1px, transparent 1px), linear-gradient(90deg, #10b981 1px, transparent 1px) !important; 
+    background-size: 15px 15px !important; 
+}
+
+/* 2. Коробка и лента становятся матовым стеклом (размывают фон за собой) */
+#game-container, .conveyor-wrapper {
+    background: rgba(255, 255, 255, 0.05) !important; /* Полупрозрачный белый */
+    backdrop-filter: blur(15px) !important; /* Размытие фона (эффект стекла) */
+    -webkit-backdrop-filter: blur(15px) !important; /* Для Safari */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important; /* Тень для объема */
+    transition: all 0.3s ease !important;
+}
+
+/* 3. Светящиеся рамки в цвет темы */
+.theme-fruits #game-container, .theme-fruits .conveyor-wrapper {
+    border: 2px solid rgba(34, 197, 94, 0.6) !important;
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.2), inset 0 0 20px rgba(34, 197, 94, 0.1) !important;
+}
+.theme-sweets #game-container, .theme-sweets .conveyor-wrapper {
+    border: 2px solid rgba(236, 72, 153, 0.6) !important;
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.2), inset 0 0 20px rgba(236, 72, 153, 0.1) !important;
+}
+.theme-food #game-container, .theme-food .conveyor-wrapper {
+    border: 2px solid rgba(245, 158, 11, 0.6) !important;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.2), inset 0 0 20px rgba(245, 158, 11, 0.1) !important;
+}
+.theme-pets #game-container, .theme-pets .conveyor-wrapper {
+    border: 2px solid rgba(59, 130, 246, 0.6) !important;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2), inset 0 0 20px rgba(59, 130, 246, 0.1) !important;
+}
+.theme-magic #game-container, .theme-magic .conveyor-wrapper {
+    border: 2px solid rgba(168, 85, 247, 0.6) !important;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.2), inset 0 0 20px rgba(168, 85, 247, 0.1) !important;
+}
+.theme-success #game-container, .theme-success .conveyor-wrapper {
+    border: 2px solid rgba(251, 191, 36, 0.6) !important;
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.2), inset 0 0 20px rgba(251, 191, 36, 0.1) !important;
+}
+.theme-space #game-container, .theme-space .conveyor-wrapper {
+    border: 2px solid rgba(99, 102, 241, 0.6) !important;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2), inset 0 0 20px rgba(99, 102, 241, 0.1) !important;
+}
+.theme-wealth #game-container, .theme-wealth .conveyor-wrapper {
+    border: 2px solid rgba(16, 185, 129, 0.6) !important;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.2), inset 0 0 20px rgba(16, 185, 129, 0.1) !important;
 }
