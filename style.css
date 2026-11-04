@@ -162,7 +162,7 @@ h1 {
 .conveyor-wrapper {
     background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 10px, transparent 10px, transparent 40px) !important;
     background-size: 40px 100% !important;
-    /* animation: moveBelt 1.5s linear infinite !important;  <-- УДАЛИЛИ ИЛИ ЗАКОММЕНТИРОВАЛИ */
+    animation: moveBelt 1.66s linear infinite !important;
 }
 .conveyor-tile {
   position: absolute;
@@ -746,3 +746,7 @@ body.theme-wealth {
 }
 body.theme-wealth #game-container, body.theme-wealth .conveyor-wrapper { border: 2px solid rgba(16, 185, 129, 0.3) !important; box-shadow: 0 0 15px rgba(16, 185, 129, 0.1) !important; }
 body.theme-wealth .icon-btn, body.theme-wealth #shopBtn, body.theme-wealth .next-skip-box, body.theme-wealth .coin-box { border-color: #10b981 !important; color: #10b981 !important; background: rgba(10, 15, 25, 0.8) !important; }
+@keyframes moveBelt {
+    0% { background-position: 0px 0px; }
+    100% { background-position: 40px 0px; } /* Плюс = движение вправо */
+}

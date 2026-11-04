@@ -487,39 +487,42 @@ function removeFruit(body) {
 }
 
 function updateDOM() {
-  // ПАУЗА, ЕСЛИ ОТКРЫТО МЕНЮ (МАГАЗИН ИЛИ БОНУС)
-const activeModal = document.querySelector('.modal:not(.hidden)');
-if (activeModal) {
-animationId = requestAnimationFrame(updateDOM); // Продолжаем цикл, сохраняя ID
-    return; // Останавливаем движение конвейера и физику
-}
-  if (!isGameOver) {
-        // Двигаем фон ленты с той же скоростью, что и фрукты
-     beltOffset += tileSpeed;
-     conveyorWrapper.style.backgroundPosition = `${beltOffset}px 0`; 
-    for (let i = conveyorTiles.length - 1; i >= 0; i--) {
-      const t = conveyorTiles[i];
-      t.x += tileSpeed;
-      t.el.style.left = t.x + 'px';
-      if (t.x > width + 70) {
-        t.el.remove();
-        conveyorTiles.splice(i, 1);
-        loseLife();
-      }
+    // ПАУЗА, ЕСЛИ ОТКРЫТО МЕНЮ
+    const activeModal = document.querySelector('.modal:not(.hidden)');
+    if (activeModal) {
+        animationId = requestAnimationFrame(updateDOM);
+        return;
     }
-    const now = performance.now();
-    if (now - lastSpawnTime > spawnInterval) {
-      spawnConveyorTile();
-      lastSpawnTime = now;
+    
+    if (!isGameOver) {
+        // Двигаем фрукты
+        for (let i = conveyorTiles.length - 1; i >= 0; i--) {
+            const t = conveyorTiles[i];
+            t.x += tileSpeed;
+            t.el.style.left = t.x + 'px';
+            if (t.x > width + 70) {
+                t.el.remove();
+                conveyorTiles.splice(i, 1);
+                loseLife();
+            }
+        }
+        
+        // Спавн новых фруктов
+        const now = performance.now();
+        if (now - lastSpawnTime > spawnInterval) {
+            spawnConveyorTile();
+            lastSpawnTime = now;
+        }
     }
-  }
-  activeBodies.forEach(body => {
-    if (body.domEl) {
-      body.domEl.style.left = (body.position.x - body.circleRadius) + 'px';
-      body.domEl.style.top = (body.position.y - body.circleRadius) + 'px';
-    }
-  });
-  animationId = requestAnimationFrame(updateDOM);
+    
+    // Обновляем позиции физических тел
+    activeBodies.forEach(body => {
+        if (body.domEl) {
+            body.domEl.style.left = (body.position.x - body.circleRadius) + 'px';
+            body.domEl.style.top = (body.position.y - body.circleRadius) + 'px';
+        }
+    });
+    animationId = requestAnimationFrame(updateDOM);
 }
 
 function loseLife() {
