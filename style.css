@@ -17,736 +17,196 @@ body {
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
-  padding: 10px;
+  transition: background 0.5s ease;
 }
 
+/* БАЗОВЫЕ СТИЛИ */
 .top-header {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 100;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  background: #16213e;
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px solid #38bdf8;
+  position: absolute; top: 10px; left: 10px; z-index: 100;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  background: #16213e; padding: 6px 10px; border-radius: 8px; border: 1px solid #38bdf8;
 }
-
-.lang-select {
-  background: transparent;
-  color: #fff;
-  border: none;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  outline: none;
-}
-
-.lang-select option {
-  background: #1e293b;
-  color: #fff;
-}
+.lang-select { background: transparent; color: #fff; border: none; font-size: 14px; font-weight: bold; cursor: pointer; outline: none; }
+.lang-select option { background: #1e293b; color: #fff; }
 
 .top-right {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 100;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
+  position: absolute; top: 10px; right: 10px; z-index: 100;
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
 }
-
-.coin-box {
-  background: #16213e;
-  border: 1px solid #fbbf24;
-  padding: 5px 10px;
-  border-radius: 8px;
-  font-weight: bold;
-  color: #fbbf24;
-}
-
+.coin-box { background: #16213e; border: 1px solid #fbbf24; padding: 5px 10px; border-radius: 8px; font-weight: bold; color: #fbbf24; }
 .icon-btn {
-  background: #16213e;
-  border: 1px solid #38bdf8;
-  color: #fff;
-  height: 40px;
-  min-width: 40px;
-  border-radius: 20px;
-  font-size: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #16213e; border: 1px solid #38bdf8; color: #fff;
+  height: 40px; min-width: 40px; border-radius: 20px; font-size: 20px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
 }
+#hammerBtn.active { background: #e94560; border-color: #e94560; box-shadow: 0 0 15px #e94560; transform: scale(1.1); }
+
 @keyframes pulseGift {
   0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7); }
   70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
   100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
 }
+.gift-active { animation: pulseGift 1.5s infinite; border-color: #fbbf24 !important; color: #fbbf24 !important; }
 
-.gift-active {
-  animation: pulseGift 1.5s infinite;
-  border-color: #fbbf24 !important;
-  color: #fbbf24 !important;
-}
-
-header {
-  text-align: center;
-  margin-bottom: 5px;
-  z-index: 10;
-  margin-top: 40px;
-}
-
-h1 {
-  font-size: 22px;
-  color: #e94560;
-  text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
-}
-
-.stats-row {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 5px;
-  font-size: 14px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.level-badge {
-  background: #fbbf24;
-  color: #1a1a2e;
-  padding: 2px 8px;
-  border-radius: 20px;
-  font-weight: bold;
-}
+header { text-align: center; margin-bottom: 5px; z-index: 10; margin-top: 40px; }
+h1 { font-size: 22px; color: #e94560; text-shadow: 0 0 10px rgba(233, 69, 96, 0.5); }
+.stats-row { display: flex; gap: 10px; justify-content: center; margin-top: 5px; font-size: 14px; align-items: center; flex-wrap: wrap; }
+.level-badge { background: #fbbf24; color: #1a1a2e; padding: 2px 8px; border-radius: 20px; font-weight: bold; }
 
 .progress-bar {
-  width: 100%;
-  max-width: 400px;
-  height: 30px;
-  background: #16213e;
-  border-radius: 15px;
-  margin: 10px 0;
-  display: flex;
-  align-items: center;
-  padding: 0 5px;
-  gap: 2px;
-  border: 1px solid #0f3460;
+  width: 100%; max-width: 400px; height: 30px; background: #16213e; border-radius: 15px;
+  margin: 10px 0; display: flex; align-items: center; padding: 0 5px; gap: 2px; border: 1px solid #0f3460;
 }
-
 .progress-fruit {
-  flex: 1;
-  height: 24px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  background: #0f3460;
-  opacity: 0.3;
-  transition: 0.3s;
+  flex: 1; height: 24px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; background: #0f3460; opacity: 0.3; transition: 0.3s;
 }
-
-.progress-fruit.unlocked {
-  opacity: 1;
-  background: #1e293b;
-  box-shadow: 0 0 5px #38bdf8;
-}
+.progress-fruit.unlocked { opacity: 1; background: #1e293b; box-shadow: 0 0 5px #38bdf8; }
 
 .conveyor-wrapper {
-    background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 10px, transparent 10px, transparent 40px) !important;
-    background-size: 40px 100% !important;
-    animation: moveBelt 1.66s linear infinite !important;
+  width: 100%; max-width: 400px; height: 70px; background: #16213e; border: 2px solid #0f3460;
+  border-radius: 10px; margin-bottom: 10px; position: relative; overflow: hidden;
 }
 .conveyor-tile {
-  position: absolute;
-  top: 5px;
-  width: 60px;
-  height: 60px;
-  background: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(255,255,255,0.5);
-  transition: transform 0.1s;
-  z-index: 10;
+  position: absolute; top: 5px; width: 60px; height: 60px; background: #fff; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 32px; cursor: pointer;
+  box-shadow: 0 0 10px rgba(255,255,255,0.5); transition: transform 0.1s; z-index: 10;
 }
-
-.conveyor-tile:active {
-  transform: scale(1.1);
-}
-
-.conveyor-tile.golden {
-  box-shadow: 0 0 20px #fbbf24, 0 0 40px #fbbf24;
-  border: 2px solid #fbbf24;
-}
+.conveyor-tile:active { transform: scale(1.1); }
+.conveyor-tile.golden { box-shadow: 0 0 20px #fbbf24, 0 0 40px #fbbf24; border: 2px solid #fbbf24; }
 
 .next-skip-box {
-  position: absolute;
-  top: 60px;
-  right: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  z-index: 100;
-  align-items: center;
-  background: #16213e;
-  padding: 5px 15px;
-  border-radius: 10px;
-  border: 1px solid #0f3460;
+  position: absolute; top: 60px; right: 10px; display: flex; flex-direction: column;
+  gap: 5px; z-index: 100; align-items: center; background: #16213e; padding: 5px 15px;
+  border-radius: 10px; border: 1px solid #0f3460;
 }
-
 .next-fruit {
-  background: #0f172a;
-  border: 2px solid #38bdf8;
-  border-radius: 10px;
-  padding: 5px;
-  font-size: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+  background: #0f172a; border: 2px solid #38bdf8; border-radius: 10px; padding: 5px;
+  font-size: 24px; display: flex; flex-direction: column; align-items: center; width: 100%;
 }
-
-.next-label {
-  font-size: 10px;
-  color: #94a3b8;
-  margin-bottom: 2px;
-}
-
-.skip-btn {
-  background: #38bdf8;
-  color: #0f172a;
-  border: none;
-  padding: 8px 10px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.skip-btn:disabled {
-  background: #475569;
-  color: #94a3b8;
-  cursor: not-allowed;
-}
+.next-label { font-size: 10px; color: #94a3b8; margin-bottom: 2px; }
 
 #game-container {
-  width: 100%;
-  max-width: 400px;
-  height: 65vh;
-  background: #16213e;
-  border: 4px solid #0f3460;
-  border-radius: 10px;
-  position: relative;
-  overflow: hidden;
-  touch-action: none;
+  width: 100%; max-width: 400px; height: 65vh; background: #16213e; border: 4px solid #0f3460;
+  border-radius: 10px; position: relative; overflow: hidden; touch-action: none;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
 }
 
-.hint {
-  margin-top: 10px;
-  color: #94a3b8;
-  font-size: 12px;
-  text-align: center;
-  z-index: 10;
-}
+.btn { background: #e94560; color: #fff; border: none; padding: 8px 15px; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 5px; z-index: 10; }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+.merge-animation { animation: pulse 0.3s ease-out; }
 
-.btn {
-  background: #e94560;
-  color: #fff;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 5px;
-  z-index: 10;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.4); }
-  100% { transform: scale(1); }
-}
-
-.merge-animation {
-  animation: pulse 0.3s ease-out;
-}
-
-.particle {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 50;
-  animation: particleFly 0.5s ease-out forwards;
-}
-
-@keyframes particleFly {
-  0% { opacity: 1; transform: translate(0, 0); }
-  100% { opacity: 0; transform: translate(var(--dx), var(--dy)); }
-}
+.particle { position: absolute; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; z-index: 50; animation: particleFly 0.5s ease-out forwards; }
+@keyframes particleFly { 0% { opacity: 1; transform: translate(0, 0); } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)); } }
 
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 20px;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; padding: 20px;
 }
+.modal h2 { margin-bottom: 15px; color: #38bdf8; }
+.modal-close { position: absolute; top: 15px; right: 15px; background: #e94560; border: none; color: #fff; width: 30px; height: 30px; border-radius: 50%; font-size: 18px; cursor: pointer; }
 
-.modal h2 {
-  margin-bottom: 15px;
-  color: #38bdf8;
-}
+.lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.lang-btn { background: #1e293b; color: #fff; border: 2px solid #38bdf8; padding: 10px 20px; border-radius: 8px; font-size: 16px; cursor: pointer; transition: 0.2s; }
+.lang-btn:hover { background: #38bdf8; color: #0f172a; }
 
-.modal-close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: #e94560;
-  border: none;
-  color: #fff;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  font-size: 18px;
-  cursor: pointer;
-}
+.shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: 400px; max-height: 60vh; overflow-y: auto; padding: 10px; }
+.shop-card { background: #16213e; border: 2px solid #0f3460; border-radius: 10px; padding: 10px; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.shop-card.active { border-color: #10b981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
+.shop-card .theme-preview { font-size: 24px; }
+.shop-card .theme-name { font-size: 14px; font-weight: bold; }
+.shop-card .theme-price { font-size: 12px; color: #fbbf24; }
+.shop-card button { background: #38bdf8; border: none; color: #0f172a; padding: 5px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 5px; }
+.shop-card button:disabled { background: #475569; color: #94a3b8; cursor: not-allowed; }
+.shop-card button.owned { background: #10b981; color: #fff; }
+.shop-card button.active-btn { background: #e94560; color: #fff; }
+.hidden { display: none !important; }
 
-.lang-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.lang-btn {
-  background: #1e293b;
-  color: #fff;
-  border: 2px solid #38bdf8;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.lang-btn:hover {
-  background: #38bdf8;
-  color: #0f172a;
-}
-
-.shop-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  width: 100%;
-  max-width: 400px;
-  max-height: 60vh;
-  overflow-y: auto;
-  padding: 10px;
-}
-
-.shop-card {
-  background: #16213e;
-  border: 2px solid #0f3460;
-  border-radius: 10px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-}
-.shop-card.buy-flash {
-  animation: buyFlashAnim 0.5s ease-out;
-}
-
-@keyframes buyFlashAnim {
-  0% { background: #10b981; transform: scale(1.05); }
-  100% { background: #16213e; transform: scale(1); }
-}
-
-.shop-card.active {
-  border-color: #10b981;
-  box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
-}
-
-.shop-card .theme-preview {
-  font-size: 24px;
-}
-
-.shop-card .theme-name {
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.shop-card .theme-price {
-  font-size: 12px;
-  color: #fbbf24;
-}
-
-.shop-card button {
-  background: #38bdf8;
-  border: none;
-  color: #0f172a;
-  padding: 5px 15px;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 5px;
-}
-
-.shop-card button:disabled {
-  background: #475569;
-  color: #94a3b8;
-  cursor: not-allowed;
-}
-
-.shop-card button.owned {
-  background: #10b981;
-  color: #fff;
-}
-
-.shop-card button.active-btn {
-  background: #e94560;
-  color: #fff;
-}
-
-.daily-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  max-width: 400px;
-  margin-top: 15px;
-}
-
-.daily-day {
-  background: #16213e;
-  border: 1px solid #0f3460;
-  border-radius: 8px;
-  padding: 10px 5px;
-  text-align: center;
-  font-size: 12px;
-}
-
-.daily-day.claimed {
-  border-color: #10b981;
-  opacity: 0.6;
-}
-
-.daily-day.today {
-  border-color: #fbbf24;
-  box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
-}
-
-.daily-day .day-num {
-  font-weight: bold;
-  margin-bottom: 3px;
-}
-
-.daily-day .day-reward {
-  color: #fbbf24;
-  font-weight: bold;
-}
-
-.hidden {
-  display: none !important;
-}
 /* =========================================
-@media (max-width: 600px) {
-    /* Убираем отступы у страницы */
-    body {
-        padding: 0 !important;
-        margin: 0 !important;
-        overflow: hidden !important;
-    }
-    
-    /* Общий контейнер */
-    .game-wrapper {
-        padding-top: 160px !important;
-        width: 100vw !important;
-        height: 100dvh !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-    }
-
-    /* СТРОКА 1: Русский (слева) и Магазин (справа) */
-    .top-header {
-        position: absolute !important;
-        top: 10px !important;
-        left: 2vw !important;
-        width: 46vw !important;
-        height: 40px !important;
-        padding: 0 !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        transform: none !important;
-    }
-    .lang-select {
-        width: 100% !important;
-        text-align: center !important;
-        font-size: 14px !important;
-    }
-    .top-right { display: contents !important; }
-    #shopBtn {
-        position: absolute !important;
-        top: 10px !important;
-        right: 2vw !important;
-        width: 46vw !important;
-        height: 40px !important;
-        display: flex !important;
-        justify-content: center !important;
-        font-size: 14px !important;
-    }
-    #exitBtn { display: none !important; }
-
-    /* СТРОКА 2: Заголовок и Статистика */
-    header {
-        position: absolute !important;
-        top: 55px !important;
-        left: 0 !important;
-        width: 100vw !important;
-        margin: 0 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-    }
-    h1#titleText {
-        font-size: 26px !important;
-        margin-bottom: 5px !important;
-        color: #38bdf8 !important;
-        text-shadow: 0 0 15px rgba(56, 189, 248, 0.8) !important;
-    }
-    .stats-row {
-        font-size: 12px !important;
-        gap: 12px !important;
-    }
-
-    /* СТРОКА 3: Монеты, Подарок, Звук, Следующий (ОПУСТИЛИ ДО 112px) */
-    .coin-box {
-        position: absolute !important;
-        top: 112px !important;
-        left: 2vw !important;
-        height: 40px !important;
-        display: flex !important;
-        align-items: center !important;
-        font-size: 14px !important;
-    }
-    #dailyBtn {
-        position: absolute !important;
-        top: 112px !important;
-        left: 20vw !important;
-        height: 40px !important;
-        width: 40px !important;
-    }
-    #soundBtn {
-        position: absolute !important;
-        top: 112px !important;
-        right: 20vw !important;
-        height: 40px !important;
-        width: 40px !important;
-    }
-    
-    /* Окно "Следующий" */
-    .next-skip-box {
-        position: absolute !important;
-        top: 112px !important;
-        right: 2vw !important;
-        height: 40px !important;
-        width: 48px !important; 
-        padding: 0 !important;
-        background: #16213e !important;
-        border: 1px solid #38bdf8 !important;
-        border-radius: 8px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important; 
-        transform: none !important;
-    }
-    .next-label { display: none !important; }
-    .next-fruit {
-        padding: 0 !important;
-        margin: 0 !important;
-        border: none !important;
-        background: transparent !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        box-shadow: none !important;
-        width: 100% !important;
-        height: 100% !important;
-    }
-    #nextFruitVal {
-        font-size: 22px !important;
-        line-height: 1 !important;
-        display: block !important;
-    }
-
-    /* ШИРОКИЕ ЭЛЕМЕНТЫ */
-    .progress-bar {
-        width: 98vw !important;
-        max-width: 98vw !important;
-        margin: 0 auto 8px auto !important;
-        height: 24px !important;
-    }
-    
-    /* ЛЕНТА */
-    .conveyor-wrapper {
-        width: 98vw !important;
-        max-width: 98vw !important;
-        height: 70px !important; 
-        margin: 0 auto 8px auto !important;
-    }
-    
-    /* КРУЖКИ НА ЛЕНТЕ */
-    .conveyor-tile {
-        width: 60px !important;  
-        height: 60px !important;
-        font-size: 32px !important; 
-        top: 5px !important; 
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        line-height: 1 !important;
-    }
-
-    /* ИГРОВОЕ ПОЛЕ */
-    #game-container {
-        width: 98vw !important;
-        max-width: 98vw !important;
-        height: calc(100dvh - 240px) !important;
-        min-height: 300px !important;
-        margin: 0 auto !important;
-    }
-    /* =========================================
-/* =========================================
-/* =========================================
-   КОМФОРТНЫЙ ВИЗУАЛ: ТЕМНОЕ СТЕКЛО + СИНХРОННАЯ ЛЕНТА
+   МОБИЛЬНАЯ ВЕРСТКА (ТЕЛЕФОНЫ)
    ========================================= */
+@media (max-width: 600px) {
+    body { padding: 0 !important; overflow: hidden !important; }
+    .game-wrapper { padding-top: 160px !important; width: 100vw !important; height: 100dvh !important; display: flex; flex-direction: column; align-items: center; }
 
-/* 1. Фон двигается очень медленно и плавно */
-@keyframes driftPattern {
-    0% { background-position: 0px 0px; }
-    100% { background-position: 50px 50px; }
+    /* 1. Язык слева, Магазин справа */
+    .top-header { position: absolute !important; top: 10px !important; left: 2vw !important; width: 46vw !important; height: 40px !important; padding: 0 !important; display: flex; justify-content: center; align-items: center; transform: none !important; z-index: 1000; }
+    .lang-select { width: 100% !important; text-align: center !important; font-size: 14px !important; }
+    
+    .top-right { display: contents !important; }
+    #shopBtn { position: absolute !important; top: 10px !important; right: 2vw !important; width: 46vw !important; height: 40px !important; display: flex !important; justify-content: center !important; font-size: 14px !important; z-index: 1000; }
+    #exitBtn { display: none !important; }
+    
+    /* 2. Заголовок и Статистика */
+    header { position: absolute !important; top: 55px !important; left: 0 !important; width: 100vw !important; margin: 0 !important; display: flex; flex-direction: column; align-items: center; z-index: 1000; }
+    h1#titleText { font-size: 26px !important; margin-bottom: 5px !important; color: #38bdf8 !important; text-shadow: 0 0 15px rgba(56, 189, 248, 0.8) !important; }
+    .stats-row { font-size: 12px !important; gap: 12px !important; }
+    
+    /* 3. Монеты, Подарок, Звук, Молоток, Следующий */
+    .coin-box { position: absolute !important; top: 112px !important; left: 2vw !important; height: 40px !important; display: flex !important; align-items: center !important; font-size: 14px !important; z-index: 1000; }
+    #dailyBtn { position: absolute !important; top: 112px !important; left: 20vw !important; height: 40px !important; width: 40px !important; z-index: 1000; }
+    #soundBtn { position: absolute !important; top: 112px !important; right: 20vw !important; height: 40px !important; width: 40px !important; z-index: 1000; }
+    #hammerBtn { position: absolute !important; top: 112px !important; right: 35vw !important; height: 40px !important; width: 40px !important; z-index: 1000; }
+    
+    .next-skip-box { position: absolute !important; top: 112px !important; right: 2vw !important; height: 40px !important; width: 48px !important; padding: 0 !important; background: #16213e !important; border: 1px solid #38bdf8 !important; border-radius: 8px !important; display: flex !important; align-items: center !important; justify-content: center !important; transform: none !important; z-index: 1000; }
+    .next-label { display: none !important; }
+    .next-fruit { padding: 0 !important; border: none !important; background: transparent !important; display: flex !important; align-items: center !important; justify-content: center !important; box-shadow: none !important; width: 100% !important; height: 100% !important; }
+    #nextFruitVal { font-size: 22px !important; line-height: 1 !important; display: block !important; }
+
+    /* 4. Игровая зона */
+    .progress-bar { width: 98vw !important; max-width: 98vw !important; margin: 0 auto 8px auto !important; height: 24px !important; }
+    .conveyor-wrapper { width: 98vw !important; max-width: 98vw !important; height: 60px !important; margin: 0 auto 8px auto !important; }
+    .conveyor-tile { width: 50px !important; height: 50px !important; font-size: 26px !important; top: 5px !important; }
+    #game-container { width: 98vw !important; max-width: 98vw !important; height: calc(100dvh - 240px) !important; min-height: 300px !important; margin: 0 auto !important; }
 }
 
-/* 2. Лента конвейера движется СТРОГО СЛЕВА НАПРАВО */
-
-/* 3. Коробка и лента - темное матовое стекло (глаза больше не устают) */
+/* =========================================
+   МАТОВОЕ СТЕКЛО И ТЕМЫ
+   ========================================= */
 #game-container, .conveyor-wrapper {
-    background-color: rgba(10, 15, 25, 0.65) !important; /* Темная полупрозрачная основа */
-    backdrop-filter: blur(12px) !important; /* Размытие */
+    background-color: rgba(10, 15, 25, 0.65) !important; 
+    backdrop-filter: blur(12px) !important; 
     -webkit-backdrop-filter: blur(12px) !important; 
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6) !important; /* Внутренняя тень для объема */
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6) !important; 
     transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
 }
 
-/* 4. Узор самой ленты (движется синхронно с фруктами) */
-.conveyor-wrapper {
-    background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 10px, transparent 10px, transparent 40px) !important;
-    background-size: 40px 100% !important;
-}
-
-/* =========================================
-   ТЕМЫ (Приглушенные, темные цвета)
-   ========================================= */
-
-/* 1. ФРУКТЫ (Темно-изумрудный) */
-body.theme-fruits {
-    background: #08120d radial-gradient(rgba(34, 197, 94, 0.15) 2px, transparent 2px) !important;
-    background-size: 35px 35px !important;
-    animation: driftPattern 25s linear infinite !important;
-}
+/* 1. ФРУКТЫ */
+body.theme-fruits { background: #08120d radial-gradient(rgba(34, 197, 94, 0.15) 2px, transparent 2px) !important; background-size: 35px 35px !important; }
 body.theme-fruits #game-container, body.theme-fruits .conveyor-wrapper { border: 2px solid rgba(34, 197, 94, 0.3) !important; box-shadow: 0 0 15px rgba(34, 197, 94, 0.1) !important; }
 body.theme-fruits .icon-btn, body.theme-fruits #shopBtn, body.theme-fruits .next-skip-box, body.theme-fruits .coin-box { border-color: #22c55e !important; color: #22c55e !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 2. СЛАДОСТИ (Темно-вишневый) */
-body.theme-sweets {
-    background: #140710 radial-gradient(rgba(236, 72, 153, 0.15) 2px, transparent 2px) !important;
-    background-size: 35px 35px !important;
-    animation: driftPattern 25s linear infinite !important;
-}
+/* 2. СЛАДОСТИ */
+body.theme-sweets { background: #140710 radial-gradient(rgba(236, 72, 153, 0.15) 2px, transparent 2px) !important; background-size: 35px 35px !important; }
 body.theme-sweets #game-container, body.theme-sweets .conveyor-wrapper { border: 2px solid rgba(236, 72, 153, 0.3) !important; box-shadow: 0 0 15px rgba(236, 72, 153, 0.1) !important; }
 body.theme-sweets .icon-btn, body.theme-sweets #shopBtn, body.theme-sweets .next-skip-box, body.theme-sweets .coin-box { border-color: #ec4899 !important; color: #ec4899 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 3. ЕДА (Темно-коричневый) */
-body.theme-food {
-    background: #140a03 repeating-linear-gradient(45deg, rgba(120, 53, 15, 0.2) 0, rgba(120, 53, 15, 0.2) 2px, transparent 2px, transparent 20px) !important;
-    animation: driftPattern 25s linear infinite !important;
-}
+/* 3. ЕДА */
+body.theme-food { background: #140a03 repeating-linear-gradient(45deg, rgba(120, 53, 15, 0.2) 0, rgba(120, 53, 15, 0.2) 2px, transparent 2px, transparent 20px) !important; }
 body.theme-food #game-container, body.theme-food .conveyor-wrapper { border: 2px solid rgba(245, 158, 11, 0.3) !important; box-shadow: 0 0 15px rgba(245, 158, 11, 0.1) !important; }
 body.theme-food .icon-btn, body.theme-food #shopBtn, body.theme-food .next-skip-box, body.theme-food .coin-box { border-color: #f59e0b !important; color: #f59e0b !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 4. ПИТОМЦЫ (Темно-синий) */
-body.theme-pets {
-    background: #060c14 radial-gradient(rgba(59, 130, 246, 0.15) 2px, transparent 2px) !important;
-    background-size: 40px 40px !important;
-    animation: driftPattern 25s linear infinite !important;
-}
+/* 4. ПИТОМЦЫ */
+body.theme-pets { background: #060c14 radial-gradient(rgba(59, 130, 246, 0.15) 2px, transparent 2px) !important; background-size: 40px 40px !important; }
 body.theme-pets #game-container, body.theme-pets .conveyor-wrapper { border: 2px solid rgba(59, 130, 246, 0.3) !important; box-shadow: 0 0 15px rgba(59, 130, 246, 0.1) !important; }
 body.theme-pets .icon-btn, body.theme-pets #shopBtn, body.theme-pets .next-skip-box, body.theme-pets .coin-box { border-color: #3b82f6 !important; color: #3b82f6 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 5. МАГИЯ (Темно-фиолетовый) */
-body.theme-magic {
-    background: #0a0414 radial-gradient(rgba(168, 85, 247, 0.15) 2px, transparent 2px) !important;
-    background-size: 30px 30px !important;
-    animation: driftPattern 25s linear infinite !important;
-}
+/* 5. МАГИЯ */
+body.theme-magic { background: #0a0414 radial-gradient(rgba(168, 85, 247, 0.15) 2px, transparent 2px) !important; background-size: 30px 30px !important; }
 body.theme-magic #game-container, body.theme-magic .conveyor-wrapper { border: 2px solid rgba(168, 85, 247, 0.3) !important; box-shadow: 0 0 15px rgba(168, 85, 247, 0.1) !important; }
 body.theme-magic .icon-btn, body.theme-magic #shopBtn, body.theme-magic .next-skip-box, body.theme-magic .coin-box { border-color: #a855f7 !important; color: #a855f7 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 6. УСПЕХ (Черно-золотой) */
-body.theme-success {
-    background: #0d0d0d linear-gradient(rgba(251, 191, 36, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(251, 191, 36, 0.1) 1px, transparent 1px) !important;
-    background-size: 25px 25px !important;
-    animation: driftPattern 25s linear infinite !important;
-}
+/* 6. УСПЕХ */
+body.theme-success { background: #0d0d0d linear-gradient(rgba(251, 191, 36, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(251, 191, 36, 0.1) 1px, transparent 1px) !important; background-size: 25px 25px !important; }
 body.theme-success #game-container, body.theme-success .conveyor-wrapper { border: 2px solid rgba(251, 191, 36, 0.3) !important; box-shadow: 0 0 15px rgba(251, 191, 36, 0.1) !important; }
 body.theme-success .icon-btn, body.theme-success #shopBtn, body.theme-success .next-skip-box, body.theme-success .coin-box { border-color: #fbbf24 !important; color: #fbbf24 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 7. КОСМОС (Глубокий космос) */
-body.theme-space {
-    background: #01030a radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px) !important;
-    background-size: 50px 50px !important;
-    animation: driftPattern 25s linear infinite !important;
-}
+/* 7. КОСМОС */
+body.theme-space { background: #01030a radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px) !important; background-size: 50px 50px !important; }
 body.theme-space #game-container, body.theme-space .conveyor-wrapper { border: 2px solid rgba(99, 102, 241, 0.3) !important; box-shadow: 0 0 15px rgba(99, 102, 241, 0.1) !important; }
 body.theme-space .icon-btn, body.theme-space #shopBtn, body.theme-space .next-skip-box, body.theme-space .coin-box { border-color: #6366f1 !important; color: #6366f1 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 8. БОГАТСТВО (Темный изумруд) */
-body.theme-wealth {
-    background: #02120e linear-gradient(rgba(16, 185, 129, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.1) 1px, transparent 1px) !important;
-    background-size: 20px 20px !important;
-    animation: driftPattern 25s linear infinite !important;
-}
+/* 8. БОГАТСТВО */
+body.theme-wealth { background: #02120e linear-gradient(rgba(16, 185, 129, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.1) 1px, transparent 1px) !important; background-size: 20px 20px !important; }
 body.theme-wealth #game-container, body.theme-wealth .conveyor-wrapper { border: 2px solid rgba(16, 185, 129, 0.3) !important; box-shadow: 0 0 15px rgba(16, 185, 129, 0.1) !important; }
 body.theme-wealth .icon-btn, body.theme-wealth #shopBtn, body.theme-wealth .next-skip-box, body.theme-wealth .coin-box { border-color: #10b981 !important; color: #10b981 !important; background: rgba(10, 15, 25, 0.8) !important; }
-@keyframes moveBelt {
-    0% { background-position: 0px 0px; }
-    100% { background-position: 40px 0px; } /* Плюс = движение вправо */
-}
