@@ -508,6 +508,18 @@ function updateDOM() {
         return;
     }
     
+    if (!isGameOver) {
+        // Двигаем фрукты
+        for (let i = conveyorTiles.length - 1; i >= 0; i--) {
+            const t = conveyorTiles[i];
+            t.x += tileSpeed;
+            t.el.style.left = t.x + 'px';
+            if (t.x > width + 70) {
+                t.el.remove();
+                conveyorTiles.splice(i, 1);
+                loseLife();
+            }
+        }
         
         // Спавн новых фруктов
         const now = performance.now();
@@ -515,8 +527,8 @@ function updateDOM() {
             spawnConveyorTile();
             lastSpawnTime = now;
         }
-    }
-    
+    } // <-- ЭТА СКОБКА ЗАКРЫВАЕТ if (!isGameOver)
+
     // Обновляем позиции физических тел
     activeBodies.forEach(body => {
         if (body.domEl) {
