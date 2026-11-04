@@ -656,10 +656,6 @@ h1 {
 }
 
 /* 2. Лента конвейера движется СТРОГО СЛЕВА НАПРАВО */
-@keyframes moveBelt {
-    0% { background-position: 0px 0px; }
-    100% { background-position: 40px 0px; } /* Движение вправо */
-}
 
 /* 3. Коробка и лента - темное матовое стекло (глаза больше не устают) */
 #game-container, .conveyor-wrapper {
@@ -667,14 +663,13 @@ h1 {
     backdrop-filter: blur(12px) !important; /* Размытие */
     -webkit-backdrop-filter: blur(12px) !important; 
     box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6) !important; /* Внутренняя тень для объема */
-    transition: all 0.3s ease !important;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 /* 4. Узор самой ленты (движется синхронно с фруктами) */
 .conveyor-wrapper {
     background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 10px, transparent 10px, transparent 40px) !important;
     background-size: 40px 100% !important;
-    animation: moveBelt 1.5s linear infinite !important; 
 }
 
 /* =========================================
