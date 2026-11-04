@@ -657,156 +657,102 @@ h1 {
 
 /* Анимация движения паттернов */
 /* Анимация движения паттернов */
+/* =========================================
+   ИДЕАЛЬНЫЙ ВИЗУАЛ: СТЕКЛО + ПЛАВНЫЙ ФОН
+   ========================================= */
+
+/* 1. Анимация мягкого движения фона */
 @keyframes driftPattern {
     0% { background-position: 0px 0px; }
     100% { background-position: 50px 50px; }
 }
 
-/* Анимация движения самой ленты конвейера */
-@keyframes moveBelt {
-    0% { background-position: 0 0; }
-    100% { background-position: 40px 0; }
+/* 2. Эффект "Матового стекла" для коробки и ленты */
+#game-container, .conveyor-wrapper {
+    background-color: rgba(255, 255, 255, 0.03) !important; /* Легкая дымка */
+    backdrop-filter: blur(15px) !important; /* Размытие фона за стеклом */
+    -webkit-backdrop-filter: blur(15px) !important; 
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important; /* Тень для объема */
+    transition: all 0.3s ease !important;
 }
+
+/* Мягкие полоски на ленте */
+.conveyor-wrapper {
+    background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 20px, transparent 20px, transparent 40px) !important;
+    animation: moveBelt 1.5s linear infinite !important; 
+}
+
+/* =========================================
+   ТЕМЫ (Паттерны теперь на фоне body, цвета приглушены)
+   ========================================= */
 
 /* 1. ФРУКТЫ */
-body.theme-fruits #game-container {
-    background-color: #0f291e !important;
-    background-image: radial-gradient(#22c55e 1px, transparent 1px) !important;
-    background-size: 25px 25px !important;
-    border-color: #22c55e !important;
-    animation: driftPattern 15s linear infinite !important;
+body.theme-fruits {
+    background: #0f291e radial-gradient(rgba(34, 197, 94, 0.3) 2px, transparent 2px) !important;
+    background-size: 35px 35px !important;
+    animation: driftPattern 20s linear infinite !important;
 }
-body.theme-fruits .conveyor-wrapper {
-    background-color: #0f291e !important;
-    background-image: repeating-linear-gradient(90deg, #14532d 0px, #14532d 20px, #0f291e 20px, #0f291e 40px) !important;
-    border-color: #22c55e !important;
-    animation: moveBelt 1s linear infinite !important;
-}
-body.theme-fruits .icon-btn, body.theme-fruits #shopBtn, body.theme-fruits .next-skip-box, body.theme-fruits .coin-box { 
-    border-color: #22c55e !important; color: #22c55e !important; background: transparent !important;
-}
+body.theme-fruits #game-container, body.theme-fruits .conveyor-wrapper { border: 2px solid rgba(34, 197, 94, 0.6) !important; box-shadow: 0 0 15px rgba(34, 197, 94, 0.2) !important; }
+body.theme-fruits .icon-btn, body.theme-fruits #shopBtn, body.theme-fruits .next-skip-box, body.theme-fruits .coin-box { border-color: #22c55e !important; color: #22c55e !important; background: transparent !important; }
 
 /* 2. СЛАДОСТИ */
-body.theme-sweets #game-container {
-    background-color: #2d0f26 !important;
-    background-image: radial-gradient(#ec4899 1px, transparent 1px) !important;
-    background-size: 25px 25px !important;
-    border-color: #ec4899 !important;
-    animation: driftPattern 15s linear infinite !important;
+body.theme-sweets {
+    background: #2d0f26 radial-gradient(rgba(236, 72, 153, 0.3) 2px, transparent 2px) !important;
+    background-size: 35px 35px !important;
+    animation: driftPattern 20s linear infinite !important;
 }
-body.theme-sweets .conveyor-wrapper {
-    background-color: #2d0f26 !important;
-    background-image: repeating-linear-gradient(90deg, #4a1c40 0px, #4a1c40 20px, #2d0f26 20px, #2d0f26 40px) !important;
-    border-color: #ec4899 !important;
-    animation: moveBelt 1s linear infinite !important;
-}
-body.theme-sweets .icon-btn, body.theme-sweets #shopBtn, body.theme-sweets .next-skip-box, body.theme-sweets .coin-box { 
-    border-color: #ec4899 !important; color: #ec4899 !important; background: transparent !important;
-}
+body.theme-sweets #game-container, body.theme-sweets .conveyor-wrapper { border: 2px solid rgba(236, 72, 153, 0.6) !important; box-shadow: 0 0 15px rgba(236, 72, 153, 0.2) !important; }
+body.theme-sweets .icon-btn, body.theme-sweets #shopBtn, body.theme-sweets .next-skip-box, body.theme-sweets .coin-box { border-color: #ec4899 !important; color: #ec4899 !important; background: transparent !important; }
 
 /* 3. ЕДА */
-body.theme-food #game-container {
-    background-color: #261006 !important;
-    background-image: repeating-linear-gradient(45deg, #78350f 0, #78350f 2px, transparent 2px, transparent 15px) !important;
-    border-color: #f59e0b !important;
-    animation: driftPattern 15s linear infinite !important;
+body.theme-food {
+    background: #261006 repeating-linear-gradient(45deg, rgba(120, 53, 15, 0.4) 0, rgba(120, 53, 15, 0.4) 2px, transparent 2px, transparent 20px) !important;
+    animation: driftPattern 20s linear infinite !important;
 }
-body.theme-food .conveyor-wrapper {
-    background-color: #261006 !important;
-    background-image: repeating-linear-gradient(90deg, #451a03 0px, #451a03 20px, #261006 20px, #261006 40px) !important;
-    border-color: #f59e0b !important;
-    animation: moveBelt 1s linear infinite !important;
-}
-body.theme-food .icon-btn, body.theme-food #shopBtn, body.theme-food .next-skip-box, body.theme-food .coin-box { 
-    border-color: #f59e0b !important; color: #f59e0b !important; background: transparent !important;
-}
+body.theme-food #game-container, body.theme-food .conveyor-wrapper { border: 2px solid rgba(245, 158, 11, 0.6) !important; box-shadow: 0 0 15px rgba(245, 158, 11, 0.2) !important; }
+body.theme-food .icon-btn, body.theme-food #shopBtn, body.theme-food .next-skip-box, body.theme-food .coin-box { border-color: #f59e0b !important; color: #f59e0b !important; background: transparent !important; }
 
 /* 4. ПИТОМЦЫ */
-body.theme-pets #game-container {
-    background-color: #0d1f33 !important;
-    background-image: radial-gradient(#3b82f6 1px, transparent 1px) !important;
-    background-size: 30px 30px !important;
-    border-color: #3b82f6 !important;
-    animation: driftPattern 15s linear infinite !important;
+body.theme-pets {
+    background: #0d1f33 radial-gradient(rgba(59, 130, 246, 0.3) 2px, transparent 2px) !important;
+    background-size: 40px 40px !important;
+    animation: driftPattern 20s linear infinite !important;
 }
-body.theme-pets .conveyor-wrapper {
-    background-color: #0d1f33 !important;
-    background-image: repeating-linear-gradient(90deg, #172554 0px, #172554 20px, #0d1f33 20px, #0d1f33 40px) !important;
-    border-color: #3b82f6 !important;
-    animation: moveBelt 1s linear infinite !important;
-}
-body.theme-pets .icon-btn, body.theme-pets #shopBtn, body.theme-pets .next-skip-box, body.theme-pets .coin-box { 
-    border-color: #3b82f6 !important; color: #3b82f6 !important; background: transparent !important;
-}
+body.theme-pets #game-container, body.theme-pets .conveyor-wrapper { border: 2px solid rgba(59, 130, 246, 0.6) !important; box-shadow: 0 0 15px rgba(59, 130, 246, 0.2) !important; }
+body.theme-pets .icon-btn, body.theme-pets #shopBtn, body.theme-pets .next-skip-box, body.theme-pets .coin-box { border-color: #3b82f6 !important; color: #3b82f6 !important; background: transparent !important; }
 
 /* 5. МАГИЯ */
-body.theme-magic #game-container {
-    background-color: #170833 !important;
-    background-image: radial-gradient(#a855f7 1px, transparent 1px) !important;
-    background-size: 20px 20px !important;
-    border-color: #a855f7 !important;
-    animation: driftPattern 15s linear infinite !important;
+body.theme-magic {
+    background: #170833 radial-gradient(rgba(168, 85, 247, 0.3) 2px, transparent 2px) !important;
+    background-size: 30px 30px !important;
+    animation: driftPattern 20s linear infinite !important;
 }
-body.theme-magic .conveyor-wrapper {
-    background-color: #170833 !important;
-    background-image: repeating-linear-gradient(90deg, #2e1065 0px, #2e1065 20px, #170833 20px, #170833 40px) !important;
-    border-color: #a855f7 !important;
-    animation: moveBelt 1s linear infinite !important;
-}
-body.theme-magic .icon-btn, body.theme-magic #shopBtn, body.theme-magic .next-skip-box, body.theme-magic .coin-box { 
-    border-color: #a855f7 !important; color: #a855f7 !important; background: transparent !important;
-}
+body.theme-magic #game-container, body.theme-magic .conveyor-wrapper { border: 2px solid rgba(168, 85, 247, 0.6) !important; box-shadow: 0 0 15px rgba(168, 85, 247, 0.2) !important; }
+body.theme-magic .icon-btn, body.theme-magic #shopBtn, body.theme-magic .next-skip-box, body.theme-magic .coin-box { border-color: #a855f7 !important; color: #a855f7 !important; background: transparent !important; }
 
 /* 6. УСПЕХ */
-body.theme-success #game-container {
-    background-color: #1a1a1a !important;
-    background-image: linear-gradient(#fbbf24 1px, transparent 1px), linear-gradient(90deg, #fbbf24 1px, transparent 1px) !important;
-    background-size: 20px 20px !important;
-    border-color: #fbbf24 !important;
-    animation: driftPattern 15s linear infinite !important;
+body.theme-success {
+    background: #1a1a1a linear-gradient(rgba(251, 191, 36, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(251, 191, 36, 0.15) 1px, transparent 1px) !important;
+    background-size: 25px 25px !important;
+    animation: driftPattern 20s linear infinite !important;
 }
-body.theme-success .conveyor-wrapper {
-    background-color: #1a1a1a !important;
-    background-image: repeating-linear-gradient(90deg, #333333 0px, #333333 20px, #1a1a1a 20px, #1a1a1a 40px) !important;
-    border-color: #fbbf24 !important;
-    animation: moveBelt 1s linear infinite !important;
-}
-body.theme-success .icon-btn, body.theme-success #shopBtn, body.theme-success .next-skip-box, body.theme-success .coin-box { 
-    border-color: #fbbf24 !important; color: #fbbf24 !important; background: transparent !important;
-}
+body.theme-success #game-container, body.theme-success .conveyor-wrapper { border: 2px solid rgba(251, 191, 36, 0.6) !important; box-shadow: 0 0 15px rgba(251, 191, 36, 0.2) !important; }
+body.theme-success .icon-btn, body.theme-success #shopBtn, body.theme-success .next-skip-box, body.theme-success .coin-box { border-color: #fbbf24 !important; color: #fbbf24 !important; background: transparent !important; }
 
 /* 7. КОСМОС */
-body.theme-space #game-container {
-    background-color: #020617 !important;
-    background-image: radial-gradient(#fff 1px, transparent 1px) !important;
-    background-size: 40px 40px !important;
-    border-color: #6366f1 !important;
-    animation: driftPattern 15s linear infinite !important;
+body.theme-space {
+    background: #020617 radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px) !important;
+    background-size: 50px 50px !important;
+    animation: driftPattern 20s linear infinite !important;
 }
-body.theme-space .conveyor-wrapper {
-    background-color: #020617 !important;
-    background-image: repeating-linear-gradient(90deg, #1e1b4b 0px, #1e1b4b 20px, #020617 20px, #020617 40px) !important;
-    border-color: #6366f1 !important;
-    animation: moveBelt 1s linear infinite !important;
-}
-body.theme-space .icon-btn, body.theme-space #shopBtn, body.theme-space .next-skip-box, body.theme-space .coin-box { 
-    border-color: #6366f1 !important; color: #6366f1 !important; background: transparent !important;
-}
+body.theme-space #game-container, body.theme-space .conveyor-wrapper { border: 2px solid rgba(99, 102, 241, 0.6) !important; box-shadow: 0 0 15px rgba(99, 102, 241, 0.2) !important; }
+body.theme-space .icon-btn, body.theme-space #shopBtn, body.theme-space .next-skip-box, body.theme-space .coin-box { border-color: #6366f1 !important; color: #6366f1 !important; background: transparent !important; }
 
 /* 8. БОГАТСТВО */
-body.theme-wealth #game-container {
-    background-color: #022c22 !important;
-    background-image: linear-gradient(#10b981 1px, transparent 1px), linear-gradient(90deg, #10b981 1px, transparent 1px) !important;
-    background-size: 15px 15px !important;
-    border-color: #10b981 !important;
-    animation: driftPattern 15s linear infinite !important;
+body.theme-wealth {
+    background: #022c22 linear-gradient(rgba(16, 185, 129, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.15) 1px, transparent 1px) !important;
+    background-size: 20px 20px !important;
+    animation: driftPattern 20s linear infinite !important;
 }
-body.theme-wealth .conveyor-wrapper {
-    background-color: #022c22 !important;
-    background-image: repeating-linear-gradient(90deg, #064e3b 0px, #064e3b 20px, #022c22 20px, #022c22 40px) !important;
-    border-color: #10b981 !important;
-    animation: moveBelt 1s linear infinite !important;
-}
-body.theme-wealth .icon-btn, body.theme-wealth #shopBtn, body.theme-wealth .next-skip-box, body.theme-wealth .coin-box { 
-    border-color: #10b981 !important; color: #10b981 !important; background: transparent !important;
-}
+body.theme-wealth #game-container, body.theme-wealth .conveyor-wrapper { border: 2px solid rgba(16, 185, 129, 0.6) !important; box-shadow: 0 0 15px rgba(16, 185, 129, 0.2) !important; }
+body.theme-wealth .icon-btn, body.theme-wealth #shopBtn, body.theme-wealth .next-skip-box, body.theme-wealth .coin-box { border-color: #10b981 !important; color: #10b981 !important; background: transparent !important; }

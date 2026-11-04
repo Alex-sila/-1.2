@@ -336,7 +336,7 @@ function spawnConveyorTile() {
   tile.textContent = EMOJIS[val];
   tile.dataset.val = val;
   tile.dataset.golden = isGolden;
-  const startX = width;
+  const startX = -80;
   tile.style.left = startX + 'px';
 
  tile.addEventListener('click', () => {
@@ -495,9 +495,9 @@ animationId = requestAnimationFrame(updateDOM); // Продолжаем цикл
   if (!isGameOver) {
     for (let i = conveyorTiles.length - 1; i >= 0; i--) {
       const t = conveyorTiles[i];
-      t.x -= tileSpeed;
+      t.x += tileSpeed;
       t.el.style.left = t.x + 'px';
-      if (t.x < -70) {
+      if (t.x > width + 70) {
         t.el.remove();
         conveyorTiles.splice(i, 1);
         loseLife();
