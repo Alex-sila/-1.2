@@ -40,15 +40,15 @@ let currentLang = localStorage.getItem('mergeLang') || 'ru';
 // 2. КОНФИГ ТЕМ (LIVEOPS)
 // ==========================================
 const themesConfig = [
-    { id: 'fruits', name: 'Фрукты', price: 0, emojis: ['🍅 ', '🍏 ', '🥕 ', '🍋 ', '🍊 ', '🍎 ', '🍇 ', '🍓 ', '🍉 '] },
-    { id: 'sweets', name: 'Сладости', price: 150, emojis: ['🍬 ', '🍭 ', '🍩 ', '🍪 ', '🧁 ', '🍰 ', '🎂 ', '🍫 ', '🍨 '] },
-    { id: 'food', name: 'Еда', price: 400, emojis: ['🍞 ', '🧀 ', '🍔 ', '🍟 ', '🍕 ', '🌮 ', '🍣 ', '🍜 ', '🍱 '] },
-    { id: 'pets', name: 'Питомцы', price: 1000, emojis: ['🐣 ', '🐹 ', '🐰 ', '🐱 ', '🐶 ', '🦊 ', '🐼 ', '🦁 ', '🐉 '] },
-    { id: 'magic', name: 'Магия', price: 1500, emojis: ['✨ ', '🔮 ', '🪄 ', '🧪 ', '🧙‍♂️ ', '🧚‍♀️ ', '🦄 ', '🐉 ', '👑 '] },
-    { id: 'success', name: 'Успех', price: 2500, emojis: ['🎒 ', '⌚ ', '📱 ', '🚗 ', '🏠 ', '✈️ ', '🛥️ ', '🌍 ', '🚀 '] },
-    { id: 'space', name: 'Космос', price: 4000, emojis: ['🌑 ', '🌒 ', '🌍 ', '🪐 ', '☀️ ', '🌟 ', '🌌 ', '☄️ ', '👽 '] },
-    { id: 'wealth', name: 'Богатство', price: 6000, emojis: ['🪙 ', '💵 ', '💳 ', '💰 ', '💎 ', '👑 ', '🏦 ', '🏝️ ', '🚁 '] }];
-// ==========================================
+    { id: 'fruits', name: 'Фрукты', price: 0, emojis: ['🍅 ', '🍏 ', '🍐 ', '🍋 ', '🍊 ', '🍎 ', '🍇 ', '🍓 ', '🍉 '], blocker: '🐛' },
+    { id: 'sweets', name: 'Сладости', price: 150, emojis: ['🍬 ', '🍭 ', '🍩 ', '🍪 ', '🧁 ', '🍰 ', '🎂 ', '🍫 ', '🍨 '], blocker: '🦷' },
+    { id: 'food', name: 'Еда', price: 400, emojis: ['🍞 ', '🧀 ', '🍔 ', '🍟 ', '🍕 ', '🌮 ', '🍣 ', '🍜 ', '🍱 '], blocker: '🪳' },
+    { id: 'pets', name: 'Питомцы', price: 1000, emojis: ['🐣 ', '🐹 ', '🐰 ', '🐱 ', '🐶 ', '🦊 ', '🐼 ', '🦁 ', '🐉 '], blocker: '🦴' },
+    { id: 'magic', name: 'Магия', price: 1500, emojis: ['✨ ', '🔮 ', '🪄 ', '🧪 ', '🧙‍♂️ ', '🧚‍♀️ ', '🦄 ', '🐉 ', '👑 '], blocker: '💀' },
+    { id: 'success', name: 'Успех', price: 2500, emojis: ['🎒 ', '⌚ ', '📱 ', '🚗 ', '🏠 ', '✈️ ', '🛥️ ', '🌍 ', '🚀 '], blocker: '💸' },
+    { id: 'space', name: 'Космос', price: 4000, emojis: ['🌑 ', '🌒 ', '🌍 ', '🪐 ', '☀️ ', '🌟 ', '🌌 ', '☄️ ', '👽 '], blocker: '🌑' },
+    { id: 'wealth', name: 'Богатство', price: 6000, emojis: ['🪙 ', '💵 ', '💳 ', '💰 ', '💎 ', '👑 ', '🏦 ', '🏝️ ', '🚁 '], blocker: '🧾' }
+];// ==========================================
 // 3. СОСТОЯНИЕ
 // ==========================================
 let score = 0;
@@ -324,46 +324,59 @@ function updateNextFruitDisplay() {
 }
 
 function spawnConveyorTile() {
-  if (isGameOver) return;
-
-  const isGolden = Math.random() < 0.1;
-  const val = nextFruitLevel;
-
-  nextFruitLevel = Math.random() > 0.7 ? 1 : 0;
-  updateNextFruitDisplay();
-
-  const tile = document.createElement('div');
-  tile.className = 'conveyor-tile' + (isGolden ? ' golden' : '');
-  tile.textContent = EMOJIS[val];
-  tile.dataset.val = val;
-  tile.dataset.golden = isGolden;
-  const startX = -80;
-  tile.style.left = startX + 'px';
-
- tile.addEventListener('click', () => {
     if (isGameOver) return;
+
+    const isGolden = Math.random() < 0.1;
+    const isBomb = Math.random() < 0.08; // 8% шанс бомбы
+    const isBlocker = Math.random() < 0.06; // 6% шанс появления блокировщика
+    const val = nextFruitLevel;
+
+    nextFruitLevel = Math.random() > 0.7 ? 1 : 0;
+    updateNextFruitDisplay();
+
+    const tile = document.createElement('div');
+    tile.className = 'conveyor-tile' + (isGolden ? ' golden' : '');
     
-    // Берем позицию фрукта на ленте
-    dropFruit(val, tile.offsetLeft, isGolden);
-    playSound('drop');
-    tile.remove();
-    // Убираем фрукт из массива, чтобы он не "висел" там мертвым грузом
-    conveyorTiles = conveyorTiles.filter(t => t.el !== tile);
-  });
-
-  conveyorWrapper.appendChild(tile);
-  conveyorTiles.push({ el: tile, x: startX, val: val, isGolden: isGolden });
+if (isBlocker) {
+    tile.textContent = currentTheme.blocker;
+    tile.dataset.isBlocker = 'true';
+} else if (isBomb) {
+    tile.textContent = '💣';
+    tile.dataset.isBomb = 'true';
+} else {
+    tile.textContent = EMOJIS[val];
 }
+    tile.dataset.val = val;
+    tile.dataset.golden = isGolden;
+    const startX = -80;
+    tile.style.left = startX + 'px';
 
+    tile.addEventListener('click', () => {
+        if (isGameOver) return;
+        
+        // Если это бомба — взрываем, иначе просто роняем фрукт
+if (isBlocker) {
+    dropBlocker(tile.offsetLeft);
+} else if (isBomb) {
+    dropBomb(tile.offsetLeft);
+} else {
+    dropFruit(val, tile.offsetLeft, isGolden);
+}        
+        playSound('drop');
+        tile.remove();
+        conveyorTiles = conveyorTiles.filter(t => t.el !== tile);
+    });
+
+    conveyorWrapper.appendChild(tile);
+    conveyorTiles.push({ el: tile, x: startX, val: val, isGolden: isGolden });
+}
 function createFruit(x, y, level, isGolden = false) {
-  const radius = (20 + level * 5) * (width / 400);
-  const body = Bodies.circle(x, y, radius, {
-    restitution: 0.1, friction: 0.8, density: 0.002,
-    label: 'fruit_' + level + (isGolden ? '_golden' : ''),
-    render: { fillStyle: 'transparent' }
-  });
-  Composite.add(world, body);
-
+    const radius = level === 99 ? 25 : (20 + level * 5) * (width / 400);
+    const body = Bodies.circle(x, y, radius, {
+        restitution: 0.02, friction: 0.9, density: 0.002, frictionAir: 0.01, slop: 0.05,
+        label: 'fruit_' + level + (isGolden ? '_golden' : ''),
+        render: { fillStyle: 'transparent' }
+    });
   const el = document.createElement('div');
   el.style.position = 'absolute';
   el.style.width = radius * 2 + 'px';
@@ -418,6 +431,7 @@ Events.on(engine, 'collisionStart', (event) => {
     const bodyA = pairs[i].bodyA;
     const bodyB = pairs[i].bodyB;
     if (bodyA.label.startsWith('fruit_') && bodyB.label.startsWith('fruit_')) {
+      if (bodyA.isBlocker || bodyB.isBlocker) return;
       const levelA = Number(bodyA.label.split('_')[1]);
       const levelB = Number(bodyB.label.split('_')[1]);
       if (levelA === levelB && levelA < EMOJIS.length - 1) {
@@ -764,4 +778,36 @@ function updateDOM() {
         }
     });
     animationId = requestAnimationFrame(updateDOM);
+}
+function dropBomb(x) {
+    const radius = 30;
+    const safeX = Math.max(radius + 10, Math.min(x, width - radius - 10));
+    const bomb = createFruit(safeX, 50, 9, false); // 9 - уровень бомбы
+    bomb.domEl.textContent = '💣';
+    bomb.isBomb = true;
+    
+    // Взрываем через 1 секунду
+    setTimeout(() => {
+        spawnParticles(bomb.position.x, bomb.position.y);
+        playSound('lose');
+        
+        // Уничтожаем все фрукты рядом
+        activeBodies.forEach(body => {
+            if (body !== bomb) {
+                const dist = Matter.Vector.magnitude(Matter.Vector.sub(bomb.position, body.position));
+                if (dist < 100) { // Радиус взрыва
+                    removeFruit(body);
+                }
+            }
+        });
+        removeFruit(bomb);
+    }, 1000);
+}
+function dropBlocker(x) {
+    const radius = 25;
+    const safeX = Math.max(radius + 10, Math.min(x, width - radius - 10));
+    // Создаем тело с уровнем 99 (чтобы он не сливался как обычный фрукт)
+    const blocker = createFruit(safeX, 50, 99, false); 
+    blocker.domEl.textContent = currentTheme.blocker;
+    blocker.isBlocker = true;
 }
