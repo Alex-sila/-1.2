@@ -652,107 +652,109 @@ h1 {
     }
     /* =========================================
 /* =========================================
-   ФИНАЛЬНЫЙ ДИЗАЙН (ФОН + ДВИЖЕНИЕ + КНОПКИ)
-   ========================================= */
-
-/* Анимация движения паттернов */
-/* Анимация движения паттернов */
 /* =========================================
-   ИДЕАЛЬНЫЙ ВИЗУАЛ: СТЕКЛО + ПЛАВНЫЙ ФОН
+   КОМФОРТНЫЙ ВИЗУАЛ: ТЕМНОЕ СТЕКЛО + СИНХРОННАЯ ЛЕНТА
    ========================================= */
 
-/* 1. Анимация мягкого движения фона */
+/* 1. Фон двигается очень медленно и плавно */
 @keyframes driftPattern {
     0% { background-position: 0px 0px; }
     100% { background-position: 50px 50px; }
 }
 
-/* 2. Эффект "Матового стекла" для коробки и ленты */
+/* 2. Лента конвейера движется СТРОГО СЛЕВА НАПРАВО */
+@keyframes moveBelt {
+    0% { background-position: 0px 0px; }
+    100% { background-position: 40px 0px; } /* Движение вправо */
+}
+
+/* 3. Коробка и лента - темное матовое стекло (глаза больше не устают) */
 #game-container, .conveyor-wrapper {
-    background-color: rgba(255, 255, 255, 0.03) !important; /* Легкая дымка */
-    backdrop-filter: blur(15px) !important; /* Размытие фона за стеклом */
-    -webkit-backdrop-filter: blur(15px) !important; 
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important; /* Тень для объема */
+    background-color: rgba(10, 15, 25, 0.65) !important; /* Темная полупрозрачная основа */
+    backdrop-filter: blur(12px) !important; /* Размытие */
+    -webkit-backdrop-filter: blur(12px) !important; 
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6) !important; /* Внутренняя тень для объема */
     transition: all 0.3s ease !important;
 }
 
-/* Мягкие полоски на ленте */
+/* 4. Узор самой ленты (движется синхронно с фруктами) */
 .conveyor-wrapper {
-    background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 20px, transparent 20px, transparent 40px) !important;
+    background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 10px, transparent 10px, transparent 40px) !important;
+    background-size: 40px 100% !important;
     animation: moveBelt 1.5s linear infinite !important; 
 }
 
 /* =========================================
-   ТЕМЫ (Паттерны теперь на фоне body, цвета приглушены)
+   ТЕМЫ (Приглушенные, темные цвета)
    ========================================= */
 
-/* 1. ФРУКТЫ */
+/* 1. ФРУКТЫ (Темно-изумрудный) */
 body.theme-fruits {
-    background: #0f291e radial-gradient(rgba(34, 197, 94, 0.3) 2px, transparent 2px) !important;
+    background: #08120d radial-gradient(rgba(34, 197, 94, 0.15) 2px, transparent 2px) !important;
     background-size: 35px 35px !important;
-    animation: driftPattern 20s linear infinite !important;
+    animation: driftPattern 25s linear infinite !important;
 }
-body.theme-fruits #game-container, body.theme-fruits .conveyor-wrapper { border: 2px solid rgba(34, 197, 94, 0.6) !important; box-shadow: 0 0 15px rgba(34, 197, 94, 0.2) !important; }
-body.theme-fruits .icon-btn, body.theme-fruits #shopBtn, body.theme-fruits .next-skip-box, body.theme-fruits .coin-box { border-color: #22c55e !important; color: #22c55e !important; background: transparent !important; }
+body.theme-fruits #game-container, body.theme-fruits .conveyor-wrapper { border: 2px solid rgba(34, 197, 94, 0.3) !important; box-shadow: 0 0 15px rgba(34, 197, 94, 0.1) !important; }
+body.theme-fruits .icon-btn, body.theme-fruits #shopBtn, body.theme-fruits .next-skip-box, body.theme-fruits .coin-box { border-color: #22c55e !important; color: #22c55e !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 2. СЛАДОСТИ */
+/* 2. СЛАДОСТИ (Темно-вишневый) */
 body.theme-sweets {
-    background: #2d0f26 radial-gradient(rgba(236, 72, 153, 0.3) 2px, transparent 2px) !important;
+    background: #140710 radial-gradient(rgba(236, 72, 153, 0.15) 2px, transparent 2px) !important;
     background-size: 35px 35px !important;
-    animation: driftPattern 20s linear infinite !important;
+    animation: driftPattern 25s linear infinite !important;
 }
-body.theme-sweets #game-container, body.theme-sweets .conveyor-wrapper { border: 2px solid rgba(236, 72, 153, 0.6) !important; box-shadow: 0 0 15px rgba(236, 72, 153, 0.2) !important; }
-body.theme-sweets .icon-btn, body.theme-sweets #shopBtn, body.theme-sweets .next-skip-box, body.theme-sweets .coin-box { border-color: #ec4899 !important; color: #ec4899 !important; background: transparent !important; }
+body.theme-sweets #game-container, body.theme-sweets .conveyor-wrapper { border: 2px solid rgba(236, 72, 153, 0.3) !important; box-shadow: 0 0 15px rgba(236, 72, 153, 0.1) !important; }
+body.theme-sweets .icon-btn, body.theme-sweets #shopBtn, body.theme-sweets .next-skip-box, body.theme-sweets .coin-box { border-color: #ec4899 !important; color: #ec4899 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 3. ЕДА */
+/* 3. ЕДА (Темно-коричневый) */
 body.theme-food {
-    background: #261006 repeating-linear-gradient(45deg, rgba(120, 53, 15, 0.4) 0, rgba(120, 53, 15, 0.4) 2px, transparent 2px, transparent 20px) !important;
-    animation: driftPattern 20s linear infinite !important;
+    background: #140a03 repeating-linear-gradient(45deg, rgba(120, 53, 15, 0.2) 0, rgba(120, 53, 15, 0.2) 2px, transparent 2px, transparent 20px) !important;
+    animation: driftPattern 25s linear infinite !important;
 }
-body.theme-food #game-container, body.theme-food .conveyor-wrapper { border: 2px solid rgba(245, 158, 11, 0.6) !important; box-shadow: 0 0 15px rgba(245, 158, 11, 0.2) !important; }
-body.theme-food .icon-btn, body.theme-food #shopBtn, body.theme-food .next-skip-box, body.theme-food .coin-box { border-color: #f59e0b !important; color: #f59e0b !important; background: transparent !important; }
+body.theme-food #game-container, body.theme-food .conveyor-wrapper { border: 2px solid rgba(245, 158, 11, 0.3) !important; box-shadow: 0 0 15px rgba(245, 158, 11, 0.1) !important; }
+body.theme-food .icon-btn, body.theme-food #shopBtn, body.theme-food .next-skip-box, body.theme-food .coin-box { border-color: #f59e0b !important; color: #f59e0b !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 4. ПИТОМЦЫ */
+/* 4. ПИТОМЦЫ (Темно-синий) */
 body.theme-pets {
-    background: #0d1f33 radial-gradient(rgba(59, 130, 246, 0.3) 2px, transparent 2px) !important;
+    background: #060c14 radial-gradient(rgba(59, 130, 246, 0.15) 2px, transparent 2px) !important;
     background-size: 40px 40px !important;
-    animation: driftPattern 20s linear infinite !important;
+    animation: driftPattern 25s linear infinite !important;
 }
-body.theme-pets #game-container, body.theme-pets .conveyor-wrapper { border: 2px solid rgba(59, 130, 246, 0.6) !important; box-shadow: 0 0 15px rgba(59, 130, 246, 0.2) !important; }
-body.theme-pets .icon-btn, body.theme-pets #shopBtn, body.theme-pets .next-skip-box, body.theme-pets .coin-box { border-color: #3b82f6 !important; color: #3b82f6 !important; background: transparent !important; }
+body.theme-pets #game-container, body.theme-pets .conveyor-wrapper { border: 2px solid rgba(59, 130, 246, 0.3) !important; box-shadow: 0 0 15px rgba(59, 130, 246, 0.1) !important; }
+body.theme-pets .icon-btn, body.theme-pets #shopBtn, body.theme-pets .next-skip-box, body.theme-pets .coin-box { border-color: #3b82f6 !important; color: #3b82f6 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 5. МАГИЯ */
+/* 5. МАГИЯ (Темно-фиолетовый) */
 body.theme-magic {
-    background: #170833 radial-gradient(rgba(168, 85, 247, 0.3) 2px, transparent 2px) !important;
+    background: #0a0414 radial-gradient(rgba(168, 85, 247, 0.15) 2px, transparent 2px) !important;
     background-size: 30px 30px !important;
-    animation: driftPattern 20s linear infinite !important;
+    animation: driftPattern 25s linear infinite !important;
 }
-body.theme-magic #game-container, body.theme-magic .conveyor-wrapper { border: 2px solid rgba(168, 85, 247, 0.6) !important; box-shadow: 0 0 15px rgba(168, 85, 247, 0.2) !important; }
-body.theme-magic .icon-btn, body.theme-magic #shopBtn, body.theme-magic .next-skip-box, body.theme-magic .coin-box { border-color: #a855f7 !important; color: #a855f7 !important; background: transparent !important; }
+body.theme-magic #game-container, body.theme-magic .conveyor-wrapper { border: 2px solid rgba(168, 85, 247, 0.3) !important; box-shadow: 0 0 15px rgba(168, 85, 247, 0.1) !important; }
+body.theme-magic .icon-btn, body.theme-magic #shopBtn, body.theme-magic .next-skip-box, body.theme-magic .coin-box { border-color: #a855f7 !important; color: #a855f7 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 6. УСПЕХ */
+/* 6. УСПЕХ (Черно-золотой) */
 body.theme-success {
-    background: #1a1a1a linear-gradient(rgba(251, 191, 36, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(251, 191, 36, 0.15) 1px, transparent 1px) !important;
+    background: #0d0d0d linear-gradient(rgba(251, 191, 36, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(251, 191, 36, 0.1) 1px, transparent 1px) !important;
     background-size: 25px 25px !important;
-    animation: driftPattern 20s linear infinite !important;
+    animation: driftPattern 25s linear infinite !important;
 }
-body.theme-success #game-container, body.theme-success .conveyor-wrapper { border: 2px solid rgba(251, 191, 36, 0.6) !important; box-shadow: 0 0 15px rgba(251, 191, 36, 0.2) !important; }
-body.theme-success .icon-btn, body.theme-success #shopBtn, body.theme-success .next-skip-box, body.theme-success .coin-box { border-color: #fbbf24 !important; color: #fbbf24 !important; background: transparent !important; }
+body.theme-success #game-container, body.theme-success .conveyor-wrapper { border: 2px solid rgba(251, 191, 36, 0.3) !important; box-shadow: 0 0 15px rgba(251, 191, 36, 0.1) !important; }
+body.theme-success .icon-btn, body.theme-success #shopBtn, body.theme-success .next-skip-box, body.theme-success .coin-box { border-color: #fbbf24 !important; color: #fbbf24 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 7. КОСМОС */
+/* 7. КОСМОС (Глубокий космос) */
 body.theme-space {
-    background: #020617 radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px) !important;
+    background: #01030a radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px) !important;
     background-size: 50px 50px !important;
-    animation: driftPattern 20s linear infinite !important;
+    animation: driftPattern 25s linear infinite !important;
 }
-body.theme-space #game-container, body.theme-space .conveyor-wrapper { border: 2px solid rgba(99, 102, 241, 0.6) !important; box-shadow: 0 0 15px rgba(99, 102, 241, 0.2) !important; }
-body.theme-space .icon-btn, body.theme-space #shopBtn, body.theme-space .next-skip-box, body.theme-space .coin-box { border-color: #6366f1 !important; color: #6366f1 !important; background: transparent !important; }
+body.theme-space #game-container, body.theme-space .conveyor-wrapper { border: 2px solid rgba(99, 102, 241, 0.3) !important; box-shadow: 0 0 15px rgba(99, 102, 241, 0.1) !important; }
+body.theme-space .icon-btn, body.theme-space #shopBtn, body.theme-space .next-skip-box, body.theme-space .coin-box { border-color: #6366f1 !important; color: #6366f1 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 8. БОГАТСТВО */
+/* 8. БОГАТСТВО (Темный изумруд) */
 body.theme-wealth {
-    background: #022c22 linear-gradient(rgba(16, 185, 129, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.15) 1px, transparent 1px) !important;
+    background: #02120e linear-gradient(rgba(16, 185, 129, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.1) 1px, transparent 1px) !important;
     background-size: 20px 20px !important;
-    animation: driftPattern 20s linear infinite !important;
+    animation: driftPattern 25s linear infinite !important;
 }
-body.theme-wealth #game-container, body.theme-wealth .conveyor-wrapper { border: 2px solid rgba(16, 185, 129, 0.6) !important; box-shadow: 0 0 15px rgba(16, 185, 129, 0.2) !important; }
-body.theme-wealth .icon-btn, body.theme-wealth #shopBtn, body.theme-wealth .next-skip-box, body.theme-wealth .coin-box { border-color: #10b981 !important; color: #10b981 !important; background: transparent !important; }
+body.theme-wealth #game-container, body.theme-wealth .conveyor-wrapper { border: 2px solid rgba(16, 185, 129, 0.3) !important; box-shadow: 0 0 15px rgba(16, 185, 129, 0.1) !important; }
+body.theme-wealth .icon-btn, body.theme-wealth #shopBtn, body.theme-wealth .next-skip-box, body.theme-wealth .coin-box { border-color: #10b981 !important; color: #10b981 !important; background: rgba(10, 15, 25, 0.8) !important; }
