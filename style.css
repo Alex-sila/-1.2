@@ -1,129 +1,37 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  user-select: none;
-  touch-action: manipulation;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; user-select: none; touch-action: manipulation; }
+body { background: #1a1a2e; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; height: 100dvh; overflow: hidden; transition: background 0.5s ease; }
 
-body {
-  background: #1a1a2e;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
-  transition: background 0.5s ease;
-}
-
-/* АНИМАЦИИ */
 @keyframes spin { 100% { transform: rotate(360deg); } }
-@keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
-.shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
 
-@keyframes popCombo {
-  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
-}
-.combo-text {
-  position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);
-  font-size: 40px; font-weight: bold; color: #fbbf24; text-shadow: 0 0 20px #fbbf24;
-  pointer-events: none; opacity: 0; z-index: 100;
-}
-
-/* БАЗОВЫЕ СТИЛИ */
-.top-header {
-  position: absolute; top: 10px; left: 10px; z-index: 100;
-  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
-  background: #16213e; padding: 6px 10px; border-radius: 8px; border: 1px solid #38bdf8;
-}
+.top-header { position: absolute; top: 10px; left: 10px; z-index: 100; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: #16213e; padding: 6px 10px; border-radius: 8px; border: 1px solid #38bdf8; }
 .lang-select { background: transparent; color: #fff; border: none; font-size: 14px; font-weight: bold; cursor: pointer; outline: none; }
 .lang-select option { background: #1e293b; color: #fff; }
 
-.top-right {
-  position: absolute; top: 10px; right: 10px; z-index: 100;
-  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
-}
+.top-right { position: absolute; top: 10px; right: 10px; z-index: 100; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .coin-box { background: #16213e; border: 1px solid #fbbf24; padding: 5px 10px; border-radius: 8px; font-weight: bold; color: #fbbf24; }
-.icon-btn {
-  background: #16213e; border: 1px solid #38bdf8; color: #fff;
-  height: 40px; min-width: 40px; border-radius: 20px; font-size: 20px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-}
+.icon-btn { background: #16213e; border: 1px solid #38bdf8; color: #fff; height: 40px; min-width: 40px; border-radius: 20px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 #hammerBtn.active { background: #e94560; border-color: #e94560; box-shadow: 0 0 15px #e94560; transform: scale(1.1); }
-
-@keyframes pulseGift {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7); }
-  70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
-}
-.gift-active { animation: pulseGift 1.5s infinite; border-color: #fbbf24 !important; color: #fbbf24 !important; }
 
 header { text-align: center; margin-bottom: 5px; z-index: 10; margin-top: 40px; }
 h1 { font-size: 22px; color: #e94560; text-shadow: 0 0 10px rgba(233, 69, 96, 0.5); }
 .stats-row { display: flex; gap: 10px; justify-content: center; margin-top: 5px; font-size: 14px; align-items: center; flex-wrap: wrap; }
 .level-badge { background: #fbbf24; color: #1a1a2e; padding: 2px 8px; border-radius: 20px; font-weight: bold; }
 
-.progress-bar {
-  width: 100%; max-width: 400px; height: 30px; background: #16213e; border-radius: 15px;
-  margin: 10px 0; display: flex; align-items: center; padding: 0 5px; gap: 2px; border: 1px solid #0f3460;
-}
-.progress-fruit {
-  flex: 1; height: 24px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
-  font-size: 16px; background: #0f3460; opacity: 0.3; transition: 0.3s;
-}
+.progress-bar { width: 100%; max-width: 400px; height: 30px; background: #16213e; border-radius: 15px; margin: 10px 0; display: flex; align-items: center; padding: 0 5px; gap: 2px; border: 1px solid #0f3460; }
+.progress-fruit { flex: 1; height: 24px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 16px; background: #0f3460; opacity: 0.3; transition: 0.3s; }
 .progress-fruit.unlocked { opacity: 1; background: #1e293b; box-shadow: 0 0 5px #38bdf8; }
 
-.conveyor-wrapper {
-  width: 100%; max-width: 400px; height: 70px; background: #16213e; border: 2px solid #0f3460;
-  border-radius: 10px; margin-bottom: 10px; position: relative; overflow: hidden;
-}
-.conveyor-tile {
-  position: absolute; top: 5px; width: 60px; height: 60px; background: #fff; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; font-size: 32px; cursor: pointer;
-  box-shadow: 0 0 10px rgba(255,255,255,0.5); transition: transform 0.1s; z-index: 10;
-}
+.conveyor-wrapper { width: 100%; max-width: 400px; height: 70px; background: #16213e; border: 2px solid #0f3460; border-radius: 10px; margin-bottom: 10px; position: relative; overflow: hidden; }
+.conveyor-tile { position: absolute; top: 5px; width: 60px; height: 60px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; cursor: pointer; box-shadow: 0 0 10px rgba(255,255,255,0.5); transition: transform 0.1s; z-index: 10; }
 .conveyor-tile:active { transform: scale(1.1); }
 .conveyor-tile.golden { box-shadow: 0 0 20px #fbbf24, 0 0 40px #fbbf24; border: 2px solid #fbbf24; }
 
-.next-skip-box {
-  position: absolute; top: 60px; right: 10px; display: flex; flex-direction: column;
-  gap: 5px; z-index: 100; align-items: center; background: #16213e; padding: 5px 15px;
-  border-radius: 10px; border: 1px solid #0f3460;
-}
-.next-fruit {
-  background: #0f172a; border: 2px solid #38bdf8; border-radius: 10px; padding: 5px;
-  font-size: 24px; display: flex; flex-direction: column; align-items: center; width: 100%;
-}
+.next-skip-box { position: absolute; top: 60px; right: 10px; display: flex; flex-direction: column; gap: 5px; z-index: 100; align-items: center; background: #16213e; padding: 5px 15px; border-radius: 10px; border: 1px solid #0f3460; }
+.next-fruit { background: #0f172a; border: 2px solid #38bdf8; border-radius: 10px; padding: 5px; font-size: 24px; display: flex; flex-direction: column; align-items: center; width: 100%; }
 .next-label { font-size: 10px; color: #94a3b8; margin-bottom: 2px; }
 
-#game-container {
-  width: 100%; max-width: 400px; height: 65vh; background: #16213e; border: 4px solid #0f3460;
-  border-radius: 10px; position: relative; overflow: hidden; touch-action: none;
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-}
-body.hammer-mode #game-container {
-  box-shadow: 0 0 50px rgba(233, 69, 96, 0.5) inset !important;
-  border-color: #e94560 !important;
-  cursor: crosshair !important;
-}
+#game-container { width: 100%; max-width: 400px; height: 65vh; background: #16213e; border: 4px solid #0f3460; border-radius: 10px; position: relative; overflow: hidden; touch-action: none; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+body.hammer-mode #game-container { box-shadow: 0 0 50px rgba(233, 69, 96, 0.5) inset !important; border-color: #e94560 !important; cursor: crosshair !important; }
 
 .btn { background: #e94560; color: #fff; border: none; padding: 8px 15px; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 5px; z-index: 10; }
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
@@ -132,10 +40,7 @@ body.hammer-mode #game-container {
 .particle { position: absolute; width: 8px; height: 8px; border-radius: 50%; pointer-events: none; z-index: 50; animation: particleFly 0.6s ease-out forwards; }
 @keyframes particleFly { 0% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.5); } }
 
-.modal {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; padding: 20px;
-}
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; padding: 20px; }
 .modal h2 { margin-bottom: 15px; color: #38bdf8; }
 .modal-close { position: absolute; top: 15px; right: 15px; background: #e94560; border: none; color: #fff; width: 30px; height: 30px; border-radius: 50%; font-size: 18px; cursor: pointer; }
 
@@ -155,20 +60,11 @@ body.hammer-mode #game-container {
 .shop-card button.active-btn { background: #e94560; color: #fff; }
 .hidden { display: none !important; }
 
-.quest-item {
-    background: #16213e; border: 1px solid #0f3460; padding: 10px; border-radius: 8px;
-    display: flex; justify-content: space-between; align-items: center; font-size: 14px;
-}
-.quest-item.done { border-color: #10b981; opacity: 0.7; }
-
-/* =========================================
-   МОБИЛЬНАЯ ВЕРСТКА (ТЕЛЕФОНЫ)
-   ========================================= */
+/* МОБИЛЬНАЯ ВЕРСТКА */
 @media (max-width: 600px) {
     body { padding: 0 !important; overflow: hidden !important; }
     .game-wrapper { padding-top: 160px !important; width: 100vw !important; height: 100dvh !important; display: flex; flex-direction: column; align-items: center; }
-
-    /* 1. Язык слева, Магазин справа */
+    
     .top-header { position: absolute !important; top: 10px !important; left: 2vw !important; width: 46vw !important; height: 40px !important; padding: 0 !important; display: flex; justify-content: center; align-items: center; transform: none !important; z-index: 1000; }
     .lang-select { width: 100% !important; text-align: center !important; font-size: 14px !important; }
     
@@ -176,80 +72,60 @@ body.hammer-mode #game-container {
     #shopBtn { position: absolute !important; top: 10px !important; right: 2vw !important; width: 46vw !important; height: 40px !important; display: flex !important; justify-content: center !important; font-size: 14px !important; z-index: 1000; }
     #exitBtn { display: none !important; }
     
-    /* 2. Заголовок и Статистика */
     header { position: absolute !important; top: 55px !important; left: 0 !important; width: 100vw !important; margin: 0 !important; display: flex; flex-direction: column; align-items: center; z-index: 1000; }
     h1#titleText { font-size: 26px !important; margin-bottom: 5px !important; color: #38bdf8 !important; text-shadow: 0 0 15px rgba(56, 189, 248, 0.8) !important; }
     .stats-row { font-size: 12px !important; gap: 12px !important; }
     
-    /* 3. Монеты, Квесты, Звук, Молоток, Подарок, Следующий */
+    /* МОНЕТЫ И КНОПКИ */
     .coin-box { position: absolute !important; top: 112px !important; left: 2vw !important; height: 40px !important; display: flex !important; align-items: center !important; font-size: 14px !important; z-index: 1000; }
     
-    /* ПОДАРОК ТЕПЕРЬ СПРАВА, СЛЕДУЮЩИЙ СЛЕВА */
+    /* ПОМЕНЯЛИ МЕСТАМИ ПОДАРОК И СЛЕДУЮЩИЙ ФРУКТ */
     #dailyBtn { position: absolute !important; top: 112px !important; right: 2vw !important; height: 40px !important; width: 40px !important; z-index: 1000; }
     .next-skip-box { position: absolute !important; top: 112px !important; right: 20vw !important; height: 40px !important; width: 48px !important; padding: 0 !important; background: #16213e !important; border: 1px solid #38bdf8 !important; border-radius: 8px !important; display: flex !important; align-items: center !important; justify-content: center !important; transform: none !important; z-index: 1000; }
     
     #soundBtn { position: absolute !important; top: 112px !important; right: 35vw !important; height: 40px !important; width: 40px !important; z-index: 1000; }
     #hammerBtn { position: absolute !important; top: 112px !important; right: 48vw !important; height: 40px !important; width: 40px !important; z-index: 1000; }
-    #questsBtn { position: absolute !important; top: 112px !important; left: 20vw !important; height: 40px !important; width: 40px !important; z-index: 1000; }
 
     .next-label { display: none !important; }
     .next-fruit { padding: 0 !important; border: none !important; background: transparent !important; display: flex !important; align-items: center !important; justify-content: center !important; box-shadow: none !important; width: 100% !important; height: 100% !important; }
     #nextFruitVal { font-size: 22px !important; line-height: 1 !important; display: block !important; }
 
-    /* 4. Игровая зона */
     .progress-bar { width: 98vw !important; max-width: 98vw !important; margin: 0 auto 8px auto !important; height: 24px !important; }
     .conveyor-wrapper { width: 98vw !important; max-width: 98vw !important; height: 60px !important; margin: 0 auto 8px auto !important; }
     .conveyor-tile { width: 50px !important; height: 50px !important; font-size: 26px !important; top: 5px !important; }
     #game-container { width: 98vw !important; max-width: 98vw !important; height: calc(100dvh - 240px) !important; min-height: 300px !important; margin: 0 auto !important; }
 }
 
-/* =========================================
-   МАТОВОЕ СТЕКЛО И ТЕМЫ
-   ========================================= */
-#game-container, .conveyor-wrapper {
-    background-color: rgba(10, 15, 25, 0.65) !important; 
-    backdrop-filter: blur(12px) !important; 
-    -webkit-backdrop-filter: blur(12px) !important; 
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6) !important; 
-    transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
-}
-
-/* 1. ФРУКТЫ */
+/* ФОНЫ */
+#game-container, .conveyor-wrapper { background-color: rgba(10, 15, 25, 0.65) !important; backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important; box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6) !important; transition: border-color 0.3s ease, box-shadow 0.3s ease !important; }
 body.theme-fruits { background: #08120d radial-gradient(rgba(34, 197, 94, 0.15) 2px, transparent 2px) !important; background-size: 35px 35px !important; }
 body.theme-fruits #game-container, body.theme-fruits .conveyor-wrapper { border: 2px solid rgba(34, 197, 94, 0.3) !important; box-shadow: 0 0 15px rgba(34, 197, 94, 0.1) !important; }
 body.theme-fruits .icon-btn, body.theme-fruits #shopBtn, body.theme-fruits .next-skip-box, body.theme-fruits .coin-box { border-color: #22c55e !important; color: #22c55e !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 2. СЛАДОСТИ */
 body.theme-sweets { background: #140710 radial-gradient(rgba(236, 72, 153, 0.15) 2px, transparent 2px) !important; background-size: 35px 35px !important; }
 body.theme-sweets #game-container, body.theme-sweets .conveyor-wrapper { border: 2px solid rgba(236, 72, 153, 0.3) !important; box-shadow: 0 0 15px rgba(236, 72, 153, 0.1) !important; }
 body.theme-sweets .icon-btn, body.theme-sweets #shopBtn, body.theme-sweets .next-skip-box, body.theme-sweets .coin-box { border-color: #ec4899 !important; color: #ec4899 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 3. ЕДА */
 body.theme-food { background: #140a03 repeating-linear-gradient(45deg, rgba(120, 53, 15, 0.2) 0, rgba(120, 53, 15, 0.2) 2px, transparent 2px, transparent 20px) !important; }
 body.theme-food #game-container, body.theme-food .conveyor-wrapper { border: 2px solid rgba(245, 158, 11, 0.3) !important; box-shadow: 0 0 15px rgba(245, 158, 11, 0.1) !important; }
 body.theme-food .icon-btn, body.theme-food #shopBtn, body.theme-food .next-skip-box, body.theme-food .coin-box { border-color: #f59e0b !important; color: #f59e0b !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 4. ПИТОМЦЫ */
 body.theme-pets { background: #060c14 radial-gradient(rgba(59, 130, 246, 0.15) 2px, transparent 2px) !important; background-size: 40px 40px !important; }
 body.theme-pets #game-container, body.theme-pets .conveyor-wrapper { border: 2px solid rgba(59, 130, 246, 0.3) !important; box-shadow: 0 0 15px rgba(59, 130, 246, 0.1) !important; }
 body.theme-pets .icon-btn, body.theme-pets #shopBtn, body.theme-pets .next-skip-box, body.theme-pets .coin-box { border-color: #3b82f6 !important; color: #3b82f6 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 5. МАГИЯ */
 body.theme-magic { background: #0a0414 radial-gradient(rgba(168, 85, 247, 0.15) 2px, transparent 2px) !important; background-size: 30px 30px !important; }
 body.theme-magic #game-container, body.theme-magic .conveyor-wrapper { border: 2px solid rgba(168, 85, 247, 0.3) !important; box-shadow: 0 0 15px rgba(168, 85, 247, 0.1) !important; }
 body.theme-magic .icon-btn, body.theme-magic #shopBtn, body.theme-magic .next-skip-box, body.theme-magic .coin-box { border-color: #a855f7 !important; color: #a855f7 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 6. УСПЕХ */
 body.theme-success { background: #0d0d0d linear-gradient(rgba(251, 191, 36, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(251, 191, 36, 0.1) 1px, transparent 1px) !important; background-size: 25px 25px !important; }
 body.theme-success #game-container, body.theme-success .conveyor-wrapper { border: 2px solid rgba(251, 191, 36, 0.3) !important; box-shadow: 0 0 15px rgba(251, 191, 36, 0.1) !important; }
 body.theme-success .icon-btn, body.theme-success #shopBtn, body.theme-success .next-skip-box, body.theme-success .coin-box { border-color: #fbbf24 !important; color: #fbbf24 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 7. КОСМОС */
 body.theme-space { background: #01030a radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px) !important; background-size: 50px 50px !important; }
 body.theme-space #game-container, body.theme-space .conveyor-wrapper { border: 2px solid rgba(99, 102, 241, 0.3) !important; box-shadow: 0 0 15px rgba(99, 102, 241, 0.1) !important; }
 body.theme-space .icon-btn, body.theme-space #shopBtn, body.theme-space .next-skip-box, body.theme-space .coin-box { border-color: #6366f1 !important; color: #6366f1 !important; background: rgba(10, 15, 25, 0.8) !important; }
 
-/* 8. БОГАТСТВО */
 body.theme-wealth { background: #02120e linear-gradient(rgba(16, 185, 129, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.1) 1px, transparent 1px) !important; background-size: 20px 20px !important; }
 body.theme-wealth #game-container, body.theme-wealth .conveyor-wrapper { border: 2px solid rgba(16, 185, 129, 0.3) !important; box-shadow: 0 0 15px rgba(16, 185, 129, 0.1) !important; }
 body.theme-wealth .icon-btn, body.theme-wealth #shopBtn, body.theme-wealth .next-skip-box, body.theme-wealth .coin-box { border-color: #10b981 !important; color: #10b981 !important; background: rgba(10, 15, 25, 0.8) !important; }
