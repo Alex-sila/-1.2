@@ -258,6 +258,7 @@ let isGameOver = false;
 let animationId;
 let lastSpawnTime = 0;
 let tileSpeed = 0.7;
+let beltOffset = 0; // Смещение для фона ленты
 let spawnInterval = 2500;
 const scorePerLevel = 500;
 let skipCooldown = false;
@@ -493,6 +494,9 @@ animationId = requestAnimationFrame(updateDOM); // Продолжаем цикл
     return; // Останавливаем движение конвейера и физику
 }
   if (!isGameOver) {
+        // Двигаем фон ленты с той же скоростью, что и фрукты
+     beltOffset += tileSpeed;
+     conveyorWrapper.style.backgroundPosition = `${beltOffset}px 0`; 
     for (let i = conveyorTiles.length - 1; i >= 0; i--) {
       const t = conveyorTiles[i];
       t.x += tileSpeed;
