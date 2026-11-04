@@ -20,6 +20,34 @@ body {
   transition: background 0.5s ease;
 }
 
+/* АНИМАЦИИ */
+@keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+.shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+
+@keyframes popCombo {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+.combo-text {
+  position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);
+  font-size: 40px; font-weight: bold; color: #fbbf24; text-shadow: 0 0 20px #fbbf24;
+  pointer-events: none; opacity: 0; z-index: 100;
+}
+
 /* БАЗОВЫЕ СТИЛИ */
 .top-header {
   position: absolute; top: 10px; left: 10px; z-index: 100;
@@ -91,13 +119,18 @@ h1 { font-size: 22px; color: #e94560; text-shadow: 0 0 10px rgba(233, 69, 96, 0.
   border-radius: 10px; position: relative; overflow: hidden; touch-action: none;
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
 }
+body.hammer-mode #game-container {
+  box-shadow: 0 0 50px rgba(233, 69, 96, 0.5) inset !important;
+  border-color: #e94560 !important;
+  cursor: crosshair !important;
+}
 
 .btn { background: #e94560; color: #fff; border: none; padding: 8px 15px; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 5px; z-index: 10; }
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
 .merge-animation { animation: pulse 0.3s ease-out; }
 
-.particle { position: absolute; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; z-index: 50; animation: particleFly 0.5s ease-out forwards; }
-@keyframes particleFly { 0% { opacity: 1; transform: translate(0, 0); } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)); } }
+.particle { position: absolute; width: 8px; height: 8px; border-radius: 50%; pointer-events: none; z-index: 50; animation: particleFly 0.6s ease-out forwards; }
+@keyframes particleFly { 0% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.5); } }
 
 .modal {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9);
@@ -122,6 +155,12 @@ h1 { font-size: 22px; color: #e94560; text-shadow: 0 0 10px rgba(233, 69, 96, 0.
 .shop-card button.active-btn { background: #e94560; color: #fff; }
 .hidden { display: none !important; }
 
+.quest-item {
+    background: #16213e; border: 1px solid #0f3460; padding: 10px; border-radius: 8px;
+    display: flex; justify-content: space-between; align-items: center; font-size: 14px;
+}
+.quest-item.done { border-color: #10b981; opacity: 0.7; }
+
 /* =========================================
    МОБИЛЬНАЯ ВЕРСТКА (ТЕЛЕФОНЫ)
    ========================================= */
@@ -142,13 +181,17 @@ h1 { font-size: 22px; color: #e94560; text-shadow: 0 0 10px rgba(233, 69, 96, 0.
     h1#titleText { font-size: 26px !important; margin-bottom: 5px !important; color: #38bdf8 !important; text-shadow: 0 0 15px rgba(56, 189, 248, 0.8) !important; }
     .stats-row { font-size: 12px !important; gap: 12px !important; }
     
-    /* 3. Монеты, Подарок, Звук, Молоток, Следующий */
+    /* 3. Монеты, Квесты, Звук, Молоток, Подарок, Следующий */
     .coin-box { position: absolute !important; top: 112px !important; left: 2vw !important; height: 40px !important; display: flex !important; align-items: center !important; font-size: 14px !important; z-index: 1000; }
-    #dailyBtn { position: absolute !important; top: 112px !important; left: 20vw !important; height: 40px !important; width: 40px !important; z-index: 1000; }
-    #soundBtn { position: absolute !important; top: 112px !important; right: 20vw !important; height: 40px !important; width: 40px !important; z-index: 1000; }
-    #hammerBtn { position: absolute !important; top: 112px !important; right: 35vw !important; height: 40px !important; width: 40px !important; z-index: 1000; }
     
-    .next-skip-box { position: absolute !important; top: 112px !important; right: 2vw !important; height: 40px !important; width: 48px !important; padding: 0 !important; background: #16213e !important; border: 1px solid #38bdf8 !important; border-radius: 8px !important; display: flex !important; align-items: center !important; justify-content: center !important; transform: none !important; z-index: 1000; }
+    /* ПОДАРОК ТЕПЕРЬ СПРАВА, СЛЕДУЮЩИЙ СЛЕВА */
+    #dailyBtn { position: absolute !important; top: 112px !important; right: 2vw !important; height: 40px !important; width: 40px !important; z-index: 1000; }
+    .next-skip-box { position: absolute !important; top: 112px !important; right: 20vw !important; height: 40px !important; width: 48px !important; padding: 0 !important; background: #16213e !important; border: 1px solid #38bdf8 !important; border-radius: 8px !important; display: flex !important; align-items: center !important; justify-content: center !important; transform: none !important; z-index: 1000; }
+    
+    #soundBtn { position: absolute !important; top: 112px !important; right: 35vw !important; height: 40px !important; width: 40px !important; z-index: 1000; }
+    #hammerBtn { position: absolute !important; top: 112px !important; right: 48vw !important; height: 40px !important; width: 40px !important; z-index: 1000; }
+    #questsBtn { position: absolute !important; top: 112px !important; left: 20vw !important; height: 40px !important; width: 40px !important; z-index: 1000; }
+
     .next-label { display: none !important; }
     .next-fruit { padding: 0 !important; border: none !important; background: transparent !important; display: flex !important; align-items: center !important; justify-content: center !important; box-shadow: none !important; width: 100% !important; height: 100% !important; }
     #nextFruitVal { font-size: 22px !important; line-height: 1 !important; display: block !important; }

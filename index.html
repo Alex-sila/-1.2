@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-fruits">
-  <div class="game-wrapper">
+  <div class="game-wrapper" id="gameWrapper">
     <!-- ЭКРАН ЗАГРУЗКИ -->
     <div id="loadingScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a2e; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center;">
       <div style="font-size: 60px; animation: spin 2s linear infinite;">⚙️</div>
@@ -37,6 +37,7 @@
       <div class="coin-box">🪙 <span id="coinVal">0</span></div>
       <button class="icon-btn" id="soundBtn">🔊</button>
       <button class="icon-btn" id="hammerBtn" style="display: none; position: relative;">🔨<span id="hammerCount" style="position: absolute; bottom: -5px; right: -5px; background: red; color: white; border-radius: 50%; font-size: 12px; width: 18px; height: 18px; line-height: 18px; text-align: center; font-weight: bold;">2</span></button>
+      <button class="icon-btn" id="questsBtn" style="display: none;">📜</button>
       <button class="icon-btn" id="shopBtn" style="width: auto; padding: 0 15px; font-size: 14px; font-weight: bold; gap: 5px;">🛒 Магазин</button>
       <button class="icon-btn" id="dailyBtn">🎁</button>
       <button class="icon-btn" id="exitBtn" style="background: #e94560; border-color: #e94560; display: none;">❌</button>
@@ -59,17 +60,10 @@
     <!-- КОНВЕЙЕР -->
     <div class="conveyor-wrapper" id="conveyor"></div>
 
-    <!-- БЛОК УПРАВЛЕНИЯ: NEXT FRUIT -->
-    <div class="next-skip-box">
-      <div class="next-fruit">
-        <span class="next-label" id="nextLabel">Следующий</span>
-        <span id="nextFruitVal">🍅</span>
-      </div>
-    </div>
-
     <!-- ИГРОВОЕ ПОЛЕ -->
     <div id="game-container">
       <div class="danger-line" id="dangerLine"></div>
+      <div id="comboText" class="combo-text"></div>
     </div>
 
     <!-- МОДАЛЬНЫЕ ОКНА -->
@@ -104,6 +98,12 @@
     <div class="modal hidden" id="dailyModal">
       <button class="modal-close" onclick="document.getElementById('dailyModal').classList.add('hidden')">✕</button>
       <h2>Ежедневный бонус</h2>
+    </div>
+
+    <div class="modal hidden" id="questsModal">
+      <button class="modal-close" onclick="document.getElementById('questsModal').classList.add('hidden')">✕</button>
+      <h2>Ежедневные задания</h2>
+      <div id="questsList" style="width: 100%; max-width: 300px; display: flex; flex-direction: column; gap: 10px; margin-top: 15px;"></div>
     </div>
 
     <script src="script.js" defer></script>

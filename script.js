@@ -1,12 +1,54 @@
 // ==========================================
-// 1. БЕЗОПАСНЫЙ БЛОК РЕКЛАМЫ ЯНДЕКСА
+// 1. ИНТЕГРАЦИЯ С ЯНДЕКС.ИГРАМИ И ОБЛАЧНЫЕ СОХРАНЕНИЯ
 // ==========================================
 let ysdk = null;
+let player = null;
+let isCloudLoaded = false;
+
 if (typeof YaGames !== 'undefined') {
     YaGames.init().then(sdk => {
         ysdk = sdk;
         if (ysdk.features && ysdk.features.LoadingAPI) ysdk.features.LoadingAPI.ready();
-    }).catch(e => console.log("SDK локально не работает - это нормально"));
+        return ysdk.getPlayer();
+    }).then(p => {
+        player = p;
+        return player.getData();
+    }).then(data => {
+        // Загружаем данные из облака (если они есть)
+        if (data && Object.keys(data).length > 0) {
+            if (data.coins !== undefined) coins = data.coins;
+            if (data.bestScore !== undefined) bestScore = data.bestScore;
+            if (data.unlockedThemes) unlockedThemes = data.unlockedThemes;
+            if (data.activeThemeId) activeThemeId = data.activeThemeId;
+            if (data.quests) dailyQuests = data.quests;
+            updateUIFromCloud();
+        }
+        isCloudLoaded = true;
+    }).catch(e => {
+        console.log("Облачные сохранения недоступны (локальный тест)");
+        isCloudLoaded = true;
+    });
+} else {
+    isCloudLoaded = true;
+}
+
+function saveGameToCloud() {
+    const data = {
+        coins: coins,
+        bestScore: bestScore,
+        unlockedThemes: unlockedThemes,
+        activeThemeId: activeThemeId,
+        quests: dailyQuests
+    };
+    localStorage.setItem('mergeCoins', coins);
+    localStorage.setItem('mergeBestScore', bestScore);
+    localStorage.setItem('mergeUnlockedThemes', JSON.stringify(unlockedThemes));
+    localStorage.setItem('mergeActiveTheme', activeThemeId);
+    localStorage.setItem('mergeQuests', JSON.stringify(dailyQuests));
+
+    if (player) {
+        player.setData(data).catch(e => console.log("Ошибка сохранения в облако"));
+    }
 }
 
 window.showAdReward = function(onSuccess) {
@@ -24,38 +66,30 @@ window.showAdFullscreen = function() {
 };
 
 // ==========================================
-// 2. ПЕРЕВОДЫ (10 ЯЗЫКОВ)
+// 2. ПЕРЕВОДЫ
 // ==========================================
 const translations = {
   ru: { title: "Мастер слияния", level: "Уровень:", score: "Очки:", lives: "Жизни:", restart: "Заново", hint: "Кликай по объектам!", gameOver: "Игра Окончена!", yourScore: "Твои очки:", playAgain: "Заново", next: "Следующий:", record: "Рекорд:", skip: "Пропустить", shop: "Магазин" },
-  en: { title: "Merge Master", level: "Level:", score: "Score:", lives: "Lives:", restart: "Restart", hint: "Click on the objects!", gameOver: "Game Over!", yourScore: "Your score:", playAgain: "Play Again", next: "Next:", record: "Best:", skip: "Skip", shop: "Shop" },
-  es: { title: "Física de Fusión", level: "Nivel:", score: "Puntos:", lives: "Vidas:", restart: "Reiniciar", hint: "¡Haz clic en las frutas!", gameOver: "¡Fin del Juego!", yourScore: "Tu puntuación:", playAgain: "Jugar de nuevo", next: "Siguiente:", record: "Récord:", skip: "Saltar", shop: "Tienda" },
-  pt: { title: "Física da Fusão", level: "Nível:", score: "Pontos:", lives: "Vidas:", restart: "Reiniciar", hint: "Clique nas frutas!", gameOver: "Fim de Jogo!", yourScore: "Sua pontuação:", playAgain: "Jogar Novamente", next: "Próximo:", record: "Recorde:", skip: "Pular", shop: "Loja" },
-  tr: { title: "Füzyon Fiziği", level: "Seviye:", score: "Puan:", lives: "Can:", restart: "Yeniden Başlat", hint: "Meyveleri tıklayın!", gameOver: "Oyun Bitti!", yourScore: "Puanınız:", playAgain: "Tekrar Oyna", next: "Sıradaki:", record: "Rekor:", skip: "Atla", shop: "Mağaza" },
-  de: { title: "Fusionsphysik", level: "Level:", score: "Punkte:", lives: "Leben:", restart: "Neustart", hint: "Klicke auf die Früchte!", gameOver: "Spiel Vorbei!", yourScore: "Deine Punkte:", playAgain: "Nochmal", next: "Nächste:", record: "Rekord:", skip: "Überspringen", shop: "Shop" },
-  fr: { title: "Physique de Fusion", level: "Niveau:", score: "Score:", lives: "Vies:", restart: "Redémarrer", hint: "Cliquez sur les fruits!", gameOver: "Jeu Terminé!", yourScore: "Votre score:", playAgain: "Rejouer", next: "Suivant:", record: "Record:", skip: "Passer", shop: "Boutique" },
-  id: { title: "Fisika Penggabungan", level: "Level:", score: "Skor:", lives: "Nyawa:", restart: "Ulangi", hint: "Klik buah di konveyor!", gameOver: "Permainan Selesai!", yourScore: "Skor Anda:", playAgain: "Main Lagi", next: "Berikutnya:", record: "Rekor:", skip: "Lewati", shop: "Toko" },
-  ar: { title: "فيزياء الدمج", level: "المستوى:", score: "النقاط:", lives: "الحياة:", restart: "إعادة", hint: "انقر على الفواكه!", gameOver: "انتهت اللعبة!", yourScore: "نتيجتك:", playAgain: "العب مرة أخرى", next: "التالي:", record: "الرقم القياسي:", skip: "تخطى", shop: "متجر" },
-  zh: { title: "合并物理", level: "等级:", score: "分数:", lives: "生命:", restart: "重新开始", hint: "点击传送带上的水果!", gameOver: "游戏结束!", yourScore: "你的分数:", playAgain: "再玩一次", next: "下一个:", record: "最高分:", skip: "跳过", shop: "商店" }
+  en: { title: "Merge Master", level: "Level:", score: "Score:", lives: "Lives:", restart: "Restart", hint: "Click on the objects!", gameOver: "Game Over!", yourScore: "Your score:", playAgain: "Play Again", next: "Next:", record: "Best:", skip: "Skip", shop: "Shop" }
 };
 let currentLang = localStorage.getItem('mergeLang') || 'ru';
 
 // ==========================================
-// 3. КОНФИГ ТЕМ И БЛОКИРОВЩИКОВ
+// 3. КОНФИГ ТЕМ
 // ==========================================
 const themesConfig = [
-    { id: 'fruits', name: 'Фрукты', price: 0, emojis: ['🍅 ', '🍏 ', '🍐 ', '🍋 ', '🍊 ', '🍎 ', '🍇 ', '🍓 ', '🍉 '], blocker: '🐛' },
-    { id: 'sweets', name: 'Сладости', price: 150, emojis: ['🍬 ', '🍭 ', '🍩 ', '🍪 ', '🧁 ', '🍰 ', '🎂 ', '🍫 ', '🍨 '], blocker: '🦷' },
-    { id: 'food', name: 'Еда', price: 400, emojis: ['🍞 ', '🧀 ', '🍔 ', '🍟 ', '🍕 ', '🌮 ', '🍣 ', '🍜 ', '🍱 '], blocker: '🪳' },
-    { id: 'pets', name: 'Питомцы', price: 1000, emojis: ['🐣 ', '🐹 ', '🐰 ', '🐱 ', '🐶 ', '🦊 ', '🐼 ', '🦁 ', '🐉 '], blocker: '🦴' },
-    { id: 'magic', name: 'Магия', price: 1500, emojis: ['✨ ', '🔮 ', '🪄 ', '🧪 ', '🧙‍♂️ ', '🧚‍♀️ ', '🦄 ', '🐉 ', '👑 '], blocker: '💀' },
-    { id: 'success', name: 'Успех', price: 2500, emojis: ['🎒 ', '⌚ ', '📱 ', '🚗 ', '🏠 ', '✈️ ', '🛥️ ', '🌍 ', '🚀 '], blocker: '💸' },
-    { id: 'space', name: 'Космос', price: 4000, emojis: ['🌑 ', '🌒 ', '🌍 ', '🪐 ', '☀️ ', '🌟 ', '🌌 ', '☄️ ', '👽 '], blocker: '🌑' },
-    { id: 'wealth', name: 'Богатство', price: 6000, emojis: ['🪙 ', '💵 ', '💳 ', '💰 ', '💎 ', '👑 ', '🏦 ', '🏝️ ', '🚁 '], blocker: '🧾' }
+    { id: 'fruits', name: 'Фрукты', price: 0, emojis: ['🍅 ', '🍏 ', '🍐 ', '🍋 ', '🍊 ', '🍎 ', '🍇 ', '🍓 ', '🍉 '], blocker: '🐛', colors: ['#ef4444', '#22c55e', '#f59e0b'] },
+    { id: 'sweets', name: 'Сладости', price: 150, emojis: ['🍬 ', '🍭 ', '🍩 ', '🍪 ', '🧁 ', '🍰 ', '🎂 ', '🍫 ', '🍨 '], blocker: '🦷', colors: ['#ec4899', '#fbcfe8', '#78350f'] },
+    { id: 'food', name: 'Еда', price: 400, emojis: ['🍞 ', '🧀 ', '🍔 ', '🍟 ', '🍕 ', '🌮 ', '🍣 ', '🍜 ', '🍱 '], blocker: '🪳', colors: ['#f59e0b', '#fbbf24', '#78350f'] },
+    { id: 'pets', name: 'Питомцы', price: 1000, emojis: ['🐣 ', '🐹 ', '🐰 ', '🐱 ', '🐶 ', '🦊 ', '🐼 ', '🦁 ', '🐉 '], blocker: '🦴', colors: ['#3b82f6', '#60a5fa', '#1e3a8a'] },
+    { id: 'magic', name: 'Магия', price: 1500, emojis: ['✨ ', '🔮 ', '🪄 ', '🧪 ', '🧙‍♂️ ', '🧚‍♀️ ', '🦄 ', '🐉 ', '👑 '], blocker: '💀', colors: ['#a855f7', '#d8b4fe', '#fbbf24'] },
+    { id: 'success', name: 'Успех', price: 2500, emojis: ['🎒 ', '⌚ ', '📱 ', '🚗 ', '🏠 ', '✈️ ', '🛥️ ', '🌍 ', '🚀 '], blocker: '💸', colors: ['#fbbf24', '#10b981', '#6366f1'] },
+    { id: 'space', name: 'Космос', price: 4000, emojis: ['🌑 ', '🌒 ', '🌍 ', '🪐 ', '☀️ ', '🌟 ', '🌌 ', '☄️ ', '👽 '], blocker: '🌑', colors: ['#6366f1', '#a855f7', '#ffffff'] },
+    { id: 'wealth', name: 'Богатство', price: 6000, emojis: ['🪙 ', '💵 ', '💳 ', '💰 ', '💎 ', '👑 ', '🏦 ', '🏝️ ', '🚁 '], blocker: '🧾', colors: ['#10b981', '#fbbf24', '#ffffff'] }
 ];
 
 // ==========================================
-// 4. СОСТОЯНИЕ ИГРЫ
+// 4. СОСТОЯНИЕ
 // ==========================================
 let score = 0;
 let lives = 3;
@@ -74,8 +108,28 @@ unlockedFruits[0] = true;
 let loginStreak = Number(localStorage.getItem('mergeLoginStreak')) || 0;
 const dailyRewards = [50, 60, 70, 80, 100, 150, 300];
 
+// Комбо
+let comboCount = 0;
+let lastMergeTime = 0;
+
+// Ежедневные задания
+let dailyQuests = JSON.parse(localStorage.getItem('mergeQuests')) || {
+    merge: { target: 30, current: 0, reward: 100, done: false },
+    score: { target: 1000, current: 0, reward: 150, done: false },
+    hammer: { target: 3, current: 0, reward: 50, done: false }
+};
+
+function updateUIFromCloud() {
+    document.getElementById('coinVal').textContent = coins;
+    document.getElementById('recordVal').textContent = bestScore;
+    // Если тема из облака не совпадает - переключаем
+    if (activeThemeId !== localStorage.getItem('mergeActiveTheme')) {
+        setActiveTheme(activeThemeId);
+    }
+}
+
 // ==========================================
-// 5. ЗВУКИ
+// 5. ЗВУКИ И ЭФФЕКТЫ
 // ==========================================
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 let audioCtx;
@@ -119,13 +173,39 @@ function playSound(type) {
   }
 }
 
+function spawnParticles(x, y, isExplosion = false) {
+  const count = isExplosion ? 30 : 8;
+  const colors = currentTheme.colors || ['#fff'];
+  
+  if (isExplosion) {
+      document.getElementById('gameWrapper').classList.add('shake');
+      setTimeout(() => document.getElementById('gameWrapper').classList.remove('shake'), 400);
+  }
+
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = x + 'px';
+    p.style.top = y + 'px';
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+    
+    // Разлет частиц (для взрыва дальше)
+    const distance = isExplosion ? 150 : 80;
+    p.style.setProperty('--dx', (Math.random() - 0.5) * distance + 'px');
+    p.style.setProperty('--dy', (Math.random() - 0.5) * distance + 'px');
+    
+    document.getElementById('game-container').appendChild(p);
+    setTimeout(() => p.remove(), 600);
+  }
+}
+
 // ==========================================
-// 6. УТИЛИТЫ
+// 6. УТИЛИТЫ И МАГАЗИН
 // ==========================================
 function updateCoins(val) {
   coins += val;
-  localStorage.setItem('mergeCoins', coins);
   document.getElementById('coinVal').textContent = coins;
+  saveGameToCloud();
 }
 
 function updateEarrings() {
@@ -143,28 +223,8 @@ function applyTranslation() {
   if(shopBtn) shopBtn.textContent = '🛒 ' + t.shop;
   const titleText = document.getElementById('titleText');
   if(titleText) titleText.textContent = t.title;
-  const lvlLabel = document.getElementById('lvlLabel');
-  if(lvlLabel) lvlLabel.textContent = t.level;
-  const scoreLabel = document.getElementById('scoreLabel');
-  if(scoreLabel) scoreLabel.textContent = t.score;
-  const livesLabel = document.getElementById('livesLabel');
-  if(livesLabel) livesLabel.textContent = t.lives;
-  const nextLabel = document.getElementById('nextLabel');
-  if(nextLabel) nextLabel.textContent = t.next;
-  const recordLabel = document.getElementById('recordLabel');
-  if(recordLabel) recordLabel.textContent = t.record;
 }
 
-window.setLang = function(lang) {
-  currentLang = lang;
-  localStorage.setItem('mergeLang', lang);
-  applyTranslation();
-  document.getElementById('langModal').classList.add('hidden');
-};
-
-// ==========================================
-// 7. МАГАЗИН
-// ==========================================
 function renderShop() {
   const grid = document.getElementById('shopGrid');
   if (!grid) return;
@@ -177,7 +237,6 @@ function renderShop() {
 
     const card = document.createElement('div');
     card.className = `shop-card ${isActive ? 'active' : ''}`;
-    card.dataset.id = theme.id;
     card.innerHTML = `
       <div class="theme-preview">${theme.emojis.slice(0, 3).join(' ')}</div>
       <div class="theme-name">${theme.name}</div>
@@ -189,11 +248,8 @@ function renderShop() {
 
     card.querySelector('button').addEventListener('click', () => {
       if (isActive) return;
-      if (isOwned) {
-        setActiveTheme(theme.id);
-      } else if (canBuy) {
-        buyTheme(theme.id);
-      }
+      if (isOwned) setActiveTheme(theme.id);
+      else if (canBuy) buyTheme(theme.id);
     });
     grid.appendChild(card);
   });
@@ -204,16 +260,14 @@ function buyTheme(themeId) {
   if (!theme || coins < theme.price) return;
 
   updateCoins(-theme.price);
-  playSound('buy');
+  playSound('coin');
   unlockedThemes.push(theme.id);
-  localStorage.setItem('mergeUnlockedThemes', JSON.stringify(unlockedThemes));
   setActiveTheme(themeId);
   renderShop();
 }
 
 function setActiveTheme(themeId) {
   activeThemeId = themeId;
-  localStorage.setItem('mergeActiveTheme', themeId);
   currentTheme = themesConfig.find(t => t.id === themeId);
   document.body.className = 'theme-' + themeId;
   EMOJIS = currentTheme.emojis;
@@ -222,11 +276,12 @@ function setActiveTheme(themeId) {
   unlockedFruits[0] = true;
   renderProgressBar();
   document.getElementById('shopModal').classList.add('hidden');
+  saveGameToCloud();
   resetGame();
 }
 
 // ==========================================
-// 8. ФИЗИКА И ИГРА
+// 7. ФИЗИКА И ИГРА
 // ==========================================
 const Engine = Matter.Engine, Composite = Matter.Composite, Bodies = Matter.Bodies, Events = Matter.Events;
 const engine = Engine.create();
@@ -241,7 +296,7 @@ let activeBodies = [];
 let isGameOver = false;
 let animationId;
 let lastSpawnTime = 0;
-let tileSpeed = 0.4;
+let tileSpeed = 0.4; // Базовая скорость
 let spawnInterval = 2500;
 const scorePerLevel = 500;
 let nextFruitLevel = 0;
@@ -287,7 +342,8 @@ function updateLevel() {
   if (newLevel > level) {
     level = newLevel;
     document.getElementById('levelVal').textContent = level;
-    tileSpeed = 0.4 + (level - 1) * 0.05;
+    // Скорость растет плавнее (0.02 вместо 0.05)
+    tileSpeed = 0.4 + (level - 1) * 0.02;
     spawnInterval = Math.max(800, 2500 - (level - 1) * 200);
   }
 }
@@ -300,8 +356,8 @@ function spawnConveyorTile() {
   if (isGameOver) return;
 
   const isGolden = Math.random() < 0.1;
-  const isBomb = Math.random() < 0.08;
-  const isBlocker = Math.random() < 0.06;
+  const isBomb = Math.random() < 0.04; // 4% (в 2 раза реже)
+  const isBlocker = Math.random() < 0.03; // 3% (в 2 раза реже)
   const val = nextFruitLevel;
 
   nextFruitLevel = Math.random() > 0.7 ? 1 : 0;
@@ -327,13 +383,10 @@ function spawnConveyorTile() {
 
   tile.addEventListener('click', () => {
     if (isGameOver) return;
-    if (isBlocker) {
-        dropBlocker(tile.offsetLeft);
-    } else if (isBomb) {
-        dropBomb(tile.offsetLeft);
-    } else {
-        dropFruit(val, tile.offsetLeft, isGolden);
-    }
+    if (isBlocker) dropBlocker(tile.offsetLeft);
+    else if (isBomb) dropBomb(tile.offsetLeft);
+    else dropFruit(val, tile.offsetLeft, isGolden);
+    
     playSound('drop');
     tile.remove();
     conveyorTiles = conveyorTiles.filter(t => t.el !== tile);
@@ -362,22 +415,32 @@ function createFruit(x, y, level, isGolden = false) {
   el.style.fontSize = radius * 1.5 + 'px';
   el.style.pointerEvents = 'auto';
   el.textContent = EMOJIS[level];
-  
   if (isGolden) el.style.filter = 'drop-shadow(0 0 10px gold)';
   container.appendChild(el);
 
-  el.addEventListener('click', () => {
+  el.addEventListener('click', (e) => {
+      e.stopPropagation();
       if (isHammerActive) {
           spawnParticles(body.position.x, body.position.y);
           removeFruit(body);
           playSound('merge');
           hammerUses--;
           hammerCount.textContent = hammerUses;
-          if (hammerUses <= 0) {
-              isHammerActive = false;
-              isGameOver = false;
-              hammerBtn.classList.remove('active');
-              document.getElementById('game-container').style.cursor = 'default';
+          
+          // Тратится 1 попытка и игра сразу продолжается
+          isHammerActive = false;
+          isGameOver = false; 
+          hammerBtn.classList.remove('active');
+          document.body.classList.remove('hammer-mode');
+          document.getElementById('game-container').style.cursor = 'default';
+
+          // Прогресс квеста на молоток
+          if (dailyQuests.hammer && !dailyQuests.hammer.done) {
+              dailyQuests.hammer.current++;
+              if (dailyQuests.hammer.current >= dailyQuests.hammer.target) {
+                  dailyQuests.hammer.done = true;
+                  updateCoins(dailyQuests.hammer.reward);
+              }
           }
       }
   });
@@ -409,12 +472,12 @@ function dropBomb(x) {
     bomb.isBomb = true;
     
     setTimeout(() => {
-        spawnParticles(bomb.position.x, bomb.position.y);
+        spawnParticles(bomb.position.x, bomb.position.y, true); // Взрыв!
         playSound('lose');
         activeBodies.forEach(body => {
             if (body !== bomb) {
                 const dist = Matter.Vector.magnitude(Matter.Vector.sub(bomb.position, body.position));
-                if (dist < 100) removeFruit(body);
+                if (dist < 120) removeFruit(body);
             }
         });
         removeFruit(bomb);
@@ -427,20 +490,6 @@ function dropBlocker(x) {
     const blocker = createFruit(safeX, 50, 99, false); 
     blocker.domEl.textContent = currentTheme.blocker;
     blocker.isBlocker = true;
-}
-
-function spawnParticles(x, y) {
-  for (let i = 0; i < 8; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.style.left = x + 'px';
-    p.style.top = y + 'px';
-    p.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
-    p.style.setProperty('--dx', (Math.random() - 0.5) * 100 + 'px');
-    p.style.setProperty('--dy', (Math.random() - 0.5) * 100 + 'px');
-    container.appendChild(p);
-    setTimeout(() => p.remove(), 500);
-  }
 }
 
 Events.on(engine, 'collisionStart', (event) => {
@@ -470,21 +519,56 @@ Events.on(engine, 'collisionStart', (event) => {
                 setTimeout(() => newBody.domEl.classList.remove('merge-animation'), 300);
             }
 
-            spawnParticles(newX, newY);
+            // Брызги при слиянии (цвета зависят от темы)
+            spawnParticles(newX, newY, false);
             playSound('merge');
 
             if (isGolden) updateCoins(50);
 
-            score += (newLevel + 1) * 10;
+            // СИСТЕМА КОМБО
+            const now = performance.now();
+            if (now - lastMergeTime < 2000) {
+                comboCount++;
+                if (comboCount >= 2) {
+                    const comboEl = document.getElementById('comboText');
+                    comboEl.textContent = `COMBO x${comboCount}!`;
+                    comboEl.style.animation = 'none';
+                    comboEl.offsetHeight; // trigger reflow
+                    comboEl.style.animation = 'popCombo 1s ease-out forwards';
+                }
+            } else {
+                comboCount = 1;
+            }
+            lastMergeTime = now;
+
+            const baseScore = (newLevel + 1) * 10;
+            score += baseScore * comboCount;
             document.getElementById('scoreVal').textContent = score;
 
             if (score > bestScore) {
                 bestScore = score;
-                localStorage.setItem('mergeBestScore', bestScore);
                 document.getElementById('recordVal').textContent = bestScore;
             }
+
+            // Прогресс квестов
+            if (dailyQuests.merge && !dailyQuests.merge.done) {
+                dailyQuests.merge.current++;
+                if (dailyQuests.merge.current >= dailyQuests.merge.target) {
+                    dailyQuests.merge.done = true;
+                    updateCoins(dailyQuests.merge.reward);
+                }
+            }
+            if (dailyQuests.score && !dailyQuests.score.done) {
+                dailyQuests.score.current = score;
+                if (dailyQuests.score.current >= dailyQuests.score.target) {
+                    dailyQuests.score.done = true;
+                    updateCoins(dailyQuests.score.reward);
+                }
+            }
+
             updateLevel();
             updateEarrings();
+            saveGameToCloud(); // Сохраняем прогресс в облако
         }
     }
   }
@@ -516,7 +600,6 @@ function updateDOM() {
             }
         }
 
-        // Синхронизированное движение фона ленты
         beltOffset += tileSpeed;
         conveyorWrapper.style.backgroundPosition = `${beltOffset}px 0`;
 
@@ -633,7 +716,7 @@ setInterval(() => {
 }, 1000 / 60);
 
 // ==========================================
-// 9. МОЛОТОК
+// 8. МОЛОТОК
 // ==========================================
 let hammerUses = 2;
 let isHammerActive = false;
@@ -647,6 +730,7 @@ if (hammerBtn) {
             isHammerActive = false;
             isGameOver = false;
             hammerBtn.classList.remove('active');
+            document.body.classList.remove('hammer-mode');
             document.getElementById('game-container').style.cursor = 'default';
             return;
         }
@@ -654,6 +738,7 @@ if (hammerBtn) {
             isHammerActive = true;
             isGameOver = true; 
             hammerBtn.classList.add('active');
+            document.body.classList.add('hammer-mode');
             document.getElementById('game-container').style.cursor = 'crosshair';
         } else {
             window.showAdReward(() => {
@@ -662,6 +747,7 @@ if (hammerBtn) {
                 isHammerActive = true;
                 isGameOver = true; 
                 hammerBtn.classList.add('active');
+                document.body.classList.add('hammer-mode');
                 document.getElementById('game-container').style.cursor = 'crosshair';
             });
         }
@@ -669,7 +755,7 @@ if (hammerBtn) {
 }
 
 // ==========================================
-// 10. ИНИЦИАЛИЗАЦИЯ И КНОПКИ
+// 9. ИНИЦИАЛИЗАЦИЯ И UI
 // ==========================================
 updateSizes();
 createWalls();
@@ -689,9 +775,7 @@ document.addEventListener('DOMContentLoaded', () => {
         langSelect.addEventListener('touchstart', () => { isGameOver = true; });
         langSelect.addEventListener('change', (e) => {
             currentLang = e.target.value; 
-            localStorage.setItem('mergeLang', currentLang); 
             applyTranslation(); 
-            renderShop(); 
             isGameOver = false;
         });
         langSelect.addEventListener('blur', () => { isGameOver = false; });
@@ -710,9 +794,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const shBtn = document.getElementById('shopBtn');
     const shModal = document.getElementById('shopModal');
     if (shBtn && shModal) {
-        shBtn.addEventListener('click', () => {
-            renderShop();
-            shModal.classList.remove('hidden');
+        shBtn.addEventListener('click', () => { renderShop(); shModal.classList.remove('hidden'); });
+    }
+
+    // Квесты
+    const qBtn = document.getElementById('questsBtn');
+    const qModal = document.getElementById('questsModal');
+    if (qBtn && qModal) {
+        qBtn.style.display = 'flex';
+        qBtn.addEventListener('click', () => {
+            const list = document.getElementById('questsList');
+            list.innerHTML = '';
+            
+            const renderQuest = (title, quest) => {
+                const div = document.createElement('div');
+                div.className = 'quest-item ' + (quest.done ? 'done' : '');
+                div.innerHTML = `
+                    <div>
+                        <div>${title}</div>
+                        <div style="font-size:12px; color:#aaa;">Прогресс: ${Math.min(quest.current, quest.target)}/${quest.target}</div>
+                    </div>
+                    <div style="color:#fbbf24; font-weight:bold;">${quest.done ? '✅' : '🪙 ' + quest.reward}</div>
+                `;
+                list.appendChild(div);
+            };
+            renderQuest("Слить фруктов", dailyQuests.merge);
+            renderQuest("Набрать очков", dailyQuests.score);
+            renderQuest("Разбить молотком", dailyQuests.hammer);
+            
+            qModal.classList.remove('hidden');
         });
     }
 
@@ -751,7 +861,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('mergeLastLogin', today);
                     localStorage.setItem('mergeLoginStreak', currentStreak + 1);
                     dModal.classList.add('hidden');
-                    alert(`Вы получили ${reward} монет!`);
                 };
                 document.getElementById('closeBonusBtn').onclick = () => dModal.classList.add('hidden');
             }
@@ -778,7 +887,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 800);
 });
 
-// Пауза при сворачивании
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) isGameOver = true;
     else isGameOver = false;
